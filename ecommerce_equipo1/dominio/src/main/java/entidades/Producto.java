@@ -5,6 +5,7 @@
 package entidades;
 
 import enums.Categoria;
+import enums.Tallas;
 import java.util.List;
 
 /**
@@ -22,6 +23,8 @@ public class Producto {
     private boolean disponibilidad;
     private double precio;
     private List<Resena> resenas;
+
+
 
     public Integer getId() {
         return id;

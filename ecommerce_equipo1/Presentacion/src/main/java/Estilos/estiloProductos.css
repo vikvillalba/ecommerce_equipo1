@@ -1,0 +1,145 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 19 nov 2025, 8:16:06 p.m.
+    Author     : erika
+*/
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #f7f3f7;
+    color: #443;
+}
+
+.page-content {
+    padding: 30px;
+}
+
+.header {
+    background: #f9dbea;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 8px dotted #bc7b66;
+}
+
+.menu-icon {
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.search-bar {
+    position: relative;
+}
+
+.search-bar input {
+    padding: 8px 35px 8px 15px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+}
+
+.search-icon {
+    position: absolute;
+    right: 10px;
+    top: 7px;
+}
+
+.header-icons span {
+    margin-left: 15px;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.titulo-pagina {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.catalogo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    position: relative;
+    text-align: center;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+}
+
+.card-img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.precio-card {
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.badge-rojo {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #c94a4a;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 12px;
+}
+
+.producto-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.main-img {
+    width: 100%;
+    border-radius: 12px;
+}
+
+.precio {
+    font-size: 26px;
+    color: #6a3a28;
+    font-weight: bold;
+}
+
+.add-cart {
+    padding: 12px 20px;
+    margin-top: 20px;
+    background: #d16aa5;
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.no-stock {
+    background: #c94a4a;
+    padding: 5px 10px;
+    color: white;
+    border-radius: 6px;
+    display: inline-block;
+}
+
+
+@media (max-width: 900px) {
+    .producto-wrapper {
+        grid-template-columns: 1fr;
+    }
+}
+
