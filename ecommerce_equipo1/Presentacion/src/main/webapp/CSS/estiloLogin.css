@@ -45,8 +45,14 @@ body {
     margin-bottom: 30px;
 }
 
-.tab {
+.tabs form {
     flex: 1;
+    margin: 0;
+    padding: 0;
+}
+
+.tab {
+    width: 100%;
     padding: 15px 20px;
     background: transparent;
     border: none;
@@ -57,13 +63,14 @@ body {
     cursor: pointer;
     transition: all 0.3s;
     border-bottom: 3px solid transparent;
+    text-align: center;
 }
 
-.tab:first-child {
+.tabs form:first-child .tab {
     border-radius: 10px 0 0 0;
 }
 
-.tab:last-child {
+.tabs form:last-child .tab {
     border-radius: 0 10px 0 0;
 }
 
@@ -153,4 +160,20 @@ body {
 
 .btn-submit:active {
     transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    .form-container {
+        padding: 30px 20px;
+    }
+    
+    .tab {
+        font-size: 14px;
+        padding: 12px 15px;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
 }

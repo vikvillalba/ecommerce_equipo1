@@ -13,9 +13,10 @@ import java.util.List;
  * @author erika
  */
 public class ProductoDAO {
+
     private static List<Producto> productos = new ArrayList<>();
-    //simulacion pq aun no hay base de datos chat
-    static {
+
+    public List<Producto> listar() {
         Producto p1 = new Producto();
         p1.setId(1);
         p1.setNombre("Vestido Sweet Lolita 100% algodón");
@@ -38,9 +39,6 @@ public class ProductoDAO {
 
         productos.add(p1);
         productos.add(p2);
-    }
-
-    public List<Producto> listar() {
         return productos;
     }
 

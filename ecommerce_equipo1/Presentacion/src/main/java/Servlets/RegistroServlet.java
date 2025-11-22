@@ -26,27 +26,20 @@ public class RegistroServlet extends HttpServlet {
     private final ClienteDAO clienteDAO = new ClienteDAO();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
-
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
-
         req.getRequestDispatcher("login.jsp").forward(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
-
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
-
         String nombre = req.getParameter("nombre");
         String telefono = req.getParameter("telefono");
         String correo = req.getParameter("correo");
         String contrasena = req.getParameter("contrasena");
-
         String estado = req.getParameter("estado");
         String pais = req.getParameter("pais");
         String ciudad = req.getParameter("ciudad");
@@ -55,10 +48,7 @@ public class RegistroServlet extends HttpServlet {
         String calle = req.getParameter("calle");
         String numero = req.getParameter("numero");
 
-        if (nombre == null || nombre.trim().isEmpty()
-                || correo == null || correo.trim().isEmpty()
-                || contrasena == null || contrasena.trim().isEmpty()) {
-
+        if (nombre == null || nombre.trim().isEmpty() || correo == null || correo.trim().isEmpty() || contrasena == null || contrasena.trim().isEmpty()) {
             req.setAttribute("error", "Por favor completa todos los campos obligatorios");
             req.setAttribute("mostrarRegistro", true);
             req.getRequestDispatcher("login.jsp").forward(req, resp);
@@ -77,7 +67,6 @@ public class RegistroServlet extends HttpServlet {
         direccion.setNumero(numero);
         direccion.setColonia(colonia);
         direccion.setCodigoPostal(codigoPostal);
-
         Cliente nuevoCliente = new Cliente();
         nuevoCliente.setNombre(nombre);
         nuevoCliente.setCorreo(correo);
@@ -94,8 +83,7 @@ public class RegistroServlet extends HttpServlet {
             session.setAttribute("cliente", nuevoCliente);
             session.setAttribute("clienteId", nuevoCliente.getId());
             session.setAttribute("clienteNombre", nuevoCliente.getNombre());
-
-            resp.sendRedirect("Catalogo");
+            resp.sendRedirect(req.getContextPath() + "/CatalogoServlet");
         } else {
             req.setAttribute("error", "Error al registrar el usuario. Intenta nuevamente.");
             req.setAttribute("mostrarRegistro", true);

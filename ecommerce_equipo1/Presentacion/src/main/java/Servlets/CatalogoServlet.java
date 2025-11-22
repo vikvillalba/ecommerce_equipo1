@@ -21,25 +21,19 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "CatalogoServlet", urlPatterns = {"/CatalogoServlet"})
 public class CatalogoServlet extends HttpServlet {
 
-    private final ProductoDAO dao = new ProductoDAO();
+    private final ProductoDAO productoDAO = new ProductoDAO();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
-
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
-
-        List<Producto> productos = dao.listar();
-
+        List<Producto> productos = productoDAO.listar();
         req.setAttribute("productos", productos);
-
         req.getRequestDispatcher("catalogo.jsp").forward(req, resp);
     }
 
     @Override
     public String getServletInfo() {
-        return "Servlet para mostrar catálogo de productos";
+        return "Servlet para mostrar el catálogo de productos";
     }
-
 }
