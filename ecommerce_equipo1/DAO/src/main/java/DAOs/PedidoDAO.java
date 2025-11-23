@@ -9,6 +9,7 @@ import entidades.Direccion;
 import entidades.Pedido;
 import enums.EstadoPedido;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class PedidoDAO {
 
         Compra compra = new Compra();
         LocalDateTime fecha = LocalDateTime.now();
+        fecha.format(DateTimeFormatter.ofPattern("d/MM/yyyy HH:mm:ss"));
         compra.setFecha(fecha);
         compra.setTotal(500.00);
         p1.setPago(compra);
