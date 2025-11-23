@@ -1,0 +1,133 @@
+
+/* 
+    Created on : 22 nov 2025, 8:56:08 p.m.
+    Author     : victoria
+*/
+
+* {
+    font-family: 'Poppins', sans-serif;
+}
+main{
+    display: flex;
+    flex-flow: row;
+}
+
+.producto{
+    background-color: #FFDDF6;
+    width: 100%;
+}
+
+.titulo{
+    width: 100%;
+    margin-left: 2%;
+    color: #4D2108;
+}
+
+.sec1{
+    display: flex;
+    flex-direction: column;
+    gap: 15px 10px;
+    padding: 10px;
+    color: #4D2108;
+    font-size: 20px;
+}
+
+.sec1 img{
+    border-radius: 5px;
+
+}
+
+.contenedor1 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-auto-rows: auto;
+    gap: 20px;
+}
+
+@media (max-width: 768px) {
+    .contenedor1 {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+textArea{
+    border-color: #FFDDF6;
+    resize: none;
+    height: 150px;
+    border-radius: 10px;
+    color: #4D2108;
+    font-size: 16px;
+}
+
+input[type="text"]{
+    border-color: #FFDDF6;
+    border-style: none;
+    height: 50px;
+    font-size: 16px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    color: #4D2108;
+}
+
+input[type="number"]{
+    border-color: #FFDDF6;
+    border-style: none;
+    height: 50px;
+    font-size: 16px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    color: #4D2108;
+}
+
+input[type="file"]{
+    border-color: #FFDDF6;
+    border-style: none;
+    
+    font-size: 16px;
+    padding: 5px 10px;
+   
+    color: #4D2108;
+}
+
+.contenedor3{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-auto-rows: auto;
+}
+
+.boton{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.botonEnviar{
+    background-color: #CA5790;
+    border-style: none;
+    height: 50px;
+    color: #EBEEF4;
+    border-radius: 25px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.botonEnviar:hover{
+    background-color: #FFF0FB;
+    color: #4D2108;
+
+}
+select{
+    background-color: #FFFFFF;
+    border-style: none;
+    height: 50px;
+    color: #4D2108;
+    border-radius: 25px;
+    font-size: 16px;
+    border-style: none;
+    
+}

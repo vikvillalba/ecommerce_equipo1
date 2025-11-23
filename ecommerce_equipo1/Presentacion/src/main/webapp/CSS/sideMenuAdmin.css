@@ -1,0 +1,42 @@
+
+/* 
+    Created on : 22 nov 2025, 7:42:26 p.m.
+    Author     : victoria
+*/
+
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+.sideMenu {
+    background-color: #FFB9EC;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 25%;
+}
+
+.menuItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFB9EC;
+    padding: 20px;
+    height: 8vh;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.menuOption {
+    color: #CA5790;
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+.menuItem:hover {
+    background-color: #FFF0FB;
+}
+
+.menuItem:hover .menuOption {
+    color: #4D2108;
+}
