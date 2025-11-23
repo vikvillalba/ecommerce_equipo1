@@ -4,7 +4,6 @@
  */
 package entidades;
 
-import enums.Categoria;
 import enums.Tallas;
 import java.util.List;
 

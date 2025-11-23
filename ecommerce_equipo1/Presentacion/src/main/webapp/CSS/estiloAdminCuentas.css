@@ -1,0 +1,145 @@
+/*
+    Created on : 23 nov 2025
+    Author     : Jack Murrieta
+    Estilos para adminCuentas.jsp
+*/
+
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+.contenedor__cuentas {
+    background-color: #FFDDF6;
+    width: 100%;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.lista__usuarios {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.card__User {
+    background-color: #FFF0FB;
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.card__User:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.usuario__nombre,
+.correo {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 200px;
+}
+
+.label {
+    color: #CA5790;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.valor {
+    color: #4D2108;
+    font-size: 16px;
+    margin: 0;
+}
+
+.botones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.inline-form {
+    display: inline-block;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.btn__eliminar {
+    background-color: #E74C3C;
+    color: #FFFFFF;
+}
+
+.btn__eliminar:hover {
+    background-color: #C0392B;
+}
+
+.btn__desactivar {
+    background-color: #F39C12;
+    color: #FFFFFF;
+}
+
+.btn__desactivar:hover {
+    background-color: #D68910;
+}
+
+.btn__activar {
+    background-color: #27AE60;
+    color: #FFFFFF;
+}
+
+.btn__activar:hover {
+    background-color: #1E8449;
+}
+
+.sin-usuarios {
+    text-align: center;
+    color: #4D2108;
+    font-size: 18px;
+    padding: 40px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .card__User {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .botones {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .btn {
+        flex: 1;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .botones {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}

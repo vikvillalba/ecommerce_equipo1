@@ -1,0 +1,193 @@
+/*
+    Created on : 23 nov 2025
+    Author     : equipo1
+    Estilos para adminCategorias.jsp
+*/
+
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+.contenedor__categorias {
+    background-color: #FFDDF6;
+    width: 100%;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.form__nueva-categoria {
+    padding: 20px;
+    margin-bottom: 10px;
+}
+
+.form-agregar {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.input__categoria {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    min-width: 300px;
+    color: #4D2108;
+}
+
+.input__categoria:focus {
+    outline: 2px solid #CA5790;
+}
+
+.lista__categorias {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+}
+
+.card__Categoria {
+    background-color: #FFF0FB;
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.card__Categoria:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.card__Categoria.inactiva {
+    opacity: 0.6;
+    background-color: #f0e0eb;
+}
+
+.categoria__info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.categoria__nombre {
+    color: #4D2108;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+    min-width: 150px;
+}
+
+.categoria__estado {
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.categoria__estado.activa {
+    background-color: #27AE60;
+    color: #FFFFFF;
+}
+
+.categoria__estado.inactiva {
+    background-color: #95A5A6;
+    color: #FFFFFF;
+}
+
+.botones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.inline-form {
+    display: inline-block;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.btn__agregar {
+    background-color: #CA5790;
+    color: #FFFFFF;
+}
+
+.btn__agregar:hover {
+    background-color: #a84775;
+}
+
+.btn__eliminar {
+    background-color: #E74C3C;
+    color: #FFFFFF;
+}
+
+.btn__eliminar:hover {
+    background-color: #C0392B;
+}
+
+.btn__desactivar {
+    background-color: #F39C12;
+    color: #FFFFFF;
+}
+
+.btn__desactivar:hover {
+    background-color: #D68910;
+}
+
+.btn__activar {
+    background-color: #27AE60;
+    color: #FFFFFF;
+}
+
+.btn__activar:hover {
+    background-color: #1E8449;
+}
+
+.sin-categorias {
+    text-align: center;
+    color: #4D2108;
+    font-size: 18px;
+    padding: 40px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .card__Categoria {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .categoria__info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .botones {
+        width: 100%;
+    }
+
+    .form-agregar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .input__categoria {
+        min-width: auto;
+        width: 100%;
+    }
+}

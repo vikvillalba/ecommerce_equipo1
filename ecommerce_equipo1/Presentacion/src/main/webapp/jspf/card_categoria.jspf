@@ -1,0 +1,35 @@
+<%-- card_categoria.jspf - Fragmento para una tarjeta de categoría --%>
+<%@ page pageEncoding="UTF-8" %>
+
+<article class="card__Categoria ${categoria.activa ? '' : 'inactiva'}">
+    <div class="categoria__info">
+        <p class="categoria__nombre">${categoria.nombre}</p>
+        <span class="categoria__estado ${categoria.activa ? 'activa' : 'inactiva'}">
+            ${categoria.activa ? 'Activa' : 'Inactiva'}
+        </span>
+    </div>
+
+    <div class="botones">
+        <form action="${pageContext.request.contextPath}/AdminCategoriaServlet" method="post" class="inline-form">
+            <input type="hidden" name="id" value="${categoria.id}">
+            <input type="hidden" name="accion" value="eliminar">
+            <button type="submit" class="btn btn__eliminar">Eliminar</button>
+        </form>
+
+        <c:if test="${categoria.activa}">
+            <form action="${pageContext.request.contextPath}/AdminCategoriaServlet" method="post" class="inline-form">
+                <input type="hidden" name="id" value="${categoria.id}">
+                <input type="hidden" name="accion" value="desactivar">
+                <button type="submit" class="btn btn__desactivar">Desactivar</button>
+            </form>
+        </c:if>
+
+        <c:if test="${!categoria.activa}">
+            <form action="${pageContext.request.contextPath}/AdminCategoriaServlet" method="post" class="inline-form">
+                <input type="hidden" name="id" value="${categoria.id}">
+                <input type="hidden" name="accion" value="activar">
+                <button type="submit" class="btn btn__activar">Activar</button>
+            </form>
+        </c:if>
+    </div>
+</article>

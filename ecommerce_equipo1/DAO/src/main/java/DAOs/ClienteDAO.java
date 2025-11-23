@@ -110,4 +110,33 @@ public class ClienteDAO {
     public List<Cliente> listar() {
         return new ArrayList<>(clientes);
     }
+    
+    //METODOS DEL ADMIN
+
+    public boolean eliminar(Integer id) {
+        Cliente cliente = obtenerPorId(id);
+        if (cliente != null) {
+            clientes.remove(cliente);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean desactivar(Integer id) {
+        Cliente cliente = obtenerPorId(id);
+        if (cliente != null) {
+            cliente.setEstado(false);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean activar(Integer id) {
+        Cliente cliente = obtenerPorId(id);
+        if (cliente != null) {
+            cliente.setEstado(true);
+            return true;
+        }
+        return false;
+    }
 }

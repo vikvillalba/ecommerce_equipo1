@@ -4,9 +4,10 @@
  */
 package Servlets;
 
-import enums.Categoria;
+import DAOs.CategoriaDAO;
+import entidades.Categoria;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -21,9 +22,12 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet(name = "CategoriaProductoServlet", urlPatterns = {"/categorias"})
 public class CategoriaProductoServlet extends HttpServlet {
 
+    private final CategoriaDAO categoriaDAO = new CategoriaDAO();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("categorias", Categoria.values());
+        List<Categoria> categorias = categoriaDAO.listarActivas();
+        request.setAttribute("categorias", categorias);
 
         String action = request.getParameter("action");
         if ("editar".equals(action)) {

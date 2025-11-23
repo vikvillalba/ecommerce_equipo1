@@ -2,9 +2,9 @@
 <%@ page pageEncoding="UTF-8" %>
 
 <div class="sideMenu">
-    <a href="#" class="menuItem"><span class="menuOption">Gestionar cuentas</span></a>
+    <a href="${pageContext.request.contextPath}/AdminUsuarioServlet" class="menuItem"><span class="menuOption">Gestionar cuentas</span></a>
     <a href="#" class="menuItem"><span class="menuOption">Gestionar productos</span></a>
-    <a href="#" class="menuItem"><span class="menuOption">Gestionar categorías</span></a>
+    <a href="${pageContext.request.contextPath}/AdminCategoriaServlet" class="menuItem"><span class="menuOption">Gestionar categorías</span></a>
     <a href="#" class="menuItem"><span class="menuOption">Historial de pagos</span></a>
     <a href="#" class="menuItem"><span class="menuOption">Gestionar pedidos</span></a>
     <a href="#" class="menuItem"><span class="menuOption">Moderar reseñas</span></a>

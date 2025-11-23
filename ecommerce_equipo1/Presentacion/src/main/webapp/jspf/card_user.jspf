@@ -1,0 +1,34 @@
+<%-- card_user.jspf - Fragmento para una tarjeta de usuario --%>
+<%@ page pageEncoding="UTF-8" %>
+
+<article class="card__User">
+    <div class="usuario__nombre">
+        <p class="label">Usuario:</p>
+        <p class="valor">${usuario.nombre}</p>
+    </div>
+
+    <div class="correo">
+        <p class="label">Correo electrónico:</p>
+        <p class="valor">${usuario.correo}</p>
+    </div>
+
+    <div class="botones">
+        <form action="${pageContext.request.contextPath}/AdminUsuarioServlet" method="post" class="inline-form">
+            <input type="hidden" name="id" value="${usuario.id}">
+            <input type="hidden" name="accion" value="eliminar">
+            <button type="submit" class="btn btn__eliminar">Eliminar</button>
+        </form>
+
+        <form action="${pageContext.request.contextPath}/AdminUsuarioServlet" method="post" class="inline-form">
+            <input type="hidden" name="id" value="${usuario.id}">
+            <input type="hidden" name="accion" value="desactivar">
+            <button type="submit" class="btn btn__desactivar">Desactivar</button>
+        </form>
+
+        <form action="${pageContext.request.contextPath}/AdminUsuarioServlet" method="post" class="inline-form">
+            <input type="hidden" name="id" value="${usuario.id}">
+            <input type="hidden" name="accion" value="activar">
+            <button type="submit" class="btn btn__activar">Activar</button>
+        </form>
+    </div>
+</article>
