@@ -5,7 +5,7 @@ package entidades;
 
 /**
  *
- * @author equipo1
+ * @author Jack Murrieta
  */
 public class Categoria {
     private Integer id;
