@@ -1,0 +1,377 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 22 nov 2025, 11:08:52 p.m.
+    Author     : erika
+*/
+
+/* Base */
+:root{
+    --pink:#ffdced;
+    --pink-strong:#f28abf;
+    --brown:#7a4b3b;
+    --ivory:#fffaf8;
+    --muted:#8b7b75;
+    --card-shadow: 0 6px 18px rgba(122,75,59,0.08);
+    --radius:12px;
+    --btn-radius:10px;
+    --max-width:1100px;
+}
+
+
+*{
+    box-sizing:border-box
+}
+body{
+    margin:0;
+    font-family: 'Segoe UI', Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: #f7f5f4;
+    color: #3a2a27;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+}
+
+
+
+
+
+
+.search-form{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    flex:1;
+    max-width:420px;
+    background:#fff;
+    padding:6px 10px;
+    border-radius:30px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+    border:1px solid rgba(122,75,59,0.06);
+}
+.search-form input{
+    border:0;
+    outline:none;
+    flex:1;
+    font-size:14px;
+    padding:6px;
+    color:var(--muted);
+    background:transparent;
+}
+.search-btn{
+    background:transparent;
+    border:0;
+    padding:6px;
+    cursor:pointer;
+}
+
+
+.header-logo{
+    flex:0 0 280px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.brand-logo{
+    height:82px;
+    object-fit:contain;
+}
+
+
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+.icon-btn{
+    background:#fff;
+    border-radius:50%;
+    border:2px solid rgba(122,75,59,0.06);
+    padding:8px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    box-shadow: var(--card-shadow);
+}
+
+
+.lace-border{
+    height:18px;
+    background:
+        radial-gradient(circle at 9px 50%, #7a4b3b 8px, transparent 9px) 0 0/18px 18px,
+        linear-gradient(#fffaf8,#fffaf8);
+    margin-top:6px;
+    opacity:0.95;
+}
+
+
+.back-row{
+    max-width: var(--max-width);
+    margin: 16px auto 0;
+    padding: 0 20px;
+}
+.back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    color:var(--brown);
+    text-decoration:none;
+    background:transparent;
+    border-radius:50%;
+    padding:6px;
+}
+
+
+.main-wrapper{
+    max-width: var(--max-width);
+    margin:24px auto 60px;
+    padding: 0 24px;
+}
+
+
+.product-grid{
+    display:grid;
+    grid-template-columns: 420px 1fr;
+    gap:36px;
+    align-items:start;
+    background: var(--ivory);
+    border-radius:14px;
+    padding:28px;
+    box-shadow: var(--card-shadow);
+    border:1px solid rgba(122,75,59,0.03);
+}
+
+
+.product-image-col{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#fff;
+    padding:18px;
+    border-radius:12px;
+    border:1px solid rgba(122,75,59,0.04);
+}
+.product-main-img{
+    width:100%;
+    max-width:360px;
+    border-radius:10px;
+    box-shadow: 0 8px 22px rgba(122,75,59,0.08);
+    object-fit:cover;
+}
+
+
+.product-title{
+    margin:0 0 10px 0;
+    font-size:26px;
+    font-weight:700;
+    color: #2f1f1d;
+}
+.rating-row{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:12px;
+}
+.stars{
+    color: #ffcc33;
+    font-size:18px;
+    letter-spacing:2px;
+}
+.stars .half{
+    opacity:0.9
+}
+.rating-value{
+    color:var(--muted);
+    font-size:14px;
+}
+.btn-reviews{
+    margin-left:6px;
+    background:#7a4b3b;
+    color:#fff;
+    border:0;
+    padding:6px 10px;
+    border-radius:8px;
+    font-size:13px;
+    cursor:pointer;
+}
+
++
+.price-row{
+    margin:10px 0 18px 0;
+}
+.price-amount{
+    font-size:28px;
+    color:var(--brown);
+    font-weight:700;
+}
+
+
+.product-section {
+    margin-bottom:16px;
+    color:#4a3936;
+}
+.product-section h4 {
+    margin:0 0 6px 0;
+    font-size:14px;
+    color:var(--muted);
+    font-weight:700;
+}
+.product-desc, .product-specs {
+    margin:6px 0 0 0;
+    line-height:1.45;
+    color:#432f2c;
+}
+
++
+.two-col{
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    align-items:flex-start;
+}
+.product-color {
+    text-align:right;
+    min-width:80px;
+}
+.color-dot{
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    background: #f7a8c7;
+    border:2px solid #fff;
+    box-shadow:0 2px 6px rgba(0,0,0,0.06);
+    display:inline-block;
+    margin-top:6px;
+}
+
+
+.separator{
+    border:0;
+    height:1px;
+    background: linear-gradient(90deg, transparent, rgba(122,75,59,0.08), transparent);
+    margin: 12px 0 18px 0;
+}
+
+
+.size-label{
+    display:block;
+    margin-bottom:10px;
+    color:var(--muted);
+    font-weight:700;
+}
+.size-options{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:12px;
+}
+.size-btn{
+    border-radius:18px;
+    padding:8px 14px;
+    background: #f2efed;
+    border:1px solid rgba(122,75,59,0.06);
+    font-size:13px;
+    cursor:pointer;
+}
+.size-btn.active{
+    background:var(--brown);
+    color:#fff;
+    box-shadow: 0 6px 14px rgba(122,75,59,0.12);
+}
+
+
+.product-action-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    margin-top:18px;
+}
+.qty-wrap{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+.qty-btn{
+    width:36px;
+    height:36px;
+    border-radius:10px;
+    border:1px solid rgba(122,75,59,0.08);
+    background:#fff;
+    font-size:18px;
+    cursor:pointer;
+}
+#qty-input{
+    width:54px;
+    text-align:center;
+    padding:8px;
+    border-radius:10px;
+    border:1px solid rgba(122,75,59,0.06);
+}
+.stock-info{
+    color:var(--muted);
+    margin-left:8px;
+    font-size:13px;
+}
+
+
+.btn-addcart{
+    background: var(--pink-strong);
+    border:0;
+    padding:12px 22px;
+    font-size:15px;
+    color:#fff;
+    border-radius:12px;
+    cursor:pointer;
+    box-shadow: 0 6px 18px rgba(242,138,191,0.18);
+}
+
+/* para que sea responsivo*/
+@media (max-width:1000px){
+    .product-grid{
+        grid-template-columns: 1fr;
+        padding:20px;
+    }
+    .header-top{
+        padding:10px 14px;
+    }
+    .header-logo{
+        flex:0 0 200px;
+    }
+    .brand-logo{
+        height:60px;
+    }
+    .product-main-img{
+        max-width:100%;
+    }
+    .back-row{
+        padding: 0 14px;
+    }
+}
+@media (max-width:560px){
+    .search-form{
+        display:none;
+    }
+    .product-grid{
+        gap:18px;
+        padding:16px;
+    }
+    .header-top{
+        margin-top:8px;
+    }
+    .brand-logo{
+        height:54px;
+    }
+    .product-title{
+        font-size:20px;
+    }
+    .price-amount{
+        font-size:22px;
+    }
+    .btn-addcart{
+        width:100%;
+        padding:12px 10px;
+    }
+}
