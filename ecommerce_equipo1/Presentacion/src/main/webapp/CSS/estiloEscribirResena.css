@@ -1,0 +1,87 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 22 nov 2025, 11:56:25 p.m.
+    Author     : erika
+*/
+body {
+    background: rgba(0,0,0,0.6);
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.modal-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    width: 60%;
+    background: #fcd4ec; /* rosa pastel */
+    border-radius: 15px;
+    padding: 25px;
+    border: 4px solid #b55b8e;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    font-size: 22px;
+}
+
+.cerrar {
+    font-size: 22px;
+    text-decoration: none;
+    color: #6b2d4f;
+    font-weight: bold;
+}
+
+label {
+    font-weight: bold;
+}
+
+textarea {
+    width: 100%;
+    height: 250px;
+    border-radius: 10px;
+    border: 2px solid #b55b8e;
+    padding: 10px;
+    margin-top: 10px;
+    resize: none;
+    font-size: 14px;
+}
+
+.calificacion-box {
+    margin: 20px 0;
+    font-size: 16px;
+}
+
+.estrellas input {
+    margin-right: 5px;
+}
+
+.btn-publicar {
+    width: 200px;
+    padding: 12px;
+    background: #e0589c;
+    border: none;
+    color: white;
+    border-radius: 10px;
+    font-size: 15px;
+    cursor: pointer;
+    float: right;
+}
+
+.btn-publicar:hover {
+    background: #cc4d8c;
+}
+

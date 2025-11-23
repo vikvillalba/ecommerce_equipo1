@@ -1,0 +1,70 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 22 nov 2025, 11:39:56 p.m.
+    Author     : erika
+*/
+
+body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background-color: #fff;
+    color: #333;
+}
+
+
+.titulo-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+}
+
+.titulo-section h1 {
+    font-size: 28px;
+}
+
+.btn-nueva {
+    background: #e35ba8;
+    padding: 12px 20px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.btn-nueva:hover {
+    background: #c34790;
+}
+
+.contenedor-resenas {
+    padding: 20px 40px;
+}
+
+.card-resena {
+    background: #fff;
+    border-radius: 15px;
+    padding: 20px 25px;
+    margin-bottom: 20px;
+    border: 1px solid #eee;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+}
+
+.stars {
+    font-size: 18px;
+    color: #ffcc00;
+}
+
+.comentario {
+    margin: 10px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.fecha {
+    font-size: 12px;
+    color: #888;
+}
+

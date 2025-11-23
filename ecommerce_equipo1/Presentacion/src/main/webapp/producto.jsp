@@ -63,7 +63,7 @@
                     <span class="star half">★</span>
                 </div>
                 <div class="rating-value">4.5/5</div>
-                <button class="btn-reviews">Ver Reseñas</button>
+                <a href="ResenasServlet?id=<%= p.getId() %>" class="btn-reseñas">Ver reseñas</a>
             </div>
 
             <div class="price-row">
@@ -94,7 +94,7 @@
                     <button class="size-btn">Extra chica</button>
                     <button class="size-btn">Chico</button>
                     <button class="size-btn">Mediano</button>
-                    <button class="size-btn active">Grande</button>
+                    <button class="size-btn">Grande</button>
                     <button class="size-btn">Extra grande</button>
                 </div>
             </div>
