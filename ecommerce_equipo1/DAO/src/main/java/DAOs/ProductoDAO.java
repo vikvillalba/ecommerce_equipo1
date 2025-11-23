@@ -5,6 +5,7 @@
 package DAOs;
 
 import entidades.Producto;
+import enums.Categoria;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class ProductoDAO {
         p1.setExistencias(100);
         p1.setDisponibilidad(true);
         p1.setPrecio(260.0);
+        p1.setCategoria(Categoria.ACCESORIOS);
 
         Producto p2 = new Producto();
         p2.setId(2);
@@ -36,6 +38,7 @@ public class ProductoDAO {
         p2.setExistencias(0);
         p2.setDisponibilidad(false);
         p2.setPrecio(212.0);
+        p2.setCategoria(Categoria.VESTIDOS);
 
         productos.add(p1);
         productos.add(p2);

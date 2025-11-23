@@ -5,8 +5,6 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="jakarta.tags.core"%>
-<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -27,7 +25,7 @@
         <div class="main-container">
             <div class="form-container">
                 <div class="tabs">
-                    <form action="/LoginServlet" method="GET" style="flex: 1; margin: 0;">
+                    <form action="LoginServlet" method="GET" style="flex: 1; margin: 0;">
                         <button type="submit" class="tab <%= !esRegistro ? "active" : "" %>">
                             Iniciar sesión
                         </button>
@@ -73,7 +71,7 @@
 
                 <% if (esRegistro) { %>
                     <div class="form-content active">
-                        <form action="/RegistroServlet" method="POST">
+                        <form action="RegistroServlet" method="POST">
                             <div class="form-group">
                                 <label for="nombre">Nombre completo *</label>
                                 <input type="text" 
