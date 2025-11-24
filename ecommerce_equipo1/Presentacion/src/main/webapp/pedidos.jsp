@@ -6,6 +6,21 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<%@page import="java.util.List"%>
+<%@page import="DAOs.PedidoDAO"%>
+<%@page import="entidades.Pedido"%>
+
+<%!
+    private PedidoDAO pedidoDAO = new PedidoDAO();
+%>
+
+<%
+    List<Pedido> lista = pedidoDAO.obtenerPedidosUsuario(0);
+    
+    request.setAttribute("pedidosLista", lista);
+%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,9 +37,9 @@
 
                 <h2 class="titulo">Gestionar pedidos</h2>
 
-                <c:forEach var="p" items="${pedidos}">
+                <c:forEach var="p" items="${pedidosLista}">
 
-                    <form action="actualizarEstadoPedido" method="POST" class="pedido-card">
+                    <form action="PedidosServlet" method="POST" class="pedido-card">
 
                         <div class="col"> 
                             <label class="label">Número de pedido</label>

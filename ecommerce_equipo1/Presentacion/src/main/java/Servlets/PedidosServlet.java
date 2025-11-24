@@ -64,9 +64,8 @@ public class PedidosServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        List<Pedido> lista = pedidoDAO.obtenerPedidosAdmin();
-        request.setAttribute("pedidos", lista);
-
+        List<Pedido> lista = pedidoDAO.obtenerPedidosUsuario(0);
+        request.setAttribute("pedidosLista", lista);
         request.getRequestDispatcher("pedidos.jsp").forward(request, response);
     }
 
