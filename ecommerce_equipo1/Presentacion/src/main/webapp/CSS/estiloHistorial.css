@@ -1,0 +1,101 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 23 nov 2025, 4:57:26 p.m.
+    Author     : erika
+/*
+ * Archivo: estiloHistorial.css
+ * Ubicación: CSS/estiloHistorial.css
+ */
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #fef8fc;
+    font-family: "Segoe UI", sans-serif;
+}
+
+
+
+/* --- Layout --- */
+
+.main-container {
+    display: flex;
+    margin-top: 20px;
+}
+
+/* --- Sidebar --- */
+
+.sidebar {
+    width: 230px;
+    background: #fde5f3;
+    padding: 20px;
+}
+
+.user-box {
+    text-align: center;
+    background: #fde5f3;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.user-name {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.menu-side {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.menu-side li {
+    padding: 10px 0;
+    border-bottom: 1px solid #e1b8d1;
+}
+
+.menu-side li a {
+    color: #5a2e2e;
+    text-decoration: none;
+}
+
+.menu-side li.active a {
+    font-weight: bold;
+}
+
+
+.content {
+    flex: 1;
+    padding: 40px;
+}
+
+.content h1 {
+    text-align: center;
+    color: #5a2e2e;
+    margin-bottom: 40px;
+}
+
+/* --- Tabla --- */
+
+.tabla-pedidos {
+    width: 80%;
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+.tabla-pedidos th {
+    text-align: left;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #c8a1b5;
+}
+
+.tabla-pedidos td {
+    padding: 10px 0;
+    border-bottom: 1px solid #f1d7e1;
+    color: #5a2e2e;
+}
+
+
