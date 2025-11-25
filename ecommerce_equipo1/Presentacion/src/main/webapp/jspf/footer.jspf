@@ -1,0 +1,10 @@
+  <%@ page pageEncoding="UTF-8" %>
+  
+<link rel="stylesheet" href="CSS/footer.css">
+  
+  <div class="lace-border-footer"></div>
+  <footer>
+    <div class="footer-content">
+      Copyright © 2025 Aplicaciones web Equipo 1. Todos los derechos reservados
+    </div>
+  </footer>

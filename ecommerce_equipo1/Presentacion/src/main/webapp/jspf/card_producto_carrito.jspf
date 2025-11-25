@@ -1,0 +1,46 @@
+<%@ page pageEncoding="UTF-8" %>
+
+            <div id="product-row" class="product-row">
+              <!-- Producto (Imagen y Descripción) -->
+              <div class="product-info">
+                <!-- Imagen del Producto (Placeholder) -->
+                <img src="" alt="Vestido Sweet Lolita">
+                <!-- Detalles -->
+                <div class="product-details">
+                  <p>Vestido Sweet Lolita</p>
+                  <div class="color-selector">
+                    <span>Color:</span>
+                    <div class="color-dot"></div>
+                  </div>
+                  <!-- Botón Eliminar -->
+                  <button onclick="" class="remove-btn">
+                    <!-- SVG para X (Eliminar) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      style="margin-right: 4px;">
+                      <path d="M18 6 6 18" />
+                      <path d="m6 6 12 12" />
+                    </svg>
+                    Eliminar
+                  </button>
+                </div>
+              </div>
+              <!-- Cantidad -->
+              <div class="quantity-control">
+                <!-- Etiqueta de cantidad para móvil -->
+                <span class="qty-label">Cantidad:</span>
+                <div class="qty-box">
+                  <button id="decrement-btn" onclick="">-</button>
+                  <input type="number" id="quantity-input" value="1" min="1" readonly>
+                  <button id="increment-btn" onclick="">+</button>
+                </div>
+              </div>
+              <!-- Precio Unitario -->
+              <div class="price-col mobile-item" style="width: 15%; text-align: right;">
+                <span class="mobile-label">Precio:</span>$39.00
+              </div>
+              <!-- Subtotal -->
+              <div class="subtotal-col mobile-item" id="subtotal-display">
+                <span class="mobile-label">Subtotal:</span>$39.00
+              </div>
+            </div>

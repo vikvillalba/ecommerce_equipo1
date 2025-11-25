@@ -1,0 +1,140 @@
+:root {
+  --color-primary: #fffdfb;
+  --color-pink: #ca5790;
+  --color-brown: #4d2108;
+  --color-baby-pink: #fff0fb;
+}
+
+/* --- Borde de Encaje Decorativo --- */
+.lace-border-header {
+  height: 15px;
+  background-image: url("../img/lace-header.png");
+  background-repeat: repeat-x;
+  background-size: auto 100%;
+  background-color: var(--color-primary);
+}
+
+/* --- Header / Navegación --- */
+header {
+  background-color: var(--color-baby-pink);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  height: 100px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.nav-left-icons {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  max-width: 25%;
+}
+
+.nav-right-icons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 25%;
+  min-width: 60px;
+}
+
+.left-icon,
+.right-icon {
+  flex-shrink: 0;
+  padding: 0.5rem;
+}
+
+.nav-left-icons button,
+.nav-right-icons button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.nav-icon {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.logo-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px auto;
+  margin-top: auto;
+}
+
+.logo-center img {
+  max-width: 100%;
+  height: auto;
+}
+
+.search-container {
+  position: relative;
+  display: none;
+  flex-grow: 1;
+  max-width: 100%;
+}
+
+.search-container input {
+  padding: 0.5rem 2.5rem 0.5rem 1rem;
+  border: 1px solid var(--color-brown);
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  width: 100%;
+}
+
+.search-container button {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-pink);
+}
+
+/* --- Responsive --- */
+@media (min-width: 768px) {
+  :root {
+    --icon-size: 2.25rem;
+  }
+  .search-container {
+    display: block;
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --icon-size: 1.8rem;
+  }
+
+  .progress-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .nav-left-icons,
+  .nav-right-icons {
+    gap: 0rem;
+  }
+  .logo-center img {
+    height: 180px;
+    margin-top: 10px;
+  }
+
+  .nav-icon {
+    width: 40px;
+    height: 40px;
+  }
+}

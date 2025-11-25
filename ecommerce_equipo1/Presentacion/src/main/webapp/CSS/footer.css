@@ -1,0 +1,36 @@
+:root {
+  --color-primary: #fffdfb;
+  --color-brown: #4d2108;
+}
+
+.lace-border-footer {
+  height: 15px;
+  background-image: url("../img/lace-footer.png");
+  background-repeat: repeat-x;
+  background-size: auto 100%;
+  background-color: var(--color-primary);
+}
+
+.footer-content {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+}
+
+footer {
+  background-color: var(--color-brown);
+  color: white;
+  text-align: center;
+  padding-top: 2rem;
+  padding-bottom: 1rem;
+  font-size: 0.875rem;
+}
+
+@media (max-width: 767px) {
+  .footer-content {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-size: 0.75rem;
+  }
+}

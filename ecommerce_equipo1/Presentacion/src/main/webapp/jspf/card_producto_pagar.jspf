@@ -1,0 +1,12 @@
+<%@ page pageEncoding="UTF-8" %>
+
+                <div class="summary-item">
+                    <img src="https://placehold.co/80x80/ffe3f0/333?text=Vestido" alt="Vestido Sweet Lolita"
+                        class="product-image">
+                    <div class="product-details">
+                        <p class="product-name">Vestido Sweet Lolita...</p>
+                        <p class="product-meta">Color: <span class="color-swatch pink"></span></p>
+                        <p class="product-meta">Cantidad: 1</p>
+                    </div>
+                    <p class="product-price">$39.00</p>
+                </div>
