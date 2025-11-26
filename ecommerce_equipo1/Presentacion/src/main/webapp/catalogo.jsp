@@ -8,12 +8,13 @@
 <%@page import="java.util.List"%>
 <%@page import="entidades.Producto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ include file="jspf/header_cliente.jspf" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Catálogo de productos - Sweet Blossom</title>
+        <title>Catálogo de productos</title>
         <link rel="stylesheet" href="CSS/estiloCatalogo.css">
     </head>
     <body>
@@ -121,18 +122,16 @@
                         <h3 class="section-title">Precio</h3>
                         <div class="price-filter">
                             <div class="price-labels">
-                                <span class="price-label">$<%= (int) precioMin%></span>
-                                <span class="price-label">$<%= (int) precioMax%></span>
+                                <span id="minLabel">$<%= (int) precioMin%></span>
+                                <span id="maxLabel">$<%= (int) precioMax%></span>
                             </div>
-                            <div class="form-group">
-                                <label>Mínimo: $<%= (int) precioMin%></label>
-                                <input type="range" name="precioMin" min="0" max="500" 
-                                       value="<%= (int) precioMin%>" step="10">
-                            </div>
-                            <div class="form-group">
-                                <label>Máximo: $<%= (int) precioMax%></label>
-                                <input type="range" name="precioMax" min="0" max="500" 
-                                       value="<%= (int) precioMax%>" step="10">
+                            <div class="slider-container">
+                                <div class="slider-track"></div>
+                                <div class="slider-range" id="range"></div>
+                                <input type="range" name="precioMin" id="min" min="0" max="500" 
+                                       value="<%= (int) precioMin%>" step="10" oninput="updateRange()">
+                                <input type="range" name="precioMax" id="max" min="0" max="500" 
+                                       value="<%= (int) precioMax%>" step="10" oninput="updateRange()">
                             </div>
                             <button type="submit" class="btn-filter">Filtrar</button>
                         </div>
@@ -141,7 +140,7 @@
             </aside>
 
             <main class="main-content">
-                <h1 class="page-title">Catálogo de productos</h1>
+                <h1 class="page-title">.</h1>
 
                 <% if (productosFiltrados.size() > 0) { %>
                 <div class="products-grid">
@@ -177,5 +176,20 @@
                 <% }%>
             </main>
         </div>
+        <script>
+            function updateRange() {
+                const min = parseInt(document.getElementById('min').value);
+                const max = parseInt(document.getElementById('max').value);
+
+                document.getElementById('minLabel').textContent = '$' + min;
+                document.getElementById('maxLabel').textContent = '$' + max;
+
+                const range = document.getElementById('range');
+                range.style.left = (min / 5) + '%';
+                range.style.width = ((max - min) / 5) + '%';
+            }
+            updateRange();
+        </script>
     </body>
 </html>
+<%@ include file="jspf/footer.jspf" %>

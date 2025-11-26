@@ -3,7 +3,7 @@
     <header>
         <div class="nav-content">
             <div class="nav-left-icons">
-                <button class="left-icon" title="Catálogo">
+                <button class="left-icon" title="Catálogo" onclick="window.location.href='${pageContext.request.contextPath}/CatalogoServlet'">
                     <img src="img/Catalog-icon.png" alt="Catalogo" class="nav-icon">
                 </button>
                 <div class="search-container">
@@ -24,7 +24,7 @@
                 <button class="right-icon" title="Carrito de compras">
                     <img src="img/Cart-icon.png" alt="Carrito de compras" class="nav-icon">
                 </button>
-                <button class="right-icon" title="Cuenta">
+                <button class="right-icon" title="Cuenta" onclick="window.location.href='${pageContext.request.contextPath}/ModificarPerfilServlet'">
                     <img src="img/User-icon.png" alt="Cuenta" class="nav-icon">
                 </button>
             </div>

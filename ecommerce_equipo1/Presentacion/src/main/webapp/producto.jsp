@@ -5,6 +5,7 @@
 --%>
 <%@page import="entidades.Producto"%>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="jspf/header_cliente.jspf" %>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -63,7 +64,7 @@
                     <span class="star half">★</span>
                 </div>
                 <div class="rating-value">4.5/5</div>
-                <a href="ResenasServlet?id=<%= p.getId() %>" class="btn-reseñas">Ver reseñas</a>
+                <a href="ResenasServlet?id=<%= p.getId()%>" class="btn-reseñas">Ver reseñas</a>
             </div>
 
             <div class="price-row">
@@ -141,3 +142,4 @@
 
 </body>
 </html>
+<%@ include file="jspf/footer.jspf" %>

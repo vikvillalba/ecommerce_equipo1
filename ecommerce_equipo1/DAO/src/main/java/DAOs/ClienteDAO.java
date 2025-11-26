@@ -68,7 +68,7 @@ public class ClienteDAO {
             return false;
         }
     }
-    
+
     public boolean existeCorreo(String correo) {
         for (Cliente c : clientes) {
             if (c.getCorreo().equalsIgnoreCase(correo)) {
@@ -98,10 +98,27 @@ public class ClienteDAO {
 
     public boolean actualizar(Cliente cliente) {
         Cliente existente = obtenerPorId(cliente.getId());
-
         if (existente != null) {
-            clientes.remove(existente);
-            clientes.add(cliente);
+            existente.setNombre(cliente.getNombre());
+            existente.setCorreo(cliente.getCorreo());
+            existente.setContrasena(cliente.getContrasena());
+            existente.setTelefono(cliente.getTelefono());
+            existente.setEstado(cliente.isEstado());
+            existente.setTipoUsuario(cliente.getTipoUsuario());
+
+            if (cliente.getDireccion() != null) {
+                if (existente.getDireccion() == null) {
+                    existente.setDireccion(new Direccion());
+                    existente.getDireccion().setId(existente.getId());
+                }
+                Direccion dirExistente = existente.getDireccion();
+                Direccion dirNueva = cliente.getDireccion();
+
+                dirExistente.setCalle(dirNueva.getCalle());
+                dirExistente.setNumero(dirNueva.getNumero());
+                dirExistente.setColonia(dirNueva.getColonia());
+                dirExistente.setCodigoPostal(dirNueva.getCodigoPostal());
+            }
             return true;
         }
         return false;
@@ -110,9 +127,8 @@ public class ClienteDAO {
     public List<Cliente> listar() {
         return new ArrayList<>(clientes);
     }
-    
-    //METODOS DEL ADMIN
 
+    //METODOS DEL ADMIN
     public boolean eliminar(Integer id) {
         Cliente cliente = obtenerPorId(id);
         if (cliente != null) {

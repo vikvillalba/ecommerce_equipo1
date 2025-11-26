@@ -9,6 +9,7 @@
 <%@page import="entidades.Resena"%>
 <%@page import="entidades.Producto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ include file="jspf/header_cliente.jspf" %>
 
 <%
     Producto producto = (Producto) request.getAttribute("producto");
@@ -60,3 +61,4 @@
         </section>
     </body>
 </html>
+<%@ include file="jspf/footer.jspf" %>
