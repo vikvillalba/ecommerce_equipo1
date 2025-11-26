@@ -49,7 +49,7 @@
                                 <div class="detail-value">Credit Card</div>
                             </div>
 
-                            <button class="history-button">
+                            <button class="history-button" onclick="window.location.href = '${pageContext.request.contextPath}/historialPedidos.jsp'">
                                 Historial de pedidos
                             </button>
                         </div>
