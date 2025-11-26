@@ -1,0 +1,32 @@
+<%--Reseñas de usuarios que el administrador puede ver y moderar. --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<c:forEach var="r" items="${resenas}">
+    <div class="principal">
+        <div class="datosResena">
+            <div class="datosProducto">
+                <label for="cliente">Usuario</label>
+                <p id="cliente">${r.cliente.nombre}</p>
+            </div>
+
+            <div class="datosProducto">
+                <label for="producto">Producto</label>
+                <p id="producto">${producto.nombre}</p>
+            </div>
+
+            <div class="datosProducto">
+                <label for="calificacion">Calificación</label>
+                <p id="calificacion">${r.calificacion} / 5</p>
+            </div>
+
+            <div class="botones">
+                <button class="eliminar" data-id="${r.id}">Eliminar</button>
+                <button class="moderar" data-id="${r.id}">Moderar</button>
+            </div>
+        </div>
+
+        <div class="textoResena">
+            <textarea rows="10" cols="50">${r.comentario}</textarea>
+        </div>
+    </div>
+</c:forEach>

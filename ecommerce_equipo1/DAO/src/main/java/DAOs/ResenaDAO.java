@@ -96,4 +96,16 @@ public class ResenaDAO {
                 .orElse(null);
     }
 
+    public List<Producto> obtenerProductosConResenas() {
+        List<Producto> conResenas = new ArrayList<>();
+
+        for (Producto p : productos) {
+            if (p.getResenas() != null && !p.getResenas().isEmpty()) {
+                conResenas.add(p);
+            }
+        }
+
+        return conResenas;
+    }
+
 }
