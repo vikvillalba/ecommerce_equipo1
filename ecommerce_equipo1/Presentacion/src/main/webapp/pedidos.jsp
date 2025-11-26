@@ -7,30 +7,16 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<%@page import="java.util.List"%>
-<%@page import="DAOs.PedidoDAO"%>
-<%@page import="entidades.Pedido"%>
-
-<%!
-    private PedidoDAO pedidoDAO = new PedidoDAO();
-%>
-
-<%
-    List<Pedido> lista = pedidoDAO.obtenerPedidosUsuario(0);
-    
-    request.setAttribute("pedidosLista", lista);
-%>
-
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Administrador - Gestionar pedidos</title>
         <link rel="stylesheet" href="CSS/sideMenuAdmin.css">
-        <link rel="stylesheet" href="CSS/gestionarPedidos.css">
+        <link rel="stylesheet" href="CSS/estiloPedido.css">
     </head>
     <body>
-        
+
         <main>
             <%@include file="jspf/sideMenu.jspf" %>
             <div class="pedidos">
@@ -79,14 +65,19 @@
                             <input type="hidden" name="idPedido" value="${p.numeroPedido}">
 
                         <div class="col boton">
-                            <button type="submit">Actualizar estado</button>
+                            <button class="botonActualizar" type="input">Actualizar estado</button>
                         </div>
 
                     </form>
                 </c:forEach>
+
+                <c:if test="${empty pedidosLista}">
+                    <p class="sin-pedidos">No hay pedidos registrados.</p>
+                </c:if>
             </div>
 
         </main>
 
     </body>
 </html>
+<%@ include file="jspf/footer.jspf" %>

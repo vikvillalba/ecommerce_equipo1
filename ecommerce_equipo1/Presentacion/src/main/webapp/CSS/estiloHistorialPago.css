@@ -1,0 +1,65 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 26 nov 2025, 10:20:43 a.m.
+    Author     : pablo
+*/
+
+main {
+    display: flex;
+    background-color: #FFDDF6;
+}
+
+.contenido-admin {      
+    padding: 20px;
+    width: 100%;
+}
+
+.titulo-seccion {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #5a3650;
+}
+
+.tarjeta-pago {
+    margin-bottom: 20px;
+    background-color: #FFF0FB;
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.tarjeta-pago:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.col-pago {
+    display: flex;
+    flex-direction: column;
+    width: 18%;
+}
+
+.label {
+    color: #CA5790;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.value {
+    font-size: 16px;
+}
+
+.sin-pagos {
+    text-align: center;
+    color: #4D2108;
+    font-size: 18px;
+    padding: 40px;
+}
