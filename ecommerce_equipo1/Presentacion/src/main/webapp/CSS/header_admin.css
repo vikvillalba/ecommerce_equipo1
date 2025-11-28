@@ -1,0 +1,378 @@
+:root {
+    --color-primary: #fffdfb;
+    --color-pink: #ca5790;
+    --color-brown: #4d2108;
+    --color-baby-pink: #fff0fb;
+}
+
+.lace-border-header {
+    height: 15px;
+    background-image: url("../img/lace-header.png");
+    background-repeat: repeat-x;
+    background-size: auto 100%;
+    background-color: var(--color-primary);
+}
+
+/*adminHeader */
+header {
+    background-color: var(--color-baby-pink);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+    padding: 0 2rem;
+    gap: 2rem;
+}
+
+/*btn menu cel */
+.nav__toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--color-pink);
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: color 0.2s ease;
+}
+
+.nav__toggle:hover {
+    color: var(--color-brown);
+}
+
+/* Contenedor del logo */
+.logo-container {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.logo-container img {
+    height: 80px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* Texto admin */
+.admin-title {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--color-brown);
+    font-family: 'Georgia', serif;
+    letter-spacing: 1px;
+}
+
+/* Contenedor btnCuenta */
+.account-container {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.account-container button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.nav-icon {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+/*opciones adminCuenta */
+.dropdown-account {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: background-color 0.2s ease;
+    border-radius: 8px;
+}
+
+.dropdown-toggle:hover,
+.dropdown-toggle.active {
+    background-color: rgba(202, 87, 144, 0.1);
+}
+
+.dropdown-toggle .account-text {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-brown);
+}
+
+.dropdown-arrow {
+    transition: transform 0.2s ease;
+    color: var(--color-pink);
+}
+
+.dropdown-toggle.active .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+/* Menu cuenta */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 0.5rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    min-width: 200px;
+    padding: 0.5rem 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    z-index: 1000;
+}
+
+.dropdown-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Items del menú */
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    color: var(--color-brown);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background-color: var(--color-baby-pink);
+}
+
+.dropdown-item svg {
+    flex-shrink: 0;
+    color: var(--color-pink);
+}
+
+.dropdown-item-logout {
+    color: #dc3545;
+}
+
+.dropdown-item-logout svg {
+    color: #dc3545;
+}
+
+.dropdown-item-logout:hover {
+    background-color: rgba(220, 53, 69, 0.1);
+}
+
+/* Divisor */
+.dropdown-divider {
+    height: 1px;
+    background-color: #e9ecef;
+    margin: 0.5rem 0;
+}
+
+.mobile-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s;
+}
+
+.mobile-nav.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mobile-nav__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: background-color 0.3s ease;
+}
+
+.mobile-nav__panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 280px;
+    max-width: 80%;
+    background-color: white;
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.2);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    overflow-y: auto;
+}
+
+.mobile-nav.show .mobile-nav__panel {
+    transform: translateX(0);
+}
+
+.mobile-nav__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 1rem;
+    background-color: var(--color-baby-pink);
+    border-bottom: 2px solid var(--color-pink);
+}
+
+.mobile-nav__title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-brown);
+    margin: 0;
+}
+
+.mobile-nav__close {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--color-pink);
+    cursor: pointer;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+}
+
+.mobile-nav__close:hover {
+    color: var(--color-brown);
+}
+
+/* Lista del menú */
+.mobile-nav__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.mobile-nav__item {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.mobile-nav__link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    color: var(--color-brown);
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.mobile-nav__link:hover {
+    background-color: var(--color-baby-pink);
+}
+
+.mobile-nav__icon {
+    flex-shrink: 0;
+    color: var(--color-pink);
+}
+
+.mobile-nav__text {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .nav-content {
+        padding: 0 1rem;
+        gap: 1rem;
+    }
+
+    .nav__toggle {
+        display: block;
+    }
+
+    .logo-container img {
+        height: 60px;
+    }
+
+    .admin-title {
+        font-size: 1.5rem;
+    }
+
+    .nav-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .dropdown-toggle .account-text {
+        display: none;
+    }
+
+    .dropdown-arrow {
+        display: none;
+    }
+
+    .dropdown-menu {
+        min-width: 180px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-content {
+        padding: 0 0.5rem;
+        gap: 0.5rem;
+    }
+
+    .logo-container img {
+        height: 50px;
+    }
+
+    .admin-title {
+        font-size: 1.2rem;
+    }
+
+    .nav-icon {
+        width: 35px;
+        height: 35px;
+    }
+
+    .dropdown-menu {
+        min-width: 160px;
+    }
+
+    .dropdown-item {
+        font-size: 0.9rem;
+        padding: 0.65rem 0.85rem;
+    }
+}

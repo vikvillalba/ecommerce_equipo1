@@ -1,0 +1,25 @@
+<%@ page pageEncoding="UTF-8" %>
+<link rel="stylesheet" href="CSS/header_admin.css">
+<script src="js/header_admin.js" defer></script>
+<script src="js/menu_admin.js" defer></script>
+
+<header>
+    <div class="nav-content">
+        <button class="nav__toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+            &#9776;
+        </button>
+
+        <div class="logo-container">
+            <img src="img/Logo.png" alt="Logo E-commerce">
+        </div>
+
+        <div class="admin-title">
+            Administración
+        </div>
+
+        <div class="account-container">
+            <%@include file="adminCuenta_opciones.jspf" %>
+        </div>
+    </div>
+    <div class="lace-border-header"></div>
+</header>

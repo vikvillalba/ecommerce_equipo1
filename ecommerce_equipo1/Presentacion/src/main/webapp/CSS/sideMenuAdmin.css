@@ -40,3 +40,10 @@
 .menuItem:hover .menuOption {
     color: #4D2108;
 }
+
+/*esconde el menu aside  */
+@media (max-width: 768px) {
+    .sideMenu {
+        display: none;
+    }
+}

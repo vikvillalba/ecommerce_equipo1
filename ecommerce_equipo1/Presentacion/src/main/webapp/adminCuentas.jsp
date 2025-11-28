@@ -16,6 +16,9 @@
         <link rel="stylesheet" href="CSS/estiloAdminCuentas.css">
     </head>
     <body>
+        <%@include file="jspf/header_admin.jspf" %>
+        <%@include file="jspf/menu_celular.jspf" %>
+
         <main>
             <%@include file="jspf/sideMenu.jspf" %>
             <div class="contenedor__cuentas">
@@ -32,5 +35,7 @@
                 </div>
             </div>
         </main>
+
+        <%@include file="jspf/footer.jspf" %>
     </body>
 </html>

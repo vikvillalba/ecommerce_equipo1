@@ -8,6 +8,16 @@
     </parent>
     <artifactId>dominio</artifactId>
     <packaging>jar</packaging>
+
+    <dependencies>
+        <!-- JPA API para anotaciones @Entity, @Table, etc. -->
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>javax.persistence-api</artifactId>
+            <version>2.2</version>
+        </dependency>
+    </dependencies>
+
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>

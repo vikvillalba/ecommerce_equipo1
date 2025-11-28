@@ -21,10 +21,10 @@
                 <img src="img/Logo.png" alt="Logo">
             </div>
             <div class="nav-right-icons">
-                <button class="right-icon" title="Carrito de compras" onclick="window.location.href = '${pageContext.request.contextPath}/carrito.jsp'">
+                <button class="right-icon" title="Carrito de compras" onclick="window.location.href='${pageContext.request.contextPath}/carrito.jsp'">
                     <img src="img/Cart-icon.png" alt="Carrito de compras" class="nav-icon">
                 </button>
-                <button class="right-icon" title="Cuenta" onclick="window.location.href = '${pageContext.request.contextPath}/ModificarPerfilServlet'">
+                <button class="right-icon" title="Cuenta" onclick="location.href='ModificarPerfilServlet'">
                     <img src="img/User-icon.png" alt="Cuenta" class="nav-icon">
                 </button>
             </div>

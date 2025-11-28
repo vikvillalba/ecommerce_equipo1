@@ -8,13 +8,37 @@
     </parent>
     <artifactId>DAO</artifactId>
     <packaging>jar</packaging>
+
     <dependencies>
+        <!-- Dependencia del módulo dominio -->
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>dominio</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <!-- JPA API -->
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>javax.persistence-api</artifactId>
+            <version>2.2</version>
+        </dependency>
+
+        <!-- Hibernate Core - Implementación de JPA -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.6.15.Final</version>
+        </dependency>
+
+        <!-- MySQL Connector -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version>
+        </dependency>
     </dependencies>
+
     <properties>
         <maven.compiler.release>24</maven.compiler.release>
         <exec.mainClass>org.itson.dao.DAO</exec.mainClass>
