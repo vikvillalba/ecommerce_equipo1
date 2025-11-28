@@ -78,8 +78,8 @@ public class DAO {
             if (clienteDAO.registrar(cliente)) {
                 System.out.println("CLIENTE creado exitosamente");
                 System.out.println("Nombre: Jesus en moto");
-                System.out.println("Correo: moto@ejemplo.com");
-                System.out.println("Contraseña: 123456");
+                System.out.println("Correo: jesus@moto.com");
+                System.out.println("Contraseña: 1234");
                 System.out.println("Teléfono: 6441234567");
                 System.out.println("Dirección: Narnia #123, Colonia Centro, CP 85000");
                 System.out.println("Tipo: CLIENTE\n");

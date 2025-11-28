@@ -22,7 +22,7 @@
                 <ul class="menu-side">
                     <li class="active"><a href="#">Modificar datos</a></li>
                     <li><a href="HistorialPedidost">Pedidos</a></li>
-                    <li><a href="/LogOutServlet">Cerrar sesión</a></li>
+                    <li><a href="${pageContext.request.contextPath}/LogOutServlet">Cerrar sesión</a></li>
                 </ul>
             </aside>
             <section class="content">
