@@ -4,11 +4,15 @@
  */
 package DAOs;
 
+import Conexion.ConexionJPA;
 import entidades.Cliente;
 import entidades.Direccion;
 import enums.TipoUsuario;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -16,143 +20,187 @@ import java.util.List;
  */
 public class ClienteDAO {
 
-    private static List<Cliente> clientes = new ArrayList<>();
-    private static int contadorId = 1;
+    private ConexionJPA conexion;
 
-    static {
-        Direccion dir1 = new Direccion();
-        dir1.setId(1);
-        dir1.setCalle("Narnia");
-        dir1.setNumero("123");
-        dir1.setColonia("Centro");
-        dir1.setCodigoPostal("85000");
+    public ClienteDAO() {
+        this.conexion = ConexionJPA.getInstance();
+    }
 
-        Cliente c1 = new Cliente();
-        c1.setId(1);
-        c1.setNombre("Jesus en moto");
-        c1.setCorreo("moto@ejemplo.com");
-        c1.setContrasena("123456");
-        c1.setTelefono("6441234567");
-        c1.setEstado(true);
-        c1.setTipoUsuario(TipoUsuario.CLIENTE);
-        c1.setDireccion(dir1);
-
-        clientes.add(c1);
-        contadorId = 2;
+    /**
+     * Obtiene una instancia de EntityManager
+     *
+     * @return EntityManager
+     */
+    private EntityManager getEntityManager() {
+        return conexion.getEntityManager();
     }
 
     public Cliente autenticar(String correo, String contrasena) {
-        for (Cliente c : clientes) {
-            if (c.getCorreo().equals(correo)
-                    && c.getContrasena().equals(contrasena)
-                    && c.isEstado()) {
-                return c;
-            }
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Cliente> query = em.createQuery(
+                    "SELECT c FROM Cliente c WHERE c.usuario.correo = :correo "
+                    + "AND c.usuario.contrasena = :pass AND c.estado = true", Cliente.class);
+            query.setParameter("correo", correo);
+            query.setParameter("pass", contrasena);
+
+            List<Cliente> resultados = query.getResultList();
+            return resultados.isEmpty() ? null : resultados.get(0);
+
+        } finally {
+            em.close();
         }
-        return null;
     }
 
     public boolean registrar(Cliente cliente) {
+        EntityManager em = getEntityManager();
+        EntityTransaction tx = em.getTransaction();
         try {
-            cliente.setId(contadorId++);
-
-            if (cliente.getDireccion() != null) {
-                cliente.getDireccion().setId(cliente.getId());
-            }
-
-            clientes.add(cliente);
+            tx.begin();
+            em.persist(cliente);
+            tx.commit();
             return true;
 
         } catch (Exception e) {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
             e.printStackTrace();
             return false;
+
+        } finally {
+            em.close();
         }
     }
 
     public boolean existeCorreo(String correo) {
-        for (Cliente c : clientes) {
-            if (c.getCorreo().equalsIgnoreCase(correo)) {
-                return true;
-            }
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Long> query = em.createQuery(
+                    "SELECT COUNT(c) FROM Cliente c WHERE c.usuario.correo = :correo", Long.class);
+            query.setParameter("correo", correo);
+            return query.getSingleResult() > 0;
+
+        } finally {
+            em.close();
         }
-        return false;
     }
 
     public Cliente obtenerPorId(Integer id) {
-        for (Cliente c : clientes) {
-            if (c.getId().equals(id)) {
-                return c;
-            }
+        EntityManager em = getEntityManager();
+        try {
+            return em.find(Cliente.class, id);
+        } finally {
+            em.close();
         }
-        return null;
     }
 
     public Cliente obtenerPorCorreo(String correo) {
-        for (Cliente c : clientes) {
-            if (c.getCorreo().equalsIgnoreCase(correo)) {
-                return c;
-            }
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Cliente> query = em.createQuery(
+                    "SELECT c FROM Cliente c WHERE c.usuario.correo = :correo", Cliente.class);
+            query.setParameter("correo", correo);
+
+            List<Cliente> resultados = query.getResultList();
+            return resultados.isEmpty() ? null : resultados.get(0);
+
+        } finally {
+            em.close();
         }
-        return null;
+    }
+
+    public Cliente obtenerPorUsuarioId(Integer usuarioId) {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Cliente> query = em.createQuery(
+                    "SELECT c FROM Cliente c WHERE c.usuario.id = :idUser", Cliente.class);
+            query.setParameter("idUser", usuarioId);
+
+            List<Cliente> resultados = query.getResultList();
+            return resultados.isEmpty() ? null : resultados.get(0);
+
+        } finally {
+            em.close();
+        }
     }
 
     public boolean actualizar(Cliente cliente) {
-        Cliente existente = obtenerPorId(cliente.getId());
-        if (existente != null) {
-            existente.setNombre(cliente.getNombre());
-            existente.setCorreo(cliente.getCorreo());
-            existente.setContrasena(cliente.getContrasena());
-            existente.setTelefono(cliente.getTelefono());
-            existente.setEstado(cliente.isEstado());
-            existente.setTipoUsuario(cliente.getTipoUsuario());
-
-            if (cliente.getDireccion() != null) {
-                if (existente.getDireccion() == null) {
-                    existente.setDireccion(new Direccion());
-                    existente.getDireccion().setId(existente.getId());
-                }
-                Direccion dirExistente = existente.getDireccion();
-                Direccion dirNueva = cliente.getDireccion();
-
-                dirExistente.setCalle(dirNueva.getCalle());
-                dirExistente.setNumero(dirNueva.getNumero());
-                dirExistente.setColonia(dirNueva.getColonia());
-                dirExistente.setCodigoPostal(dirNueva.getCodigoPostal());
-            }
+        EntityManager em = getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.merge(cliente);
+            tx.commit();
             return true;
+
+        } catch (Exception e) {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+            return false;
+
+        } finally {
+            em.close();
         }
-        return false;
     }
 
     public List<Cliente> listar() {
-        return new ArrayList<>(clientes);
+        EntityManager em = getEntityManager();
+        try {
+            return em.createQuery("SELECT c FROM Cliente c", Cliente.class)
+                    .getResultList();
+        } finally {
+            em.close();
+        }
     }
 
-    //METODOS DEL ADMIN
+    //METODOS ADMIN
     public boolean eliminar(Integer id) {
-        Cliente cliente = obtenerPorId(id);
-        if (cliente != null) {
-            clientes.remove(cliente);
+        EntityManager em = getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+
+        try {
+            Cliente c = em.find(Cliente.class, id);
+            if (c == null) {
+                return false;
+            }
+
+            tx.begin();
+            em.remove(c);
+            tx.commit();
             return true;
+
+        } catch (Exception e) {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+            return false;
+
+        } finally {
+            em.close();
         }
-        return false;
     }
 
     public boolean desactivar(Integer id) {
-        Cliente cliente = obtenerPorId(id);
-        if (cliente != null) {
-            cliente.setEstado(false);
-            return true;
+        Cliente c = obtenerPorId(id);
+        if (c == null) {
+            return false;
         }
-        return false;
+
+        c.setEstado(false);
+        return actualizar(c);
     }
 
     public boolean activar(Integer id) {
-        Cliente cliente = obtenerPorId(id);
-        if (cliente != null) {
-            cliente.setEstado(true);
-            return true;
+        Cliente c = obtenerPorId(id);
+        if (c == null) {
+            return false;
         }
-        return false;
+
+        c.setEstado(true);
+        return actualizar(c);
     }
 }

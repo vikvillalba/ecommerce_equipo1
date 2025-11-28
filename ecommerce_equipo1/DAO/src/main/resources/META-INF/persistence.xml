@@ -9,6 +9,9 @@
 
         <!-- Entidades JPA -->
         <class>entidades.Usuario</class>
+        <class>entidades.Direccion</class>
+        <class>entidades.Cliente</class>
+
 
         <properties>
             <!-- Configuración de conexión a MySQL -->

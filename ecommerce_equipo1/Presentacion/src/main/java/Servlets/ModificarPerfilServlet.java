@@ -30,7 +30,10 @@ public class ModificarPerfilServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
 
         HttpSession session = req.getSession(false);
-        if (session == null || session.getAttribute("cliente") == null) {
+        Object usuario = session.getAttribute("usuario");
+
+        // Verificar que hay sesión y que el usuario es un Cliente
+        if (session == null || usuario == null || !(usuario instanceof Cliente)) {
             resp.sendRedirect(req.getContextPath() + "/LoginServlet");
             return;
         }
@@ -44,12 +47,19 @@ public class ModificarPerfilServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
 
         HttpSession session = req.getSession(false);
-        if (session == null || session.getAttribute("cliente") == null) {
+        if (session == null || session.getAttribute("usuario") == null) {
             resp.sendRedirect(req.getContextPath() + "/LoginServlet");
             return;
         }
 
-        Cliente cliente = (Cliente) session.getAttribute("cliente");
+        // Obtener el usuario de la sesión
+        Object usuario = session.getAttribute("usuario");
+        if (!(usuario instanceof Cliente)) {
+            resp.sendRedirect(req.getContextPath() + "/LoginServlet");
+            return;
+        }
+
+        Cliente cliente = (Cliente) usuario;
 
         String nombre = req.getParameter("nombre");
         String telefono = req.getParameter("telefono");
@@ -66,23 +76,27 @@ public class ModificarPerfilServlet extends HttpServlet {
             return;
         }
 
+        // Validar contraseña
         if (contrasena != null && !contrasena.trim().isEmpty()) {
             if (confirmaContrasena == null || !contrasena.equals(confirmaContrasena)) {
                 req.setAttribute("error", "Las contraseñas no coinciden");
                 req.getRequestDispatcher("modificarPerfil.jsp").forward(req, resp);
                 return;
             }
+            
             cliente.setContrasena(contrasena);
         }
 
+        // Actualizar datos
         cliente.setNombre(nombre);
         cliente.setTelefono(telefono);
 
+        // Actualizar dirección
         Direccion direccion = cliente.getDireccion();
         if (direccion == null) {
             direccion = new Direccion();
         }
-        
+
         direccion.setCodigoPostal(codigoPostal);
         direccion.setColonia(colonia);
         direccion.setCalle(calle);
@@ -93,8 +107,10 @@ public class ModificarPerfilServlet extends HttpServlet {
         boolean actualizado = clienteDAO.actualizar(cliente);
 
         if (actualizado) {
+            // Actualizar en la sesión
+            session.setAttribute("usuario", cliente);
             session.setAttribute("cliente", cliente);
-            session.setAttribute("clienteNombre", cliente.getNombre());
+            session.setAttribute("usuarioNombre", cliente.getNombre());
 
             req.setAttribute("success", "Datos actualizados correctamente");
             req.getRequestDispatcher("modificarPerfil.jsp").forward(req, resp);

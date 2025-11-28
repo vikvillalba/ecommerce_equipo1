@@ -17,7 +17,7 @@
     </head>
     <body>
         <%@include file="jspf/header_admin.jspf" %>
-        <%@include file="jspf/menu_celular.jspf" %>
+        <%@include file="jspf/menu_mobile.jspf" %>
 
         <main>
             <%@include file="jspf/sideMenu.jspf" %>

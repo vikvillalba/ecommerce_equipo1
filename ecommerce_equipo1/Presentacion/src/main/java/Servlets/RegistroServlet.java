@@ -5,8 +5,10 @@
 package Servlets;
 
 import DAOs.ClienteDAO;
+import DAOs.UsuarioDAO;
 import entidades.Cliente;
 import entidades.Direccion;
+import entidades.Usuario;
 import enums.TipoUsuario;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -24,6 +26,7 @@ import jakarta.servlet.http.HttpSession;
 public class RegistroServlet extends HttpServlet {
 
     private final ClienteDAO clienteDAO = new ClienteDAO();
+    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -56,34 +59,44 @@ public class RegistroServlet extends HttpServlet {
             return;
         }
 
-        if (clienteDAO.existeCorreo(correo)) {
+        // Verificar si el correo ya existe
+        if (usuarioDAO.existeCorreo(correo)) {
             req.setAttribute("error", "El correo electrónico ya está registrado");
             req.setAttribute("mostrarRegistro", true);
             req.getRequestDispatcher("login.jsp").forward(req, resp);
             return;
         }
 
+        // Crear el Usuario primero
+        Usuario nuevoUsuario = new Usuario();
+        nuevoUsuario.setNombre(nombre);
+        nuevoUsuario.setCorreo(correo);
+        nuevoUsuario.setContrasena(contrasena);
+        nuevoUsuario.setTipoUsuario(TipoUsuario.CLIENTE);
+
+        // Crear la dirección
         Direccion direccion = new Direccion();
         direccion.setCalle(calle);
         direccion.setNumero(numero);
         direccion.setColonia(colonia);
         direccion.setCodigoPostal(codigoPostal);
+
+        // Crear el Cliente y asociarle el Usuario y Dirección
         Cliente nuevoCliente = new Cliente();
-        nuevoCliente.setNombre(nombre);
-        nuevoCliente.setCorreo(correo);
-        nuevoCliente.setContrasena(contrasena);
+        nuevoCliente.setUsuario(nuevoUsuario);
         nuevoCliente.setTelefono(telefono);
         nuevoCliente.setEstado(true);
-        nuevoCliente.setTipoUsuario(TipoUsuario.CLIENTE);
         nuevoCliente.setDireccion(direccion);
 
         boolean registrado = clienteDAO.registrar(nuevoCliente);
 
         if (registrado) {
             HttpSession session = req.getSession();
+            session.setAttribute("usuario", nuevoCliente);
             session.setAttribute("cliente", nuevoCliente);
-            session.setAttribute("clienteId", nuevoCliente.getId());
-            session.setAttribute("clienteNombre", nuevoCliente.getNombre());
+            session.setAttribute("usuarioId", nuevoCliente.getId());
+            session.setAttribute("usuarioNombre", nuevoCliente.getNombre());
+            session.setAttribute("tipoUsuario", TipoUsuario.CLIENTE);
             resp.sendRedirect(req.getContextPath() + "/CatalogoServlet");
         } else {
             req.setAttribute("error", "Error al registrar el usuario. Intenta nuevamente.");

@@ -17,12 +17,12 @@
         <div class="main-container">
             <aside class="sidebar">
                 <div class="user-box">
-                    <p class="user-name">${sessionScope.clienteNombre != null ? sessionScope.clienteNombre : 'Usuario'}</p>
+                    <p class="user-name">${sessionScope.usuarioNombre != null ? sessionScope.usuarioNombre : 'Usuario'}</p>
                 </div>
                 <ul class="menu-side">
                     <li class="active"><a href="#">Modificar datos</a></li>
                     <li><a href="HistorialPedidost">Pedidos</a></li>
-                    <li><a href="LogoutServlet">Cerrar sesión</a></li>
+                    <li><a href="/LogOutServlet">Cerrar sesión</a></li>
                 </ul>
             </aside>
             <section class="content">
@@ -32,19 +32,19 @@
                     <form action="ModificarPerfilServlet" method="POST" class="form-datos">
                         <div class="form-group">
                             <label for="nombre">Nombre</label>
-                            <input type="text" 
-                                   id="nombre" 
-                                   name="nombre" 
-                                   value="${sessionScope.cliente.nombre}"
+                            <input type="text"
+                                   id="nombre"
+                                   name="nombre"
+                                   value="${sessionScope.usuario.nombre}"
                                    required>
                         </div>
 
                         <div class="form-group">
                             <label for="telefono">Teléfono</label>
-                            <input type="tel" 
-                                   id="telefono" 
+                            <input type="tel"
+                                   id="telefono"
                                    name="telefono"
-                                   value="${sessionScope.cliente.telefono}">
+                                   value="${sessionScope.usuario.telefono}">
                         </div>
 
                         <div class="form-group">
@@ -91,36 +91,36 @@
 
                             <div class="form-group">
                                 <label for="codigoPostal">Código postal</label>
-                                <input type="text" 
-                                       id="codigoPostal" 
+                                <input type="text"
+                                       id="codigoPostal"
                                        name="codigoPostal"
-                                       value="${sessionScope.cliente.direccion.codigoPostal}">
+                                       value="${sessionScope.usuario.direccion.codigoPostal}">
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="colonia">Colonia</label>
-                                <input type="text" 
-                                       id="colonia" 
+                                <input type="text"
+                                       id="colonia"
                                        name="colonia"
-                                       value="${sessionScope.cliente.direccion.colonia}">
+                                       value="${sessionScope.usuario.direccion.colonia}">
                             </div>
 
                             <div class="form-group">
                                 <label for="calle">Calle</label>
-                                <input type="text" 
-                                       id="calle" 
+                                <input type="text"
+                                       id="calle"
                                        name="calle"
-                                       value="${sessionScope.cliente.direccion.calle}">
+                                       value="${sessionScope.usuario.direccion.calle}">
                             </div>
 
                             <div class="form-group form-group-small">
                                 <label for="numero">Número</label>
-                                <input type="text" 
-                                       id="numero" 
+                                <input type="text"
+                                       id="numero"
                                        name="numero"
-                                       value="${sessionScope.cliente.direccion.numero}">
+                                       value="${sessionScope.usuario.direccion.numero}">
                             </div>
                         </div>
 

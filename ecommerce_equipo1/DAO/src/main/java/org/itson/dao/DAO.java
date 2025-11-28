@@ -5,7 +5,10 @@ package org.itson.dao;
 
 import Conexion.ConexionJPA;
 import DAOs.UsuarioDAO;
+import DAOs.ClienteDAO;
 import entidades.Usuario;
+import entidades.Cliente;
+import entidades.Direccion;
 import enums.TipoUsuario;
 
 /**
@@ -16,7 +19,7 @@ import enums.TipoUsuario;
 public class DAO {
 
     public static void main(String[] args) {
-        System.out.println("   INICIALIZANDO BASE DE DATOS - ECOMMERCE   ");
+        System.out.println("INICIALIZANDO BASE DE DATOS - ECOMMERCE   ");
 
         try {
             ConexionJPA conexion = ConexionJPA.getInstance();
@@ -30,31 +33,58 @@ public class DAO {
             }
 
             UsuarioDAO usuarioDAO = new UsuarioDAO();
+            ClienteDAO clienteDAO = new ClienteDAO();
 
-            // Crear un usuario administrador
+            System.out.println("1. Creando usuario ADMINISTRADOR...");
             Usuario admin = new Usuario();
             admin.setNombre("Administrador");
-            admin.setCorreo("admin@ecommerce.com");
+            admin.setCorreo("admin@admin.com");
             admin.setContrasena("admin123");
             admin.setTipoUsuario(TipoUsuario.ADMINISTRADOR);
 
             if (usuarioDAO.crear(admin)) {
-                System.out.println("  Usuario ADMINISTRADOR creado");
-                System.out.println("    - Correo: admin@ecommerce.com");
-                System.out.println("    - Password: admin123");
+                System.out.println("Usuario ADMINISTRADOR creado exitosamente");
+                System.out.println("Nombre: Administrador");
+                System.out.println("Correo: admin@admin.com");
+                System.out.println("Contraseña: admin123");
+                System.out.println("Tipo: ADMINISTRADOR\n");
+            } else {
+                System.err.println("Error al crear usuario ADMINISTRADOR\n");
             }
 
-            // Crear un usuario cliente
-            Usuario cliente = new Usuario();
-            cliente.setNombre("Cliente Ejemplo");
-            cliente.setCorreo("cliente@ejemplo.com");
-            cliente.setContrasena("cliente123");
-            cliente.setTipoUsuario(TipoUsuario.CLIENTE);
+            System.out.println("2. Creando CLIENTE completo...");
 
-            if (usuarioDAO.crear(cliente)) {
-                System.out.println("Usuario CLIENTE creado");
-                System.out.println("Correo: cliente@ejemplo.com");
-                System.out.println("Password: cliente123");
+            // Crear el Usuario del Cliente
+            Usuario usuarioCliente = new Usuario();
+            usuarioCliente.setNombre("Jesus en moto");
+            usuarioCliente.setCorreo("jesus@moto.com");
+            usuarioCliente.setContrasena("1234");
+            usuarioCliente.setTipoUsuario(TipoUsuario.CLIENTE);
+
+            // Crear la Dirección del Cliente
+            Direccion direccion = new Direccion();
+            direccion.setCalle("Narnia");
+            direccion.setNumero("123");
+            direccion.setColonia("Centro");
+            direccion.setCodigoPostal("85000");
+
+            // Crear el Cliente y asociar Usuario + Dirección
+            Cliente cliente = new Cliente();
+            cliente.setUsuario(usuarioCliente);
+            cliente.setTelefono("6441234567");
+            cliente.setEstado(true);
+            cliente.setDireccion(direccion);
+
+            if (clienteDAO.registrar(cliente)) {
+                System.out.println("CLIENTE creado exitosamente");
+                System.out.println("Nombre: Jesus en moto");
+                System.out.println("Correo: moto@ejemplo.com");
+                System.out.println("Contraseña: 123456");
+                System.out.println("Teléfono: 6441234567");
+                System.out.println("Dirección: Narnia #123, Colonia Centro, CP 85000");
+                System.out.println("Tipo: CLIENTE\n");
+            } else {
+                System.err.println("Error al crear CLIENTE\n");
             }
 
         } catch (Exception e) {

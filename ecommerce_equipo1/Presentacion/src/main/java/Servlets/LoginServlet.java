@@ -5,7 +5,9 @@
 package Servlets;
 
 import DAOs.UsuarioDAO;
+import DAOs.ClienteDAO;
 import entidades.Usuario;
+import entidades.Cliente;
 import enums.TipoUsuario;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -24,6 +26,7 @@ public class LoginServlet extends HttpServlet {
 
     //autentica el cliente o admin
     private final UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private final ClienteDAO clienteDAO = new ClienteDAO();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -51,21 +54,38 @@ public class LoginServlet extends HttpServlet {
         Usuario usuario = usuarioDAO.autenticar(correo, contrasena);
 
         if (usuario != null) {
-            // Crear sesión para el usuario autenticado
             HttpSession session = req.getSession();
-            session.setAttribute("usuario", usuario);
-            session.setAttribute("usuarioId", usuario.getId());
-            session.setAttribute("usuarioNombre", usuario.getNombre());
-            session.setAttribute("usuarioCorreo", usuario.getCorreo());
-            session.setAttribute("tipoUsuario", usuario.getTipoUsuario());
 
             // Redirigir según el tipo de usuario
             if (usuario.getTipoUsuario() == TipoUsuario.ADMINISTRADOR) {
+                // Para administrador, guardar el Usuario directamente
+                session.setAttribute("usuario", usuario);
+                session.setAttribute("usuarioId", usuario.getId());
+                session.setAttribute("usuarioNombre", usuario.getNombre());
+                session.setAttribute("usuarioCorreo", usuario.getCorreo());
+                session.setAttribute("tipoUsuario", usuario.getTipoUsuario());
+
                 // Administrador va a la gestión de usuarios
                 resp.sendRedirect(req.getContextPath() + "/AdminUsuarioServlet");
             } else if (usuario.getTipoUsuario() == TipoUsuario.CLIENTE) {
-                // Cliente va al catálogo de productos
-                resp.sendRedirect(req.getContextPath() + "/CatalogoServlet");
+                // Para cliente, buscar el objeto Cliente asociado a este Usuario
+                Cliente cliente = clienteDAO.obtenerPorUsuarioId(usuario.getId());
+
+                if (cliente != null) {
+                    // Guardar el Cliente completo en la sesión
+                    session.setAttribute("usuario", cliente);
+                    session.setAttribute("cliente", cliente);
+                    session.setAttribute("usuarioId", cliente.getId());
+                    session.setAttribute("usuarioNombre", cliente.getNombre());
+                    session.setAttribute("usuarioCorreo", cliente.getCorreo());
+                    session.setAttribute("tipoUsuario", TipoUsuario.CLIENTE);
+
+                    // Cliente va al catálogo de productos
+                    resp.sendRedirect(req.getContextPath() + "/CatalogoServlet");
+                } else {
+                    req.setAttribute("error", "No se encontró el perfil de cliente asociado");
+                    req.getRequestDispatcher("login.jsp").forward(req, resp);
+                }
             } else {
                 // Tipo de usuario desconocido
                 req.setAttribute("error", "Tipo de usuario no reconocido");

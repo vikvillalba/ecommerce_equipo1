@@ -4,15 +4,40 @@
  */
 package entidades;
 
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
+ * direccion del cliente
  *
  * @author erika
  */
-public class Direccion {
+@Entity
+@Table(name = "direcciones")
+public class Direccion implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
+
+    @Column(name = "calle", length = 100)
     private String calle;
+
+    @Column(name = "numero", length = 20)
     private String numero;
+
+    @Column(name = "colonia", length = 100)
     private String colonia;
+
+    @Column(name = "codigo_postal", length = 10)
     private String codigoPostal;
 
     public Integer getId() {
@@ -54,6 +79,4 @@ public class Direccion {
     public void setCodigoPostal(String codigoPostal) {
         this.codigoPostal = codigoPostal;
     }
-
-    
 }
