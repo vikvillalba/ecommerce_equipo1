@@ -1,4 +1,4 @@
-package Servlets;
+package Controladores;
 
 import DAOs.ProductoDAO;
 import DAOs.ResenaDAO;

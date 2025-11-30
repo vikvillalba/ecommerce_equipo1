@@ -1,7 +1,7 @@
 /*
  * Servlet para administrar categorías
  */
-package Servlets;
+package Controladores;
 
 import DAOs.CategoriaDAO;
 import entidades.Categoria;

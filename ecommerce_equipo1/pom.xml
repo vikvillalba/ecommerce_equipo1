@@ -16,7 +16,7 @@
     <module>dominio</module>
           
     <module>Presentacion</module>
-    <module>DAO</module>
+    <module>Persistencia</module>
   </modules>
       
   <properties>

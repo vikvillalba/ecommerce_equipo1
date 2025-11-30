@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Servlets;
+package Controladores;
 
 import DAOs.PedidoDAO;
 import entidades.Pedido;
@@ -14,14 +14,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author pablo
  */
-@WebServlet(name = "PedidosServlet", urlPatterns = {"/pedidos"})
-public class PedidosServlet extends HttpServlet {
+@WebServlet(name = "PagosServlet", urlPatterns = {"/Pagos"})
+public class PagosServlet extends HttpServlet {
 
     private PedidoDAO pedidoDAO = new PedidoDAO();
 
@@ -42,10 +43,10 @@ public class PedidosServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet PedidosServlet</title>");
+            out.println("<title>Servlet PagosServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet PedidosServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet PagosServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,10 +64,18 @@ public class PedidosServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         List<Pedido> lista = pedidoDAO.obtenerPedidosUsuario(0);
-        request.setAttribute("pedidosLista", lista);
-        request.getRequestDispatcher("pedidos.jsp").forward(request, response);
+
+        List<Pedido> entregados = new ArrayList<>();
+
+        for (Pedido pedido : lista) {
+            if (pedido.getEstado() == EstadoPedido.ENTREGADO) {
+                entregados.add(pedido);
+            }
+        }
+
+        request.setAttribute("pagos", entregados);
+        request.getRequestDispatcher("pagos.jsp").forward(request, response);
     }
 
     /**
@@ -80,13 +89,7 @@ public class PedidosServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Integer numero = Integer.parseInt(request.getParameter("idPedido"));
-        String estadoStr = request.getParameter("estado");
-        EstadoPedido nuevoEstado = EstadoPedido.valueOf(estadoStr.toUpperCase());
-
-        pedidoDAO.actualizarEstado(numero, nuevoEstado);
-
-        response.sendRedirect("pedidos");
+        processRequest(request, response);
     }
 
     /**
@@ -96,7 +99,7 @@ public class PedidosServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Servlet para mostrar los pedidos";
-    }
+        return "Short description";
+    }// </editor-fold>
 
 }

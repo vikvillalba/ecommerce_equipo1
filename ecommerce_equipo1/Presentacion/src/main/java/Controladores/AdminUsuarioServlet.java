@@ -1,7 +1,7 @@
 /*
  * Servlet para administrar usuarios/clientes
  */
-package Servlets;
+package Controladores;
 
 import DAOs.ClienteDAO;
 import entidades.Cliente;

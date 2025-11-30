@@ -6,7 +6,7 @@
         <artifactId>ecommerce_equipo1</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>DAO</artifactId>
+    <artifactId>Persistencia</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -43,4 +43,5 @@
         <maven.compiler.release>24</maven.compiler.release>
         <exec.mainClass>org.itson.dao.DAO</exec.mainClass>
     </properties>
+    <name>Persistencia</name>
 </project>
