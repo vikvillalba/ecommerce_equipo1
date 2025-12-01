@@ -19,12 +19,13 @@ import java.util.List;
  * @author pablo
  */
 public class PedidoDAO {
+
     public List<Pedido> obtenerPedidosAdmin() {
         List<Pedido> lista = new ArrayList<>();
 
         Pedido p1 = new Pedido();
         p1.setNumeroPedido(12345678);
-        
+
         Direccion dir = new Direccion();
         dir.setCalle("itson");
         dir.setCodigoPostal("12345");
@@ -33,14 +34,14 @@ public class PedidoDAO {
         p1.setDireccion(dir);
 
         Compra compra = new Compra();
-        LocalDateTime fecha = LocalDateTime.now();
-        fecha.format(DateTimeFormatter.ofPattern("d/MM/yyyy HH:mm:ss"));
-        compra.setFecha(fecha);
+//        LocalDateTime fecha = LocalDateTime.now();
+//        fecha.format(DateTimeFormatter.ofPattern("d/MM/yyyy HH:mm:ss"));
+//        compra.setFecha(fecha);
         compra.setTotal(500.00);
         p1.setPago(compra);
 
         p1.setEstado(EstadoPedido.PENDIENTE);
-        
+
         lista.add(p1);
 
         return lista;
@@ -50,7 +51,7 @@ public class PedidoDAO {
         // Nomás imprime porque no hay BD
         System.out.println("Actualizando pedido " + numPedido + " a estado: " + estado);
     }
-    
+
     private static final List<Pedido> pedidosMock = new ArrayList<>();
 
     static {
@@ -67,13 +68,12 @@ public class PedidoDAO {
 
         Compra c1 = new Compra();
         c1.setId(1);
-        c1.setFecha(LocalDateTime.of(2023, 10, 12, 14, 30));
+//        c1.setFecha(LocalDateTime.of(2023, 10, 12, 14, 30));
         c1.setTotal(120.00);
         c1.setCarrito(null);
         p1.setPago(c1);
 
         p1.setEstado(EstadoPedido.ENTREGADO);
-
 
         Pedido p2 = new Pedido();
         p2.setNumeroPedido(846490);
@@ -87,13 +87,12 @@ public class PedidoDAO {
 
         Compra c2 = new Compra();
         c2.setId(2);
-        c2.setFecha(LocalDateTime.of(2023, 10, 11, 16, 45));
+//        c2.setFecha(LocalDateTime.of(2023, 10, 11, 16, 45));
         c2.setTotal(345.00);
         c2.setCarrito(null);
         p2.setPago(c2);
 
         p2.setEstado(EstadoPedido.ENTREGADO);
-
 
         Pedido p3 = new Pedido();
         p3.setNumeroPedido(743012);
@@ -107,13 +106,12 @@ public class PedidoDAO {
 
         Compra c3 = new Compra();
         c3.setId(3);
-        c3.setFecha(LocalDateTime.of(2023, 8, 24, 11, 10));
+//        c3.setFecha(LocalDateTime.of(2023, 8, 24, 11, 10));
         c3.setTotal(230.00);
         c3.setCarrito(null);
         p3.setPago(c3);
 
         p3.setEstado(EstadoPedido.ENTREGADO);
-
 
         Pedido p4 = new Pedido();
         p4.setNumeroPedido(546120);
@@ -127,22 +125,21 @@ public class PedidoDAO {
 
         Compra c4 = new Compra();
         c4.setId(4);
-        c4.setFecha(LocalDateTime.of(2023, 8, 12, 9, 5));
+//        c4.setFecha(LocalDateTime.of(2023, 8, 12, 9, 5));
         c4.setTotal(45.00);
         c4.setCarrito(null);
         p4.setPago(c4);
 
         p4.setEstado(EstadoPedido.ENTREGADO);
 
-
         pedidosMock.add(p1);
         pedidosMock.add(p2);
         pedidosMock.add(p3);
         pedidosMock.add(p4);
     }
-     public List<Pedido> obtenerPedidosUsuario(int idUsuario) {
+
+    public List<Pedido> obtenerPedidosUsuario(int idUsuario) {
         return pedidosMock; // mock
     }
-     
-     
+
 }

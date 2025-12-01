@@ -73,7 +73,7 @@ public class ResenaDAO {
         Producto p1 = new Producto();
         p1.setId(1);
         p1.setNombre("Vestido Sweet Lolita 100% algodón");
-        p1.setCategoria(categoriaDAO.obtenerPorNombre("VESTIDOS"));
+//        p1.setCategoria(categoriaDAO.obtenerPorNombre("VESTIDOS"));
         p1.setDescripcion("Vestido estilo lolita de algodón suave y detalles en encaje.");
         p1.setEspecificaciones("Lavado a mano, 100% algodón, fabricación artesanal.");
         p1.setImagen("img/vestido1.jpg");

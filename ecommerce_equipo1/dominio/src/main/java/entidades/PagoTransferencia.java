@@ -10,25 +10,19 @@ import interfaces.MetodoPago;
  *
  * @author erika
  */
-public class PagoTransferencia implements MetodoPago{
-    private String cuentaDestino;
-    private String cuentaOrigen;
+public class PagoTransferencia implements MetodoPago {
 
-    public String getCuentaDestino() {
-        return cuentaDestino;
+    private byte[] comprobante;
+
+    public PagoTransferencia() {
     }
 
-    public void setCuentaDestino(String cuentaDestino) {
-        this.cuentaDestino = cuentaDestino;
+    public byte[] getComprobante() {
+        return comprobante;
     }
 
-    public String getCuentaOrigen() {
-        return cuentaOrigen;
+    public void setComprobante(byte[] comprobante) {
+        this.comprobante = comprobante;
     }
 
-    public void setCuentaOrigen(String cuentaOrigen) {
-        this.cuentaOrigen = cuentaOrigen;
-    }
-    
-    
 }

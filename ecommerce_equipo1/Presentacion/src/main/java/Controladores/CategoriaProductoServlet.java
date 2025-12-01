@@ -26,8 +26,8 @@ public class CategoriaProductoServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Categoria> categorias = categoriaDAO.listarActivas();
-        request.setAttribute("categorias", categorias);
+//        List<Categoria> categorias = categoriaDAO.listarActivas();
+//        request.setAttribute("categorias", categorias);
 
         String action = request.getParameter("action");
         if ("editar".equals(action)) {

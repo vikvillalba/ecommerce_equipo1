@@ -91,7 +91,7 @@ public class ProductoDAO {
         p1.setExistencias(100);
         p1.setDisponibilidad(true);
         p1.setPrecio(260.0);
-        p1.setCategoria(categoriaDAO.obtenerPorNombre("ACCESORIOS"));
+//        p1.setCategoria(categoriaDAO.obtenerPorNombre("ACCESORIOS"));
         p1.setResenas(resenas1);
 
 
@@ -105,7 +105,7 @@ public class ProductoDAO {
         p2.setExistencias(0);
         p2.setDisponibilidad(false);
         p2.setPrecio(212.0);
-        p2.setCategoria(categoriaDAO.obtenerPorNombre("VESTIDOS"));
+//        p2.setCategoria(categoriaDAO.obtenerPorNombre("VESTIDOS"));
         p2.setResenas(resenas2);
 
 

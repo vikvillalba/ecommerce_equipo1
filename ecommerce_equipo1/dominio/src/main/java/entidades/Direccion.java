@@ -40,6 +40,9 @@ public class Direccion implements Serializable {
     @Column(name = "codigo_postal", length = 10)
     private String codigoPostal;
 
+    public Direccion() {
+    }
+
     public Integer getId() {
         return id;
     }

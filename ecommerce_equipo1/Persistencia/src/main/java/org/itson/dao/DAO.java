@@ -6,10 +6,11 @@ package org.itson.dao;
 import Conexion.ConexionJPA;
 import DAOs.UsuarioDAO;
 import DAOs.ClienteDAO;
+import entidades.Administrador;
 import entidades.Usuario;
 import entidades.Cliente;
 import entidades.Direccion;
-import enums.TipoUsuario;
+//import enums.TipoUsuario;
 
 /**
  * Clase Main para inicializar la base de datos del e-commerce
@@ -36,11 +37,11 @@ public class DAO {
             ClienteDAO clienteDAO = new ClienteDAO();
 
             System.out.println("1. Creando usuario ADMINISTRADOR...");
-            Usuario admin = new Usuario();
+            Usuario admin = new Administrador();
             admin.setNombre("Administrador");
             admin.setCorreo("admin@admin.com");
             admin.setContrasena("admin123");
-            admin.setTipoUsuario(TipoUsuario.ADMINISTRADOR);
+//            admin.setTipoUsuario(TipoUsuario.ADMINISTRADOR);
 
             if (usuarioDAO.crear(admin)) {
                 System.out.println("Usuario ADMINISTRADOR creado exitosamente");
@@ -55,11 +56,11 @@ public class DAO {
             System.out.println("2. Creando CLIENTE completo...");
 
             // Crear el Usuario del Cliente
-            Usuario usuarioCliente = new Usuario();
-            usuarioCliente.setNombre("Jesus en moto");
-            usuarioCliente.setCorreo("jesus@moto.com");
-            usuarioCliente.setContrasena("1234");
-            usuarioCliente.setTipoUsuario(TipoUsuario.CLIENTE);
+            Cliente cliente = new Cliente();
+            cliente.setNombre("Jesus en moto");
+            cliente.setCorreo("jesus@moto.com");
+            cliente.setContrasena("1234");
+            //            usuarioCliente.setTipoUsuario(TipoUsuario.CLIENTE);
 
             // Crear la Dirección del Cliente
             Direccion direccion = new Direccion();
@@ -69,8 +70,7 @@ public class DAO {
             direccion.setCodigoPostal("85000");
 
             // Crear el Cliente y asociar Usuario + Dirección
-            Cliente cliente = new Cliente();
-            cliente.setUsuario(usuarioCliente);
+//            cliente.setUsuario(usuarioCliente);
             cliente.setTelefono("6441234567");
             cliente.setEstado(true);
             cliente.setDireccion(direccion);

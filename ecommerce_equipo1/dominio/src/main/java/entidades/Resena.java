@@ -4,15 +4,39 @@
  */
 package entidades;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 /**
  *
  * @author erika
  */
+@Entity
+@Table(name = "resenias")
 public class Resena {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(nullable = false, length = 500)
     private String comentario;
+    @Column(nullable = false)
     private int calificacion;
+    @ManyToOne()
+    @JoinColumn(name = "cliente_id", nullable = true)
     private Cliente cliente;
+    @ManyToOne()
+    @JoinColumn(name = "producto_id", nullable = false)
+    private Producto producto;
+
+    public Resena() {
+    }
 
     public Integer getId() {
         return id;
@@ -45,6 +69,13 @@ public class Resena {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-    
-    
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
 }

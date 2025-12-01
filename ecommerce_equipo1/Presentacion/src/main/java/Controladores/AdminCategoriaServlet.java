@@ -27,8 +27,8 @@ public class AdminCategoriaServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
 
-        List<Categoria> categorias = categoriaDAO.listar();
-        req.setAttribute("categorias", categorias);
+//        List<Categoria> categorias = categoriaDAO.listar();
+//        req.setAttribute("categorias", categorias);
         req.getRequestDispatcher("adminCategorias.jsp").forward(req, resp);
     }
 
@@ -47,14 +47,14 @@ public class AdminCategoriaServlet extends HttpServlet {
                     if (nombre != null && !nombre.trim().isEmpty()) {
                         Categoria nueva = new Categoria();
                         nueva.setNombre(nombre.toUpperCase().trim());
-                        categoriaDAO.agregar(nueva);
+//                        categoriaDAO.agregar(nueva);
                     }
                     break;
                 case "eliminar":
                     if (idParam != null) {
                         try {
                             Integer id = Integer.parseInt(idParam);
-                            categoriaDAO.eliminar(id);
+//                            categoriaDAO.eliminar(id);
                         } catch (NumberFormatException e) {
                             e.printStackTrace();
                         }
@@ -64,7 +64,7 @@ public class AdminCategoriaServlet extends HttpServlet {
                     if (idParam != null) {
                         try {
                             Integer id = Integer.parseInt(idParam);
-                            categoriaDAO.desactivar(id);
+//                            categoriaDAO.desactivar(id);
                         } catch (NumberFormatException e) {
                             e.printStackTrace();
                         }
@@ -74,7 +74,7 @@ public class AdminCategoriaServlet extends HttpServlet {
                     if (idParam != null) {
                         try {
                             Integer id = Integer.parseInt(idParam);
-                            categoriaDAO.activar(id);
+//                            categoriaDAO.activar(id);
                         } catch (NumberFormatException e) {
                             e.printStackTrace();
                         }

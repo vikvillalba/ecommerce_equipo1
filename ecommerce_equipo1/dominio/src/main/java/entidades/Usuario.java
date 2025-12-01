@@ -7,22 +7,27 @@ package entidades;
 import enums.TipoUsuario;
 import java.io.Serializable;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 /**
- * Entidad que representa un usuario del sistema de e-commerce. Puede ser de tipo ADMINISTRADOR o CLIENTE.
+ * Entidad que representa un usuario del sistema de e-commerce. Puede ser de
+ * tipo ADMINISTRADOR o CLIENTE.
  *
  * @author erika
  */
 @Entity
 @Table(name = "usuarios")
-public class Usuario implements Serializable {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipoUsuario", discriminatorType = DiscriminatorType.STRING)
+public abstract class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -30,19 +35,15 @@ public class Usuario implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
-
     @Column(name = "nombre", nullable = false, length = 100)
     private String nombre;
-
     @Column(name = "correo", nullable = false, unique = true, length = 100)
     private String correo;
-
     @Column(name = "contrasena", nullable = false, length = 255)
     private String contrasena;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "tipo_usuario", nullable = false, length = 20)
-    private TipoUsuario tipoUsuario;
+    public Usuario() {
+    }
 
     public Integer getId() {
         return id;
@@ -74,14 +75,6 @@ public class Usuario implements Serializable {
 
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
-    }
-
-    public TipoUsuario getTipoUsuario() {
-        return tipoUsuario;
-    }
-
-    public void setTipoUsuario(TipoUsuario tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
     }
 
 }

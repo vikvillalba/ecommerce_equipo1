@@ -68,11 +68,11 @@ public class RegistroServlet extends HttpServlet {
         }
 
         // Crear el Usuario primero
-        Usuario nuevoUsuario = new Usuario();
+        Usuario nuevoUsuario = new Cliente();
         nuevoUsuario.setNombre(nombre);
         nuevoUsuario.setCorreo(correo);
         nuevoUsuario.setContrasena(contrasena);
-        nuevoUsuario.setTipoUsuario(TipoUsuario.CLIENTE);
+//        nuevoUsuario.setTipoUsuario(TipoUsuario.CLIENTE);
 
         // Crear la dirección
         Direccion direccion = new Direccion();
@@ -83,7 +83,7 @@ public class RegistroServlet extends HttpServlet {
 
         // Crear el Cliente y asociarle el Usuario y Dirección
         Cliente nuevoCliente = new Cliente();
-        nuevoCliente.setUsuario(nuevoUsuario);
+//        nuevoCliente.setUsuario(nuevoUsuario);
         nuevoCliente.setTelefono(telefono);
         nuevoCliente.setEstado(true);
         nuevoCliente.setDireccion(direccion);

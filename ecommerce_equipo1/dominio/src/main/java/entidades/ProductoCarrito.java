@@ -4,15 +4,39 @@
  */
 package entidades;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 /**
  *
  * @author erika
  */
+@Entity
+@Table(name = "productos_carrito")
 public class ProductoCarrito {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(nullable = false)
     private int cantidad;
+    @Column(nullable = false)
     private double subtotal;
+    @ManyToOne()
+    @JoinColumn(name = "producto_id", nullable = false)
     private Producto producto;
+    @ManyToOne()
+    @JoinColumn(name = "carrito_id", nullable = false)
+    private Carrito carrito;
+
+    public ProductoCarrito() {
+    }
 
     public Integer getId() {
         return id;
@@ -45,6 +69,13 @@ public class ProductoCarrito {
     public void setProducto(Producto producto) {
         this.producto = producto;
     }
-    
-    
+
+    public Carrito getCarrito() {
+        return carrito;
+    }
+
+    public void setCarrito(Carrito carrito) {
+        this.carrito = carrito;
+    }
+
 }
