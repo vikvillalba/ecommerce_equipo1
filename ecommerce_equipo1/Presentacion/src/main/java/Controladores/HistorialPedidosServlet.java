@@ -23,19 +23,19 @@ import java.util.List;
 @WebServlet(name = "HistorialPedidosServlet", urlPatterns = {"/HistorialPedidost"})
 public class HistorialPedidosServlet extends HttpServlet {
 
-    private PedidoDAO pedidoDAO = new PedidoDAO();
+    private PedidoDAO pedidoDAO = PedidoDAO.getInstancia();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-       List<Pedido> pedidos = pedidoDAO.obtenerPedidosUsuario(1);
-
-        if (pedidos == null) {
-           pedidos = new ArrayList<>();
-       }
-
-        req.setAttribute("pedidos", pedidos);
+//        List<Pedido> pedidos = pedidoDAO.obtenerPedidosUsuario(1);
+//
+//        if (pedidos == null) {
+//            pedidos = new ArrayList<>();
+//        }
+//
+//        req.setAttribute("pedidos", pedidos);
         req.getRequestDispatcher("historialPedidos.jsp").forward(req, resp);
     }
 }

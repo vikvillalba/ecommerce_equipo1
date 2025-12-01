@@ -40,6 +40,9 @@ public class Direccion implements Serializable {
     @Column(name = "codigo_postal", length = 10)
     private String codigoPostal;
 
+    @Column(name = "pais", length = 10)
+    private String pais;
+
     public Direccion() {
     }
 
@@ -82,4 +85,13 @@ public class Direccion implements Serializable {
     public void setCodigoPostal(String codigoPostal) {
         this.codigoPostal = codigoPostal;
     }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+
 }

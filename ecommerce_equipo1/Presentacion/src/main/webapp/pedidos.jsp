@@ -15,8 +15,9 @@
         <link rel="stylesheet" href="CSS/sideMenuAdmin.css">
         <link rel="stylesheet" href="CSS/estiloPedido.css">
     </head>
-    <body>
-
+    <body style="margin:-8px">
+        <%@include file="jspf/header_admin.jspf" %>
+        <%@include file="jspf/menu_mobile.jspf" %>
         <main>
             <%@include file="jspf/sideMenu.jspf" %>
             <div class="pedidos">
@@ -25,21 +26,26 @@
 
                 <c:forEach var="p" items="${pedidosLista}">
 
-                    <form action="PedidosServlet" method="POST" class="pedido-card">
+                    <form action="pedidos" method="POST" class="pedido-card">
 
                         <div class="col"> 
                             <label class="label">Número de pedido</label>
-                            <label class="value">#${p.numeroPedido}</label>
+                            <label class="value">${p.numeroPedido}</label>
+                        </div>
+
+                        <div class="col"> 
+                            <label class="label">Usuario</label>
+                            <label class="value">${p.usuario}</label>
                         </div>
 
                         <div class="col"> 
                             <label class="label">Fecha</label>
-                            <label class="value">${p.pago.fecha}</label>
+                            <label class="value">${p.fecha}</label>
                         </div>
 
                         <div class="col"> 
                             <label class="label">Total</label>
-                            <label class="value">$ ${p.pago.total}</label>
+                            <label class="value">$ ${p.total}</label>
                         </div>
 
                         <div class="col"> 

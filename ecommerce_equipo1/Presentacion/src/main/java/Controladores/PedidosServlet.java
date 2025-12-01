@@ -4,8 +4,9 @@
  */
 package Controladores;
 
-import DAOs.PedidoDAO;
-import entidades.Pedido;
+import DTOs.PedidoDTO;
+import Exceptions.ModeloException;
+import Modelos.PedidoBO;
 import enums.EstadoPedido;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,7 +15,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,7 +27,7 @@ import java.util.List;
 @WebServlet(name = "PedidosServlet", urlPatterns = {"/pedidos"})
 public class PedidosServlet extends HttpServlet {
 
-    private PedidoDAO pedidoDAO = new PedidoDAO();
+    private PedidoBO pedidoBO = new PedidoBO();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -63,8 +67,12 @@ public class PedidosServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        List<Pedido> lista = pedidoDAO.obtenerPedidosUsuario(0);
+        List<PedidoDTO> lista = new ArrayList<>();
+        try {
+            lista = pedidoBO.obtenerPedidos();
+        } catch (ModeloException ex) {
+            Logger.getLogger(PedidosServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
         request.setAttribute("pedidosLista", lista);
         request.getRequestDispatcher("pedidos.jsp").forward(request, response);
     }
@@ -80,12 +88,14 @@ public class PedidosServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Integer numero = Integer.parseInt(request.getParameter("idPedido"));
+        String numero = request.getParameter("idPedido");
         String estadoStr = request.getParameter("estado");
         EstadoPedido nuevoEstado = EstadoPedido.valueOf(estadoStr.toUpperCase());
-
-        pedidoDAO.actualizarEstado(numero, nuevoEstado);
-
+        try {
+            pedidoBO.actualizarEstado(numero, nuevoEstado);
+        } catch (ModeloException ex) {
+            Logger.getLogger(PedidosServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
         response.sendRedirect("pedidos");
     }
 

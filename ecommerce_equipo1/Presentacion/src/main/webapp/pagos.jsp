@@ -16,8 +16,9 @@
         <link rel="stylesheet" href="CSS/sideMenuAdmin.css">
         <link rel="stylesheet" href="CSS/estiloHistorialPago.css">
     </head>
-    <body>
-
+    <body style="margin:-8px">
+        <%@include file="jspf/header_admin.jspf" %>
+        <%@include file="jspf/menu_mobile.jspf" %>
         <main>
             <%@include file="jspf/sideMenu.jspf" %>
 

@@ -12,7 +12,7 @@
     <div class="dropdown-menu" id="dropdownMenu" role="menu">
         <!--PUEDE REDIRIGIR AL modificarPerfilCliente Maybee 
         href="${pageContext.request.contextPath}/ModificarPerfilServlet
-        -->
+        
         <a href=""
            class="dropdown-item"
            role="menuitem">
@@ -21,10 +21,10 @@
             </svg>
             Mi Perfil
         </a>
-
-        <!-- Divisor -->
+        -->
+        <!-- Divisor 
         <div class="dropdown-divider"></div>
-
+        -->
         <!-- Opción: Cerrar Sesión -->
         <a href="${pageContext.request.contextPath}/LogOutServlet"
            class="dropdown-item dropdown-item-logout"

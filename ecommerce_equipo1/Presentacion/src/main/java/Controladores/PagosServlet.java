@@ -24,7 +24,7 @@ import java.util.List;
 @WebServlet(name = "PagosServlet", urlPatterns = {"/Pagos"})
 public class PagosServlet extends HttpServlet {
 
-    private PedidoDAO pedidoDAO = new PedidoDAO();
+    private PedidoDAO pedidoDAO = PedidoDAO.getInstancia();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -64,17 +64,17 @@ public class PagosServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Pedido> lista = pedidoDAO.obtenerPedidosUsuario(0);
-
-        List<Pedido> entregados = new ArrayList<>();
-
-        for (Pedido pedido : lista) {
-            if (pedido.getEstado() == EstadoPedido.ENTREGADO) {
-                entregados.add(pedido);
-            }
-        }
-
-        request.setAttribute("pagos", entregados);
+////        List<Pedido> lista = pedidoDAO.obtenerPedidosUsuario(0);
+//
+//        List<Pedido> entregados = new ArrayList<>();
+//
+//        for (Pedido pedido : lista) {
+//            if (pedido.getEstado() == EstadoPedido.ENTREGADO) {
+//                entregados.add(pedido);
+//            }
+//        }
+//
+//        request.setAttribute("pagos", entregados);
         request.getRequestDispatcher("pagos.jsp").forward(request, response);
     }
 

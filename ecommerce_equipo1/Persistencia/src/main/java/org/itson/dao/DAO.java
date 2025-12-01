@@ -10,6 +10,7 @@ import entidades.Administrador;
 import entidades.Usuario;
 import entidades.Cliente;
 import entidades.Direccion;
+import entidades.Pedido;
 //import enums.TipoUsuario;
 
 /**
@@ -87,6 +88,7 @@ public class DAO {
                 System.err.println("Error al crear CLIENTE\n");
             }
 
+            
         } catch (Exception e) {
             System.err.println("\nERROR al inicializar la base de datos:");
             System.err.println(e.getMessage());
