@@ -23,7 +23,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/GuardarResenaServlet")
 public class GuardarResenaServlet extends HttpServlet {
 
-    private final ProductoDAO dao = new ProductoDAO();
+    private ProductoDAO dao = ProductoDAO.getInstancia();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)

@@ -23,7 +23,7 @@ import java.util.List;
 @WebServlet(name = "ResenasServlet", urlPatterns = {"/ResenasServlet"})
 public class ResenasServlet extends HttpServlet {
 
-    private final ProductoDAO dao = new ProductoDAO();
+    private ProductoDAO dao = ProductoDAO.getInstancia();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)

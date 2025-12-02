@@ -19,7 +19,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet(name = "ProductoServlet", urlPatterns = {"/Producto"})
 public class ProductoServlet extends HttpServlet {
 
-    private final ProductoDAO dao = new ProductoDAO();
+    private ProductoDAO dao = ProductoDAO.getInstancia();
 
     @Override
      protected void doGet(HttpServletRequest request, HttpServletResponse response)

@@ -5,6 +5,7 @@
 package Controladores;
 
 import DAOs.ProductoDAO;
+import Exceptions.PersistenciaException;
 import entidades.Producto;
 import java.io.IOException;
 import java.util.List;
@@ -22,15 +23,19 @@ import jakarta.servlet.http.HttpSession;
 @WebServlet(name = "CatalogoServlet", urlPatterns = {"/CatalogoServlet"})
 public class CatalogoServlet extends HttpServlet {
 
-    private final ProductoDAO productoDAO = new ProductoDAO();
+    private ProductoDAO productoDAO = ProductoDAO.getInstancia();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8");
-        resp.setCharacterEncoding("UTF-8");
-        List<Producto> productos = productoDAO.listar();
-        req.setAttribute("productos", productos);
-        req.getRequestDispatcher("catalogo.jsp").forward(req, resp);
+        try {
+            req.setCharacterEncoding("UTF-8");
+            resp.setCharacterEncoding("UTF-8");
+            List<Producto> productos = productoDAO.listar();
+            req.setAttribute("productos", productos);
+            req.getRequestDispatcher("catalogo.jsp").forward(req, resp);
+        } catch (PersistenciaException ex) {
+            System.getLogger(CatalogoServlet.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
     }
 
     @Override
