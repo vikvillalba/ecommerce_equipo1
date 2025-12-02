@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.io.PrintWriter;
 
 /**
  *
@@ -34,16 +35,17 @@ public class CatalogoServlet extends HttpServlet {
             req.setAttribute("productos", productos);
             req.getRequestDispatcher("catalogo.jsp").forward(req, resp);
         } catch (PersistenciaException ex) {
-            // --- CÓDIGO CORREGIDO ---
 
-            // 1. Imprime el error completo en el log del servidor para diagnóstico.
             ex.printStackTrace();
 
-            // 2. Manda un código de error HTTP 500 al cliente.
-            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
-                    "Error al cargar el catálogo desde la base de datos.");
-
-            // -------------------------
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); 
+            resp.setContentType("text/plain;charset=UTF-8");
+            PrintWriter out = resp.getWriter();
+            out.println("--- ERROR CRÍTICO DE PERSISTENCIA EN CATÁLOGO ---");
+            out.println("CAUSA: " + ex.getMessage());
+            out.println("TRAZA COMPLETA (CAUSA RAÍZ):");
+            ex.getCause().printStackTrace(out); // Imprimir la causa raíz si existe
+            out.close();
         }
     }
 

@@ -13,6 +13,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
+
 /**
  * Data Access Object (DAO) para la entidad Cliente. Implementa el patrón
  * Singleton para asegurar una única instancia de la clase a lo largo de la
@@ -25,14 +26,14 @@ public class ClienteDAO {
     /**
      * Única instancia de la clase ClienteDAO (Singleton).
      */
-    private static ClienteDAO instancia; // 1. Campo estático para la instancia
+    private static ClienteDAO instancia;
 
     private ConexionJPA conexion;
 
     /**
      * Constructor privado para implementar el patrón Singleton.
      */
-    private ClienteDAO() { // 2. Constructor PRIVADO
+    private ClienteDAO() {
         this.conexion = ConexionJPA.getInstance();
     }
 
@@ -41,7 +42,7 @@ public class ClienteDAO {
      *
      * @return La instancia de ClienteDAO.
      */
-    public static ClienteDAO getInstancia() { // 3. Implementación del método de acceso
+    public static ClienteDAO getInstancia() {
         if (instancia == null) {
             instancia = new ClienteDAO();
         }
@@ -57,15 +58,22 @@ public class ClienteDAO {
         return conexion.getEntityManager();
     }
 
-    // --- MÉTODOS DE PERSISTENCIA (CRUD y autenticación) ---
-
+    /**
+     * Autentica un cliente buscando por correo y contraseña.
+     *
+     * * @param correo El correo del cliente (propiedad heredada de Usuario).
+     * @param correo
+     * @param contrasena La contraseña del cliente (propiedad heredada de
+     * Usuario).
+     * @return El objeto Cliente autenticado o null si no se encuentra.
+     */
     public Cliente autenticar(String correo, String contrasena) {
         EntityManager em = getEntityManager();
         try {
+            // CORREGIDO: Acceso directo a c.correo y c.contrasena por herencia.
             TypedQuery<Cliente> query = em.createQuery(
-
-                    "SELECT c FROM Cliente c WHERE c.usuario.correo = :correo "
-                    + "AND c.usuario.contrasena = :pass AND c.estado = true", Cliente.class);
+                    "SELECT c FROM Cliente c WHERE c.correo = :correo "
+                    + "AND c.contrasena = :pass AND c.estado = true", Cliente.class);
             query.setParameter("correo", correo);
             query.setParameter("pass", contrasena);
 
@@ -101,8 +109,9 @@ public class ClienteDAO {
     public boolean existeCorreo(String correo) {
         EntityManager em = getEntityManager();
         try {
+            // CORREGIDO: Acceso directo a c.correo por herencia.
             TypedQuery<Long> query = em.createQuery(
-                    "SELECT COUNT(c) FROM Cliente c WHERE c.usuario.correo = :correo", Long.class);
+                    "SELECT COUNT(c) FROM Cliente c WHERE c.correo = :correo", Long.class);
             query.setParameter("correo", correo);
             return query.getSingleResult() > 0;
 
@@ -123,8 +132,9 @@ public class ClienteDAO {
     public Cliente obtenerPorCorreo(String correo) {
         EntityManager em = getEntityManager();
         try {
+            // CORREGIDO: Acceso directo a c.correo por herencia.
             TypedQuery<Cliente> query = em.createQuery(
-                    "SELECT c FROM Cliente c WHERE c.usuario.correo = :correo", Cliente.class);
+                    "SELECT c FROM Cliente c WHERE c.correo = :correo", Cliente.class);
             query.setParameter("correo", correo);
 
             List<Cliente> resultados = query.getResultList();
@@ -135,11 +145,19 @@ public class ClienteDAO {
         }
     }
 
+    /**
+     * Obtiene un cliente usando el ID heredado de la entidad Usuario.
+     *
+     * * @param usuarioId El ID del cliente/usuario.
+     * @param usuarioId
+     * @return El Cliente encontrado.
+     */
     public Cliente obtenerPorUsuarioId(Integer usuarioId) {
         EntityManager em = getEntityManager();
         try {
+            // CORREGIDO: Acceso directo a c.id (el ID del Usuario) por herencia.
             TypedQuery<Cliente> query = em.createQuery(
-                    "SELECT c FROM Cliente c WHERE c.usuario.id = :idUser", Cliente.class);
+                    "SELECT c FROM Cliente c WHERE c.id = :idUser", Cliente.class);
             query.setParameter("idUser", usuarioId);
 
             List<Cliente> resultados = query.getResultList();
@@ -181,7 +199,9 @@ public class ClienteDAO {
         }
     }
 
-    // METODOS ADMIN
+    // ------------------------------------------------------------------------
+    // --- METODOS ADMIN ---
+    // ------------------------------------------------------------------------
     public boolean eliminar(Integer id) {
         EntityManager em = getEntityManager();
         EntityTransaction tx = em.getTransaction();

@@ -14,12 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 
-
 /**
  * Data Access Object (DAO) para la entidad Producto. Implementa el patrón
  * Singleton para asegurar una única instancia de la clase a lo largo de la
- * aplicación.
- * Es responsable de todas las operaciones de persistencia (CRUD)
+ * aplicación. Es responsable de todas las operaciones de persistencia (CRUD)
  * relacionadas con la entidad Producto utilizando JPA.
  *
  * @author erika
@@ -32,8 +30,8 @@ public class ProductoDAO {
     private static ProductoDAO instancia;
 
     /**
-     * Conexión JPA para obtener el EntityManager.
-     * DEBES TENER UNA CLASE 'ConexionJPA' Y 'PersistenciaException' DEFINIDAS.
+     * Conexión JPA para obtener el EntityManager. DEBES TENER UNA CLASE
+     * 'ConexionJPA' Y 'PersistenciaException' DEFINIDAS.
      */
     private ConexionJPA conexion = ConexionJPA.getInstance();
 
@@ -55,20 +53,24 @@ public class ProductoDAO {
         return instancia;
     }
 
-    // --- MÉTODOS CRUD (CREAR, LEER, ACTUALIZAR, ELIMINAR) ---
-
     /**
-     * Obtiene una lista con todos los productos almacenados en la base de datos.
+     * Obtiene una lista con todos los productos almacenados en la base de
+     * datos.
      *
      * @return Una lista de objetos Producto.
-     * @throws PersistenciaException Si ocurre un error al consultar los productos.
+     * @throws PersistenciaException Si ocurre un error al consultar los
+     * productos.
      */
     public List<Producto> listar() throws PersistenciaException {
         EntityManager em = conexion.getEntityManager();
         try {
-            // JPQL: Consulta sobre la entidad Producto
-            return em.createQuery("SELECT p FROM Producto p", Producto.class)
-                     .getResultList();
+            
+            return em.createQuery(
+                    "SELECT DISTINCT p FROM Producto p "
+                    + "LEFT JOIN FETCH p.categoria "
+                    + "LEFT JOIN FETCH p.resenas", Producto.class) 
+                    .getResultList();
+
         } catch (Exception e) {
             throw new PersistenciaException("Error al consultar la lista de productos", e);
         } finally {
@@ -128,7 +130,7 @@ public class ProductoDAO {
         try {
             em.getTransaction().begin();
             // merge() adjunta la entidad al contexto y persiste los cambios
-            em.merge(producto); 
+            em.merge(producto);
             em.getTransaction().commit();
             return true;
         } catch (Exception e) {
@@ -138,28 +140,29 @@ public class ProductoDAO {
             em.close();
         }
     }
-    
+
     /**
      * Elimina un producto de la base de datos.
      *
      * @param producto El objeto Producto a eliminar (debe contener el ID).
      * @return True si la eliminación fue exitosa.
-     * @throws PersistenciaException Si el objeto o su ID son nulos o si ocurre un error de transacción.
+     * @throws PersistenciaException Si el objeto o su ID son nulos o si ocurre
+     * un error de transacción.
      */
     public boolean eliminarProducto(Producto producto) throws PersistenciaException {
         EntityManager em = conexion.getEntityManager();
         if (producto == null || producto.getId() == null) {
-             throw new PersistenciaException("El objeto producto o su ID no pueden ser nulos para la eliminación");
+            throw new PersistenciaException("El objeto producto o su ID no pueden ser nulos para la eliminación");
         }
         try {
             em.getTransaction().begin();
-            
+
             // Se necesita obtener una referencia gestionada para poder eliminar
-            Producto productoPersistencia = em.find(Producto.class, producto.getId()); 
-            
+            Producto productoPersistencia = em.find(Producto.class, producto.getId());
+
             if (productoPersistencia == null) {
-                 em.getTransaction().rollback();
-                 throw new PersistenciaException("No se encontró el producto con ID: " + producto.getId() + " para eliminar");
+                em.getTransaction().rollback();
+                throw new PersistenciaException("No se encontró el producto con ID: " + producto.getId() + " para eliminar");
             }
 
             em.remove(productoPersistencia);
