@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="CSS/gestionarProductos.css">
         <link rel="stylesheet" href="CSS/estiloAdminCategorias.css">
     </head>
-    <body>
+    <body style="margin: -8px">
         <%@include file="jspf/header_admin.jspf" %>
         <%@include file="jspf/menu_mobile.jspf" %>
 

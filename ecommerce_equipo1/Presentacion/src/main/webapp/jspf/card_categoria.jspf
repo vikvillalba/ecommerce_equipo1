@@ -11,14 +11,14 @@
 
     <div class="botones">
         <form action="${pageContext.request.contextPath}/AdminCategoriaServlet" method="post" class="inline-form">
-            <input type="hidden" name="id" value="${categoria.id}">
+            <input type="hidden" name="nombre" value=${categoria.nombre}>
             <input type="hidden" name="accion" value="eliminar">
             <button type="submit" class="btn btn__eliminar">Eliminar</button>
         </form>
 
         <c:if test="${categoria.activa}">
             <form action="${pageContext.request.contextPath}/AdminCategoriaServlet" method="post" class="inline-form">
-                <input type="hidden" name="id" value="${categoria.id}">
+                <input type="hidden" name="nombre" value=${categoria.nombre}>
                 <input type="hidden" name="accion" value="desactivar">
                 <button type="submit" class="btn btn__desactivar">Desactivar</button>
             </form>
@@ -26,7 +26,7 @@
 
         <c:if test="${!categoria.activa}">
             <form action="${pageContext.request.contextPath}/AdminCategoriaServlet" method="post" class="inline-form">
-                <input type="hidden" name="id" value="${categoria.id}">
+                <input type="hidden" name="nombre" value=${categoria.nombre}>
                 <input type="hidden" name="accion" value="activar">
                 <button type="submit" class="btn btn__activar">Activar</button>
             </form>

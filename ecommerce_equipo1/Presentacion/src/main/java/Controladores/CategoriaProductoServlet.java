@@ -18,11 +18,10 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author victoria
  */
-
 @WebServlet(name = "CategoriaProductoServlet", urlPatterns = {"/categorias"})
 public class CategoriaProductoServlet extends HttpServlet {
 
-    private final CategoriaDAO categoriaDAO = new CategoriaDAO();
+    private final CategoriaDAO categoriaDAO = CategoriaDAO.getInstancia();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -36,7 +35,6 @@ public class CategoriaProductoServlet extends HttpServlet {
             request.getRequestDispatcher("agregarProducto.jsp").forward(request, response);
         }
     }
-    
 
     /**
      * Returns a short description of the servlet.

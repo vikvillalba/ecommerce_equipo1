@@ -18,7 +18,7 @@ import java.util.List;
 public class ProductoDAO {
 
     private static List<Producto> productos = new ArrayList<>();
-    private final CategoriaDAO categoriaDAO = new CategoriaDAO();
+//    private final CategoriaDAO categoriaDAO = new CategoriaDAO();
 
     public List<Producto> listar() {
 

@@ -18,7 +18,7 @@ import java.util.List;
 public class ResenaDAO {
 
     private static final List<Producto> productos = new ArrayList<>();
-    private static final CategoriaDAO categoriaDAO = new CategoriaDAO();
+//    private static final CategoriaDAO categoriaDAO = new CategoriaDAO();
 
     static {
         //datos mock
