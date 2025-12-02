@@ -6,106 +6,130 @@ package DAOs;
 
 import entidades.Producto;
 import entidades.Resena;
-import entidades.Cliente;
-import entidades.Categoria;
-import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+import javax.persistence.EntityTransaction;
 
 /**
+ * DAO encargado de gestionar las reseñas utilizando JPA y Base de Datos.
  *
  * @author erika
  */
 public class ResenaDAO {
 
-    private static final List<Producto> productos = new ArrayList<>();
-//    private static final CategoriaDAO categoriaDAO = new CategoriaDAO();
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("Ecommerce");
 
-    static {
-        //datos mock
-        Cliente c1 = new Cliente();
-        c1.setId(1);
-        c1.setNombre("Samantha D.");
-
-        Cliente c2 = new Cliente();
-        c2.setId(2);
-        c2.setNombre("Alex M.");
-
-        Cliente c3 = new Cliente();
-        c3.setId(3);
-        c3.setNombre("Ethan R.");
-
-        Cliente c4 = new Cliente();
-        c4.setId(4);
-        c4.setNombre("Olivia P.");
-
-        // Reseñas mock 
-        Resena r1 = new Resena();
-        r1.setId(1);
-        r1.setComentario("Esta reseña ha sido moderada por un administrador");
-        r1.setCalificacion(4);
-        r1.setCliente(c1);
-
-        Resena r2 = new Resena();
-        r2.setId(2);
-        r2.setComentario("El vestido superó mis expectativas, excelente calidad.");
-        r2.setCalificacion(5);
-        r2.setCliente(c2);
-
-        Resena r3 = new Resena();
-        r3.setId(3);
-        r3.setComentario("Muy bonito y con buenos acabados.");
-        r3.setCalificacion(4);
-        r3.setCliente(c3);
-
-        Resena r4 = new Resena();
-        r4.setId(4);
-        r4.setComentario("Colores vibrantes y gran diseño.");
-        r4.setCalificacion(5);
-        r4.setCliente(c4);
-
-        List<Resena> resenasProducto1 = new ArrayList<>();
-        resenasProducto1.add(r1);
-        resenasProducto1.add(r2);
-        resenasProducto1.add(r3);
-        resenasProducto1.add(r4);
-
-        // Producto Mock 1
-        Producto p1 = new Producto();
-        p1.setId(1);
-        p1.setNombre("Vestido Sweet Lolita 100% algodón");
-//        p1.setCategoria(categoriaDAO.obtenerPorNombre("VESTIDOS"));
-        p1.setDescripcion("Vestido estilo lolita de algodón suave y detalles en encaje.");
-        p1.setEspecificaciones("Lavado a mano, 100% algodón, fabricación artesanal.");
-        p1.setImagen("img/vestido1.jpg");
-        p1.setExistencias(100);
-        p1.setDisponibilidad(true);
-        p1.setPrecio(260.00);
-        p1.setResenas(resenasProducto1);
-
-        productos.add(p1);
+    public ResenaDAO() {
     }
 
-    public List<Producto> listar() {
-        return productos;
+    /**
+     * Obtiene un EntityManager para realizar operaciones.
+     */
+    private EntityManager getEntityManager() {
+        return emf.createEntityManager();
     }
 
-    public Producto obtenerPorId(Integer id) {
-        return productos.stream()
-                .filter(p -> p.getId().equals(id))
-                .findFirst()
-                .orElse(null);
-    }
-
-    public List<Producto> obtenerProductosConResenas() {
-        List<Producto> conResenas = new ArrayList<>();
-
-        for (Producto p : productos) {
-            if (p.getResenas() != null && !p.getResenas().isEmpty()) {
-                conResenas.add(p);
+    /**
+     * Obtiene todas las reseñas registradas en la base de datos.
+     *
+     * @return Lista de todas las reseñas.
+     */
+    public List<Resena> obtenerTodasLasResenas() {
+        EntityManager em = getEntityManager();
+        try {
+            String jpql = "SELECT r FROM Resena r JOIN FETCH r.producto JOIN FETCH r.cliente";
+            Query query = em.createQuery(jpql, Resena.class);
+            return query.getResultList();
+        } finally {
+            if (em != null) {
+                em.close();
             }
         }
-
-        return conResenas;
     }
 
+    /**
+     * Elimina una reseña de la base de datos por su ID.
+     *
+     * @param idResena El ID de la reseña a eliminar.
+     */
+    public void eliminarResena(Integer idResena) {
+        EntityManager em = getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+
+            // 1. Buscamos la reseña
+            Resena resena = em.find(Resena.class, idResena);
+
+            if (resena != null) {
+                // 2. Para mantener la coherencia, a veces es necesario removerla de la lista del producto
+                // antes de borrarla, aunque JPA suele manejar el borrado directo si está configurado.
+                // Opción directa:
+                em.remove(resena);
+
+                // Opción segura si tienes caché de segundo nivel o relaciones bidireccionales complejas:
+                // Producto p = resena.getProducto();
+                // p.getResenas().remove(resena);
+                // em.merge(p);
+            }
+
+            tx.commit();
+        } catch (Exception e) {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+            // Aquí podrías lanzar una excepción personalizada si lo deseas
+        } finally {
+            em.close();
+        }
+    }
+
+    /**
+     * Modifica el comentario de una reseña existente.
+     *
+     * @param idResena ID de la reseña.
+     * @param mensaje Nuevo texto del comentario.
+     */
+    public void moderarResena(Integer idResena, String mensaje) {
+        EntityManager em = getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+
+            // 1. Buscamos la reseña por ID
+            Resena resena = em.find(Resena.class, idResena);
+
+            if (resena != null) {
+                // 2. Modificamos el estado del objeto. 
+                // Al hacer commit, JPA detecta el cambio y hace el UPDATE automáticamente.
+                resena.setComentario(mensaje);
+
+                // Opcional: Si tienes un campo de estado, podrías actualizarlo también
+                // resena.setEstado("MODERADO");
+            }
+
+            tx.commit();
+        } catch (Exception e) {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+    }
+
+    // Método auxiliar por si necesitas listar todas las reseñas sueltas (opcional)
+    public List<Resena> listarTodas() {
+        EntityManager em = getEntityManager();
+        try {
+            return em.createQuery("SELECT r FROM Resena r", Resena.class).getResultList();
+        } finally {
+            em.close();
+        }
+    }
 }

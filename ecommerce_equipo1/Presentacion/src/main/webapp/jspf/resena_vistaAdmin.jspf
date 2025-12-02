@@ -20,8 +20,23 @@
             </div>
 
             <div class="botones">
-                <button class="eliminar" data-id="${r.id}">Eliminar</button>
-                <button class="moderar" data-id="${r.id}">Moderar</button>
+                <form action="adminResenas" method="post" style="display:inline;">
+                    <input type="hidden" name="idResena" value="${r.id}">
+                    <input type="hidden" name="accion" value="eliminar">
+
+                    <button type="submit" class="eliminar" onclick="return confirm('¿Seguro que deseas eliminar?');">
+                        Eliminar
+                    </button>
+                </form>
+
+                <form action="adminResenas" method="post" style="display:inline;">
+                    <input type="hidden" name="idResena" value="${r.id}">
+                    <input type="hidden" name="accion" value="moderar">
+
+                    <button type="submit" class="moderar">
+                        Moderar
+                    </button>
+                </form>
             </div>
         </div>
 
