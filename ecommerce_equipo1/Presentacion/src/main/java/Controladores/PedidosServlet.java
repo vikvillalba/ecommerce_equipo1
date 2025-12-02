@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package Controladores;
 
 import DTOs.PedidoDTO;
@@ -9,7 +5,6 @@ import Exceptions.ModeloException;
 import Modelos.PedidoBO;
 import enums.EstadoPedido;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -21,48 +16,31 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Servlet encargado de la gestión y visualización de pedidos. Procesa
+ * peticiones GET para mostrar la lista de pedidos y peticiones POST para
+ * actualizar el estado de un pedido. Mapeado a la URL "/pedidos".
  *
  * @author pablo
  */
 @WebServlet(name = "PedidosServlet", urlPatterns = {"/pedidos"})
 public class PedidosServlet extends HttpServlet {
 
+    /**
+     * Objeto de negocio (Business Object) para interactuar con la lógica de
+     * pedidos.
+     */
     private PedidoBO pedidoBO = new PedidoBO();
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * Procesa las solicitudes HTTP GET. Se utiliza para obtener la lista
+     * completa de pedidos y enviarla a la vista pedidos.jsp.
      *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet PedidosServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet PedidosServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @param request El objeto HttpServletRequest que contiene la solicitud del
+     * cliente.
+     * @param response El objeto HttpServletResponse que contiene la respuesta
+     * que el servlet envía al cliente.
+     * @throws ServletException Si ocurre un error específico del servlet.
+     * @throws IOException Si ocurre un error de entrada o salida.
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -78,12 +56,16 @@ public class PedidosServlet extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Procesa las solicitudes HTTP POST. Se utiliza para recibir un
+     * identificador de pedido y un nuevo estado, actualizando el estado de
+     * dicho pedido en el sistema.
      *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @param request El objeto HttpServletRequest que contiene la solicitud del
+     * cliente.
+     * @param response El objeto HttpServletResponse que contiene la respuesta
+     * que el servlet envía al cliente.
+     * @throws ServletException Si ocurre un error específico del servlet.
+     * @throws IOException Si ocurre un error de entrada o salida.
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -100,9 +82,9 @@ public class PedidosServlet extends HttpServlet {
     }
 
     /**
-     * Returns a short description of the servlet.
+     * Retorna una breve descripción del servlet.
      *
-     * @return a String containing servlet description
+     * @return Una cadena que contiene la descripción del servlet.
      */
     @Override
     public String getServletInfo() {

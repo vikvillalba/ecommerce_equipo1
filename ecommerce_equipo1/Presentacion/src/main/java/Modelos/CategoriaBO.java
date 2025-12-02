@@ -78,12 +78,13 @@ public class CategoriaBO {
     }
 
     /**
-     * Agrega una nueva categoría, aplicando validaciones.
+     * Agrega una nueva categoría, aplicando validaciones de existencia y
+     * longitud.
      *
      * @param categoriaDTO El DTO de la categoría a agregar.
      * @return true si se agregó, false en caso contrario.
-     * @throws ModeloException Si el DTO o su nombre son inválidos, o si la
-     * categoría ya existe.
+     * @throws ModeloException Si el DTO o su nombre son inválidos, si la
+     * categoría ya existe, o si el nombre excede el límite de 100 caracteres.
      */
     public boolean agregarCategoria(CategoriaDTO categoriaDTO) throws ModeloException {
         if (categoriaDTO == null) {
@@ -110,8 +111,8 @@ public class CategoriaBO {
      *
      * @param nombreCategoria El nombre de la categoría a desactivar.
      * @return true si se actualizó, false en caso contrario.
-     * @throws ModeloException Si el nombre es inválido o la categoría no
-     * existe.
+     * @throws ModeloException Si el nombre es inválido, la categoría no existe
+     * o si ya se encuentra inactiva.
      */
     public boolean desactivarCategoria(String nombreCategoria) throws ModeloException {
         validarCadena(nombreCategoria, "Nombre de Categoría");
@@ -137,8 +138,8 @@ public class CategoriaBO {
      *
      * @param nombreCategoria El nombre de la categoría a activar.
      * @return true si se actualizó, false en caso contrario.
-     * @throws ModeloException Si el nombre es inválido o la categoría no
-     * existe.
+     * @throws ModeloException Si el nombre es inválido, la categoría no existe
+     * o si ya se encuentra activa.
      */
     public boolean activarCategoria(String nombreCategoria) throws ModeloException {
         validarCadena(nombreCategoria, "Nombre de Categoría");

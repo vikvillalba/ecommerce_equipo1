@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package mappers;
 
 import DTOs.CategoriaDTO;
@@ -10,11 +6,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Clase de mapeo (Mapper) que se encarga de la conversión de datos entre la
+ * entidad Categoria y su Data Transfer Object (DTO) correspondiente.
  *
- * @author Alici
+ * @author Alicia
  */
 public class CategoriaMapper {
 
+    /**
+     * Convierte un objeto de entidad Categoria a un objeto CategoriaDTO.
+     *
+     * @param categoria La entidad Categoria de origen.
+     * @return Un nuevo objeto CategoriaDTO con los datos mapeados.
+     */
     public static CategoriaDTO toDTO(Categoria categoria) {
         CategoriaDTO categoriaDTO = new CategoriaDTO();
         categoriaDTO.setNombre(categoria.getNombre());
@@ -22,6 +26,12 @@ public class CategoriaMapper {
         return categoriaDTO;
     }
 
+    /**
+     * Convierte una lista de entidades Categoria a una lista de CategoriaDTO.
+     *
+     * @param categorias La lista de entidades Categoria de origen.
+     * @return Una lista de objetos CategoriaDTO.
+     */
     public static List<CategoriaDTO> toDTOList(List<Categoria> categorias) {
         List<CategoriaDTO> categoriasDTO = new ArrayList<>();
         for (Categoria categoria : categorias) {
@@ -30,6 +40,12 @@ public class CategoriaMapper {
         return categoriasDTO;
     }
 
+    /**
+     * Convierte un objeto CategoriaDTO a un objeto de entidad Categoria.
+     *
+     * @param categoriaDTO El DTO de Categoria de origen.
+     * @return Un nuevo objeto Categoria con los datos mapeados.
+     */
     public static Categoria toEntity(CategoriaDTO categoriaDTO) {
         Categoria categoria = new Categoria();
         categoria.setNombre(categoriaDTO.getNombre());
