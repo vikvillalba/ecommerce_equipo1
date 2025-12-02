@@ -20,7 +20,7 @@
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
       <!--CONTRASEEÑAA -->
-      <property name="javax.persistence.jdbc.password" value="password"/>
+      <property name="javax.persistence.jdbc.password" value="itson"/>
       <!-- Proveedor JPA (Hibernate) -->
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
       <!-- Estrategia de generación de esquema automática -->

@@ -13,17 +13,39 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
-
 /**
+ * Data Access Object (DAO) para la entidad Cliente. Implementa el patrón
+ * Singleton para asegurar una única instancia de la clase a lo largo de la
+ * aplicación.
  *
  * @author Maryr
  */
 public class ClienteDAO {
 
+    /**
+     * Única instancia de la clase ClienteDAO (Singleton).
+     */
+    private static ClienteDAO instancia; // 1. Campo estático para la instancia
+
     private ConexionJPA conexion;
 
-    public ClienteDAO() {
+    /**
+     * Constructor privado para implementar el patrón Singleton.
+     */
+    private ClienteDAO() { // 2. Constructor PRIVADO
         this.conexion = ConexionJPA.getInstance();
+    }
+
+    /**
+     * Retorna la instancia única de ClienteDAO.
+     *
+     * @return La instancia de ClienteDAO.
+     */
+    public static ClienteDAO getInstancia() { // 3. Implementación del método de acceso
+        if (instancia == null) {
+            instancia = new ClienteDAO();
+        }
+        return instancia;
     }
 
     /**
@@ -35,10 +57,13 @@ public class ClienteDAO {
         return conexion.getEntityManager();
     }
 
+    // --- MÉTODOS DE PERSISTENCIA (CRUD y autenticación) ---
+
     public Cliente autenticar(String correo, String contrasena) {
         EntityManager em = getEntityManager();
         try {
             TypedQuery<Cliente> query = em.createQuery(
+
                     "SELECT c FROM Cliente c WHERE c.usuario.correo = :correo "
                     + "AND c.usuario.contrasena = :pass AND c.estado = true", Cliente.class);
             query.setParameter("correo", correo);
@@ -156,7 +181,7 @@ public class ClienteDAO {
         }
     }
 
-    //METODOS ADMIN
+    // METODOS ADMIN
     public boolean eliminar(Integer id) {
         EntityManager em = getEntityManager();
         EntityTransaction tx = em.getTransaction();

@@ -26,7 +26,7 @@ public class LoginServlet extends HttpServlet {
 
     //autentica el cliente o admin
     private final UsuarioDAO usuarioDAO = new UsuarioDAO();
-    private final ClienteDAO clienteDAO = new ClienteDAO();
+    private ClienteDAO clienteDAO = ClienteDAO.getInstancia();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

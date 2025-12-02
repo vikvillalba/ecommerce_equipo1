@@ -21,7 +21,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet(name = "EscribirResenaServlet", urlPatterns = {"/EscribirResenaServlet"})
 public class EscribirResenaServlet extends HttpServlet {
 
-    private final ProductoDAO dao = new ProductoDAO();
+    private ProductoDAO dao = ProductoDAO.getInstancia();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
