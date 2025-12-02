@@ -35,7 +35,7 @@ public class DAO {
             }
 
             UsuarioDAO usuarioDAO = new UsuarioDAO();
-            ClienteDAO clienteDAO = new ClienteDAO();
+            ClienteDAO clienteDAO = ClienteDAO.getInstancia();
 
             System.out.println("1. Creando usuario ADMINISTRADOR...");
             Usuario admin = new Administrador();

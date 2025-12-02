@@ -22,7 +22,7 @@ import jakarta.servlet.http.HttpSession;
 @WebServlet(name = "ModificarPerfilServlet", urlPatterns = {"/ModificarPerfilServlet"})
 public class ModificarPerfilServlet extends HttpServlet {
 
-    private final ClienteDAO clienteDAO = new ClienteDAO();
+    private ClienteDAO clienteDAO = ClienteDAO.getInstancia();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

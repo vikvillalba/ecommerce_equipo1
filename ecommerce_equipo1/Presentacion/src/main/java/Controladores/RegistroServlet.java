@@ -25,7 +25,7 @@ import jakarta.servlet.http.HttpSession;
 @WebServlet(name = "RegistroServlet", urlPatterns = {"/RegistroServlet"})
 public class RegistroServlet extends HttpServlet {
 
-    private final ClienteDAO clienteDAO = new ClienteDAO();
+    private ClienteDAO clienteDAO = ClienteDAO.getInstancia();
     private final UsuarioDAO usuarioDAO = new UsuarioDAO();
 
     @Override

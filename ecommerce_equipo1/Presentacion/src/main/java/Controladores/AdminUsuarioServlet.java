@@ -20,7 +20,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet(name = "AdminUsuarioServlet", urlPatterns = {"/AdminUsuarioServlet"})
 public class AdminUsuarioServlet extends HttpServlet {
 
-    private final ClienteDAO clienteDAO = new ClienteDAO();
+    private ClienteDAO clienteDAO = ClienteDAO.getInstancia();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

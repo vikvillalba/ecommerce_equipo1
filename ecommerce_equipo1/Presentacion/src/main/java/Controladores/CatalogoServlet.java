@@ -34,7 +34,16 @@ public class CatalogoServlet extends HttpServlet {
             req.setAttribute("productos", productos);
             req.getRequestDispatcher("catalogo.jsp").forward(req, resp);
         } catch (PersistenciaException ex) {
-            System.getLogger(CatalogoServlet.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            // --- CÓDIGO CORREGIDO ---
+
+            // 1. Imprime el error completo en el log del servidor para diagnóstico.
+            ex.printStackTrace();
+
+            // 2. Manda un código de error HTTP 500 al cliente.
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
+                    "Error al cargar el catálogo desde la base de datos.");
+
+            // -------------------------
         }
     }
 
