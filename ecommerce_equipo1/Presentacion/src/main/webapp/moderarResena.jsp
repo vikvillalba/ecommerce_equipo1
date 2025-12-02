@@ -15,21 +15,23 @@
         <link rel="stylesheet" href="CSS/resenaAdmin.css">
     </head>
     <body>
+        <%@include file="jspf/header_admin.jspf" %>
+        <%@include file="jspf/menu_mobile.jspf" %>
         <main>
             <%@include file="jspf/sideMenu.jspf" %>
             <div class="resenas">
-                <c:forEach var="p" items="${productos}">
-                    <c:if test="${not empty p.resenas}">
-                        <c:set var="producto" value="${p}" />
-                        <c:set var="resenas" value="${p.resenas}" />
+                <h2>Panel de Moderación</h2>
 
-                        <%@ include file="jspf/resena_vistaAdmin.jspf" %>
-                        <hr>
-                    </c:if>
-                </c:forEach>
+                <%-- Verificamos si hay reseñas en la lista que mandó el Servlet --%>
+                <c:if test="${not empty resenas}">
+                    <%@ include file="jspf/resena_vistaAdmin.jspf" %>
+                </c:if>
+
+                <c:if test="${empty resenas}">
+                    <p style="padding: 20px; text-align: center;">No hay reseñas registradas en el sistema.</p>
+                </c:if>
             </div>
-
-
         </main>
+                <%@include file="jspf/footer.jspf" %>
     </body>
 </html>
