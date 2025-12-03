@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author Jack Murrieta
  */
-@WebServlet(name = "AdminUsuarioServlet", urlPatterns = {"/AdminUsuarioServlet"})
+@WebServlet(name = "AdminUsuarioServlet", urlPatterns = {"/admin/AdminUsuarioServlet"})
 public class AdminUsuarioServlet extends HttpServlet {
 
     private ClienteDAO clienteDAO = ClienteDAO.getInstancia();
@@ -29,7 +29,7 @@ public class AdminUsuarioServlet extends HttpServlet {
 
         List<Cliente> usuarios = clienteDAO.listar();
         req.setAttribute("usuarios", usuarios);
-        req.getRequestDispatcher("adminCuentas.jsp").forward(req, resp);
+        req.getRequestDispatcher("/admin/adminCuentas.jsp").forward(req, resp);
     }
 
     @Override

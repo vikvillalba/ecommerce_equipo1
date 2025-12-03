@@ -11,19 +11,19 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Administrador - Nuevo producto</title>
-        <link rel="stylesheet" href="CSS/sideMenuAdmin.css">
-        <link rel="stylesheet" href="CSS/gestionarProductos.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/sideMenuAdmin.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/gestionarProductos.css">
     </head>
     <body>
         <main>
-            <%@include file="jspf/sideMenu.jspf" %>
+            <%@include file="../jspf/sideMenu.jspf" %>
             <div class="producto">
                 <h2 class="titulo">Agregar producto</h2>
 
                 <form action="actualizarProducto" method="POST" enctype="multipart/form-data">
                     <div class="contenedor1">
                         <div class="sec1">
-                            <img src="img/rr1.jpg" width="280" height="373">
+                            <img src="${pageContext.request.contextPath}/img/rr1.jpg" width="280" height="373">
                             <label for="imagen">Selecciona una imagen</label>
                             <input type="file" id="imagen" name="imagen" accept=".jpg,.jpeg,.png">
                         </div>  

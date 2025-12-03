@@ -2,7 +2,7 @@
 
 <div class="dropdown-account">
     <button class="dropdown-toggle" id="accountDropdown" type="button" aria-expanded="false" aria-haspopup="true">
-        <img src="img/User-icon.png" alt="Cuenta" class="nav-icon">
+        <img src="<%= request.getContextPath() %>/img/User-icon.png" alt="Cuenta" class="nav-icon">
             <span class="account-text">Cuenta</span>
             <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>

@@ -2,10 +2,10 @@
 <%@ page pageEncoding="UTF-8" %>
 
 <div class="sideMenu">
-    <a href="${pageContext.request.contextPath}/AdminUsuarioServlet" class="menuItem"><span class="menuOption">Gestionar cuentas</span></a>
-    <a href="${pageContext.request.contextPath}/categorias" class="menuItem"><span class="menuOption">Gestionar productos</span></a>
-    <a href="${pageContext.request.contextPath}/AdminCategoriaServlet" class="menuItem"><span class="menuOption">Gestionar categorías</span></a>
-    <a href="${pageContext.request.contextPath}/Pagos" class="menuItem"><span class="menuOption">Historial de pagos</span></a>
-    <a href="${pageContext.request.contextPath}/pedidos" class="menuItem"><span class="menuOption">Gestionar pedidos</span></a>
-    <a href="${pageContext.request.contextPath}/adminResenas" class="menuItem"><span class="menuOption">Moderar reseñas</span></a>
+    <a href="${pageContext.request.contextPath}/admin/AdminUsuarioServlet" class="menuItem"><span class="menuOption">Gestionar cuentas</span></a>
+    <a href="${pageContext.request.contextPath}/admin/categorias" class="menuItem"><span class="menuOption">Gestionar productos</span></a>
+    <a href="${pageContext.request.contextPath}/admin/AdminCategoriaServlet" class="menuItem"><span class="menuOption">Gestionar categorías</span></a>
+    <a href="${pageContext.request.contextPath}/admin/Pagos" class="menuItem"><span class="menuOption">Historial de pagos</span></a>
+    <a href="${pageContext.request.contextPath}/admin/pedidos" class="menuItem"><span class="menuOption">Gestionar pedidos</span></a>
+    <a href="${pageContext.request.contextPath}/admin/adminResenas" class="menuItem"><span class="menuOption">Moderar reseñas</span></a>
 </div>

@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author victoria
  */
-@WebServlet(name = "CategoriaProductoServlet", urlPatterns = {"/categorias"})
+@WebServlet(name = "CategoriaProductoServlet", urlPatterns = {"/admin/categorias"})
 public class CategoriaProductoServlet extends HttpServlet {
 
     private final CategoriaDAO categoriaDAO = CategoriaDAO.getInstancia();
@@ -30,9 +30,9 @@ public class CategoriaProductoServlet extends HttpServlet {
 
         String action = request.getParameter("action");
         if ("editar".equals(action)) {
-            request.getRequestDispatcher("editarProducto.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/editarProducto.jsp").forward(request, response);
         } else {
-            request.getRequestDispatcher("agregarProducto.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/agregarProducto.jsp").forward(request, response);
         }
     }
 

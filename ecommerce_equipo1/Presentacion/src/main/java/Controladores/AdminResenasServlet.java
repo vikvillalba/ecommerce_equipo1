@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author victoria
  */
-@WebServlet(name = "AdminResenasServlet", urlPatterns = {"/adminResenas"})
+@WebServlet(name = "AdminResenasServlet", urlPatterns = {"/admin/adminResenas"})
 public class AdminResenasServlet extends HttpServlet {
 
     private final ResenaBO resenaBO = new ResenaBO();
@@ -30,7 +30,7 @@ public class AdminResenasServlet extends HttpServlet {
 
         request.setAttribute("resenas", listaResenas);
 
-        request.getRequestDispatcher("moderarResena.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/moderarResena.jsp").forward(request, response);
     }
 
     @Override

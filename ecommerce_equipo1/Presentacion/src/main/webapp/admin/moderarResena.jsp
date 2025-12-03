@@ -11,20 +11,20 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Administrador - Moderar reseñas</title>
-        <link rel="stylesheet" href="CSS/sideMenuAdmin.css">
-        <link rel="stylesheet" href="CSS/resenaAdmin.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/sideMenuAdmin.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/resenaAdmin.css">
     </head>
     <body>
-        <%@include file="jspf/header_admin.jspf" %>
-        <%@include file="jspf/menu_mobile.jspf" %>
+        <%@include file="../jspf/header_admin.jspf" %>
+        <%@include file="../jspf/menu_mobile.jspf" %>
         <main>
-            <%@include file="jspf/sideMenu.jspf" %>
+            <%@include file="../jspf/sideMenu.jspf" %>
             <div class="resenas">
                 <h2>Panel de Moderación</h2>
 
                 <%-- Verificamos si hay reseñas en la lista que mandó el Servlet --%>
                 <c:if test="${not empty resenas}">
-                    <%@ include file="jspf/resena_vistaAdmin.jspf" %>
+                    <%@ include file="../jspf/resena_vistaAdmin.jspf" %>
                 </c:if>
 
                 <c:if test="${empty resenas}">
@@ -32,6 +32,6 @@
                 </c:if>
             </div>
         </main>
-                <%@include file="jspf/footer.jspf" %>
+                <%@include file="../jspf/footer.jspf" %>
     </body>
 </html>

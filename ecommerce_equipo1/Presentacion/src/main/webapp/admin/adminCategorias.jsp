@@ -11,22 +11,22 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Administrador - Gestionar Categorías</title>
-        <link rel="stylesheet" href="CSS/sideMenuAdmin.css">
-        <link rel="stylesheet" href="CSS/gestionarProductos.css">
-        <link rel="stylesheet" href="CSS/estiloAdminCategorias.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/sideMenuAdmin.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/gestionarProductos.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/estiloAdminCategorias.css">
     </head>
     <body style="margin: -8px">
-        <%@include file="jspf/header_admin.jspf" %>
-        <%@include file="jspf/menu_mobile.jspf" %>
+        <%@include file="../jspf/header_admin.jspf" %>
+        <%@include file="../jspf/menu_mobile.jspf" %>
 
         <main>
-            <%@include file="jspf/sideMenu.jspf" %>
+            <%@include file="../jspf/sideMenu.jspf" %>
             <div class="contenedor__categorias">
                 <h2 class="titulo">Gestionar Categorías</h2>
 
                 <!-- Formulario para agregar nueva categoría -->
                 <div class="form__nueva-categoria">
-                    <form action="${pageContext.request.contextPath}/AdminCategoriaServlet" method="post" class="form-agregar">
+                    <form action="${pageContext.request.contextPath}/admin/AdminCategoriaServlet" method="post" class="form-agregar">
                         <input type="hidden" name="accion" value="agregar">
                         <input type="text" name="nombre" placeholder="Nombre de la categoría" required class="input__categoria">
                         <button type="submit" class="btn btn__agregar">Agregar</button>
@@ -35,7 +35,7 @@
 
                 <div class="lista__categorias">
                     <c:forEach var="categoria" items="${categorias}">
-                        <%@include file="jspf/card_categoria.jspf" %>
+                        <%@include file="../jspf/card_categoria.jspf" %>
                     </c:forEach>
 
                     <c:if test="${empty categorias}">
@@ -45,6 +45,6 @@
             </div>
         </main>
 
-        <%@include file="jspf/footer.jspf" %>
+        <%@include file="../jspf/footer.jspf" %>
     </body>
 </html>

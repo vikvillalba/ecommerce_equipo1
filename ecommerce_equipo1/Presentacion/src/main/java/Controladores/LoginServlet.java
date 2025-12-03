@@ -52,37 +52,44 @@ public class LoginServlet extends HttpServlet {
 
         Usuario usuario = usuarioDAO.autenticar(correo, contrasena);
 
+        HttpSession session = req.getSession();
+
         if (usuario != null) {
-            HttpSession session = req.getSession();
-//
             // Redirigir según el tipo de usuario
             if (usuario instanceof entidades.Administrador) {
-                // Para administrador, guardar el Usuario directamente
+                // Para administrador, guardar el Usuario directamenteç
+
                 session.setAttribute("usuario", usuario);
                 session.setAttribute("usuarioId", usuario.getId());
                 session.setAttribute("usuarioNombre", usuario.getNombre());
                 session.setAttribute("usuarioCorreo", usuario.getCorreo());
                 session.setAttribute("tipoUsuario", TipoUsuario.ADMINISTRADOR);
 
-                resp.sendRedirect(req.getContextPath() + "/AdminUsuarioServlet");
+                session.setAttribute("rol", "ADMINISTRADOR");
+
+                resp.sendRedirect(req.getContextPath() + "/admin/AdminUsuarioServlet");
             } else if (usuario instanceof entidades.Cliente) {
+                
                 Cliente cliente = clienteDAO.obtenerPorUsuarioId(usuario.getId());
-
-                if (cliente != null) {
-                    session.setAttribute("usuario", cliente);
-                    session.setAttribute("cliente", cliente);
-                    session.setAttribute("usuarioId", cliente.getId());
-                    session.setAttribute("usuarioNombre", cliente.getNombre());
-                    session.setAttribute("usuarioCorreo", cliente.getCorreo());
-                    session.setAttribute("tipoUsuario", TipoUsuario.CLIENTE);
-
-                    resp.sendRedirect(req.getContextPath() + "/CatalogoServlet");
-                } else {
-                    req.setAttribute("error", "No se encontró el perfil de cliente asociado");
+                if (cliente == null) {
+                    // Si el usuario es de tipo Cliente pero no hay un registro Cliente asociado:
+                    req.setAttribute("error", "Error interno: Cuenta de cliente incompleta o faltante.");
                     req.getRequestDispatcher("login.jsp").forward(req, resp);
+                    return; // Terminar la ejecución aquí
                 }
+
+                session.setAttribute("usuario", cliente);
+                session.setAttribute("cliente", cliente);
+                session.setAttribute("usuarioId", cliente.getId());
+                session.setAttribute("usuarioNombre", cliente.getNombre());
+                session.setAttribute("usuarioCorreo", cliente.getCorreo());
+                session.setAttribute("tipoUsuario", TipoUsuario.CLIENTE);
+
+                session.setAttribute("rol", "CLIENTE");
+
+                resp.sendRedirect(req.getContextPath() + "/CatalogoServlet");
             } else {
-                req.setAttribute("error", "Tipo de usuario no reconocido");
+                req.setAttribute("error", "No se encontró el perfil de cliente asociado");
                 req.getRequestDispatcher("login.jsp").forward(req, resp);
             }
         }

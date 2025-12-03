@@ -13,19 +13,19 @@
     </div>
 
     <div class="botones">
-        <form action="${pageContext.request.contextPath}/AdminUsuarioServlet" method="post" class="inline-form">
+        <form action="${pageContext.request.contextPath}/admin/AdminUsuarioServlet" method="post" class="inline-form">
             <input type="hidden" name="id" value="${usuario.id}">
             <input type="hidden" name="accion" value="eliminar">
             <button type="submit" class="btn btn__eliminar">Eliminar</button>
         </form>
 
-        <form action="${pageContext.request.contextPath}/AdminUsuarioServlet" method="post" class="inline-form">
+        <form action="${pageContext.request.contextPath}/admin/AdminUsuarioServlet" method="post" class="inline-form">
             <input type="hidden" name="id" value="${usuario.id}">
             <input type="hidden" name="accion" value="desactivar">
             <button type="submit" class="btn btn__desactivar">Desactivar</button>
         </form>
 
-        <form action="${pageContext.request.contextPath}/AdminUsuarioServlet" method="post" class="inline-form">
+        <form action="${pageContext.request.contextPath}/admin/AdminUsuarioServlet" method="post" class="inline-form">
             <input type="hidden" name="id" value="${usuario.id}">
             <input type="hidden" name="accion" value="activar">
             <button type="submit" class="btn btn__activar">Activar</button>

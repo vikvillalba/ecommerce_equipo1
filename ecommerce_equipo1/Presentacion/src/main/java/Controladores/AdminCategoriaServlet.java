@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  *
  * @author Jack Murrieta
  */
-@WebServlet(name = "AdminCategoriaServlet", urlPatterns = {"/AdminCategoriaServlet"})
+@WebServlet(name = "AdminCategoriaServlet", urlPatterns = {"/admin/AdminCategoriaServlet"})
 public class AdminCategoriaServlet extends HttpServlet {
 
     /**
@@ -47,7 +47,7 @@ public class AdminCategoriaServlet extends HttpServlet {
 
         List<CategoriaDTO> categorias = categoriaBO.obtenerCategorias();
         req.setAttribute("categorias", categorias);
-        req.getRequestDispatcher("adminCategorias.jsp").forward(req, resp);
+        req.getRequestDispatcher("/admin/adminCategorias.jsp").forward(req, resp);
     }
 
     /**

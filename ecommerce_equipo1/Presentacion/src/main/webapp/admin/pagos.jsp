@@ -13,14 +13,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Administrador - Historial de pagos</title>
-        <link rel="stylesheet" href="CSS/sideMenuAdmin.css">
-        <link rel="stylesheet" href="CSS/estiloHistorialPago.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/sideMenuAdmin.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/estiloHistorialPago.css">
     </head>
     <body style="margin:-8px">
-        <%@include file="jspf/header_admin.jspf" %>
-        <%@include file="jspf/menu_mobile.jspf" %>
+        <%@include file="../jspf/header_admin.jspf" %>
+        <%@include file="../jspf/menu_mobile.jspf" %>
         <main>
-            <%@include file="jspf/sideMenu.jspf" %>
+            <%@include file="../jspf/sideMenu.jspf" %>
 
             <div class="contenido-admin">
 
@@ -63,4 +63,4 @@
         </main>
     </body>
 </html>
-<%@ include file="jspf/footer.jspf" %>
+<%@ include file="../jspf/footer.jspf" %>

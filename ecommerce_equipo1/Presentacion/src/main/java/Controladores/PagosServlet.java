@@ -21,7 +21,7 @@ import java.util.List;
  *
  * @author pablo
  */
-@WebServlet(name = "PagosServlet", urlPatterns = {"/Pagos"})
+@WebServlet(name = "PagosServlet", urlPatterns = {"/admin/Pagos"})
 public class PagosServlet extends HttpServlet {
 
     private PedidoDAO pedidoDAO = PedidoDAO.getInstancia();
@@ -75,7 +75,7 @@ public class PagosServlet extends HttpServlet {
 //        }
 //
 //        request.setAttribute("pagos", entregados);
-        request.getRequestDispatcher("pagos.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/pagos.jsp").forward(request, response);
     }
 
     /**

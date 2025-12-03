@@ -11,22 +11,22 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Administrador - Gestionar Cuentas</title>
-        <link rel="stylesheet" href="CSS/sideMenuAdmin.css">
-        <link rel="stylesheet" href="CSS/gestionarProductos.css">
-        <link rel="stylesheet" href="CSS/estiloAdminCuentas.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/sideMenuAdmin.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/gestionarProductos.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/estiloAdminCuentas.css">
     </head>
     <body>
-        <%@include file="jspf/header_admin.jspf" %>
-        <%@include file="jspf/menu_mobile.jspf" %>
+        <%@include file="../jspf/header_admin.jspf" %>
+        <%@include file="../jspf/menu_mobile.jspf" %>
 
         <main>
-            <%@include file="jspf/sideMenu.jspf" %>
+            <%@include file="../jspf/sideMenu.jspf" %>
             <div class="contenedor__cuentas">
                 <h2 class="titulo">Gestionar Cuentas</h2>
 
                 <div class="lista__usuarios">
                     <c:forEach var="usuario" items="${usuarios}">
-                        <%@include file="jspf/card_user.jspf" %>
+                        <%@include file="../jspf/card_user.jspf" %>
                     </c:forEach>
 
                     <c:if test="${empty usuarios}">
@@ -36,6 +36,6 @@
             </div>
         </main>
 
-        <%@include file="jspf/footer.jspf" %>
+        <%@include file="../jspf/footer.jspf" %>
     </body>
 </html>

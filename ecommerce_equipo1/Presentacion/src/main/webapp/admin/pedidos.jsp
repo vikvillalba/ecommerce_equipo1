@@ -12,14 +12,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Administrador - Gestionar pedidos</title>
-        <link rel="stylesheet" href="CSS/sideMenuAdmin.css">
-        <link rel="stylesheet" href="CSS/estiloPedido.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/sideMenuAdmin.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/estiloPedido.css">
     </head>
     <body style="margin:-8px">
-        <%@include file="jspf/header_admin.jspf" %>
-        <%@include file="jspf/menu_mobile.jspf" %>
+        <%@include file="../jspf/header_admin.jspf" %>
+        <%@include file="../jspf/menu_mobile.jspf" %>
         <main>
-            <%@include file="jspf/sideMenu.jspf" %>
+            <%@include file="../jspf/sideMenu.jspf" %>
             <div class="pedidos">
 
                 <h2 class="titulo">Gestionar pedidos</h2>
@@ -81,9 +81,7 @@
                     <p class="sin-pedidos">No hay pedidos registrados.</p>
                 </c:if>
             </div>
-
         </main>
-
     </body>
 </html>
-<%@ include file="jspf/footer.jspf" %>
+<%@ include file="../jspf/footer.jspf" %>
