@@ -69,52 +69,54 @@ public class AdminCategoriaServlet extends HttpServlet {
 
         String accion = req.getParameter("accion");
         String nombre = req.getParameter("nombre");
+        
+        String redirectURL = "AdminCategoriaServlet"; // URL de redirección
 
         if (accion != null) {
-            switch (accion) {
-                case "agregar":
-                    if (nombre != null && !nombre.trim().isEmpty()) {
-                        CategoriaDTO nueva = new CategoriaDTO();
-                        nueva.setNombre(nombre.toUpperCase().trim());
-                        nueva.setActiva(true);
-                        try {
+            try {
+                switch (accion) {
+                    case "agregar":
+                        if (nombre != null && !nombre.trim().isEmpty()) {
+                            CategoriaDTO nueva = new CategoriaDTO();
+                            nueva.setNombre(nombre.toUpperCase().trim());
+                            nueva.setActiva(true);
                             categoriaBO.agregarCategoria(nueva);
-                        } catch (ModeloException ex) {
-                            Logger.getLogger(AdminCategoriaServlet.class.getName()).log(Level.SEVERE, null, ex);
+                            req.getSession().setAttribute("successMessage", "Categoría " + nombre + " agregada correctamente.");
                         }
-                    }
-                    break;
-                case "eliminar":
-                    if (nombre != null) {
-                        try {
+                        break;
+                    case "eliminar":
+                        if (nombre != null) {
                             categoriaBO.eliminarCategoria(nombre);
-                        } catch (ModeloException ex) {
-                            Logger.getLogger(AdminCategoriaServlet.class.getName()).log(Level.SEVERE, null, ex);
+                            req.getSession().setAttribute("successMessage", "Categoría " + nombre + " eliminada correctamente.");
                         }
-                    }
-                    break;
-                case "desactivar":
-                    if (nombre != null) {
-                        try {
+                        break;
+                    case "desactivar":
+                        if (nombre != null) {
                             categoriaBO.desactivarCategoria(nombre);
-                        } catch (ModeloException ex) {
-                            Logger.getLogger(AdminCategoriaServlet.class.getName()).log(Level.SEVERE, null, ex);
+                            req.getSession().setAttribute("successMessage", "Categoría " + nombre + " desactivada correctamente.");
                         }
-                    }
-                    break;
-                case "activar":
-                    if (nombre != null) {
-                        try {
+                        break;
+                    case "activar":
+                        if (nombre != null) {
                             categoriaBO.activarCategoria(nombre);
-                        } catch (ModeloException ex) {
-                            Logger.getLogger(AdminCategoriaServlet.class.getName()).log(Level.SEVERE, null, ex);
+                            req.getSession().setAttribute("successMessage", "Categoría " + nombre + " activada correctamente.");
                         }
-                    }
-                    break;
+                        break;
+                    default:
+                         req.getSession().setAttribute("errorMessage", "Acción no reconocida.");
+                }
+            } catch (ModeloException ex) {
+                // Capturar la excepción y guardar el mensaje en la sesión.
+                Logger.getLogger(AdminCategoriaServlet.class.getName()).log(Level.SEVERE, "Error de validación en Categorías: ", ex);
+                req.getSession().setAttribute("errorMessage", ex.getMessage());
+            } catch (Exception ex) {
+                // Captura cualquier otro error inesperado 
+                Logger.getLogger(AdminCategoriaServlet.class.getName()).log(Level.SEVERE, "Error inesperado en Categorías: ", ex);
+                req.getSession().setAttribute("errorMessage", "Error inesperado al procesar la categoría.");
             }
         }
 
-        resp.sendRedirect("AdminCategoriaServlet");
+        resp.sendRedirect(redirectURL);
     }
 
     /**

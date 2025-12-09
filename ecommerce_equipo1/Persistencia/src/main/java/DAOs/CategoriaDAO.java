@@ -2,6 +2,7 @@ package DAOs;
 
 import Conexion.ConexionJPA;
 import Exceptions.PersistenciaException;
+import Interfaces.ICategoriaDAO;
 import entidades.Categoria;
 import java.util.List;
 import jakarta.persistence.EntityManager;
@@ -15,7 +16,7 @@ import jakarta.persistence.NoResultException;
  *
  * @author Alici
  */
-public class CategoriaDAO {
+public class CategoriaDAO implements ICategoriaDAO {
 
     /**
      * Única instancia de la clase CategoriaDAO (Singleton).
@@ -53,6 +54,7 @@ public class CategoriaDAO {
      * @throws PersistenciaException Si ocurre un error al ejecutar la consulta
      * en la base de datos.
      */
+    @Override
     public Categoria obtenerCategoriaPorNombre(String nombre) throws PersistenciaException {
         EntityManager em = conexion.getEntityManager();
         try {
@@ -77,6 +79,7 @@ public class CategoriaDAO {
      * @throws PersistenciaException Si ocurre un error durante la transacción
      * de actualización.
      */
+    @Override
     public boolean actualizarCategoria(Categoria categoria) throws PersistenciaException {
         EntityManager em = conexion.getEntityManager();
         try {
@@ -100,6 +103,7 @@ public class CategoriaDAO {
      * @throws PersistenciaException Si ocurre un error al consultar las
      * categorías.
      */
+    @Override
     public List<Categoria> obtenerCategorias() throws PersistenciaException {
         EntityManager em = conexion.getEntityManager();
         try {
@@ -120,6 +124,7 @@ public class CategoriaDAO {
      * @throws PersistenciaException Si ocurre un error durante la transacción
      * de registro.
      */
+    @Override
     public boolean agregarCategoria(Categoria categoria) throws PersistenciaException {
         EntityManager em = conexion.getEntityManager();
         try {
@@ -143,6 +148,7 @@ public class CategoriaDAO {
      * @throws PersistenciaException Si el objeto o su ID son nulos, si la
      * categoría no se encuentra, o si ocurre un error de transacción.
      */
+    @Override
     public boolean eliminarCategoria(Categoria categoria) throws PersistenciaException {
         EntityManager em = conexion.getEntityManager();
         if (categoria == null || categoria.getId() == null) {

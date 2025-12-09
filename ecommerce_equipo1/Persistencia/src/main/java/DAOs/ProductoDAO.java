@@ -6,6 +6,7 @@ package DAOs;
 
 import Conexion.ConexionJPA;
 import Exceptions.PersistenciaException;
+import Interfaces.IProductoDAO;
 import entidades.Producto;
 import java.util.List;
 import jakarta.persistence.EntityManager;
@@ -20,7 +21,7 @@ import jakarta.persistence.TypedQuery;
  *
  * @author erika
  */
-public class ProductoDAO {
+public class ProductoDAO implements IProductoDAO {
 
     /**
      * Única instancia de la clase ProductoDAO (Singleton).
@@ -52,6 +53,31 @@ public class ProductoDAO {
     }
 
     /**
+     * Cuenta el número de productos que están asociados a una categoría
+     * específica.
+     *
+     * @param categoriaId El ID de la categoría a contar.
+     * @return El número de productos asociados.
+     * @throws PersistenciaException Si ocurre un error al ejecutar la consulta.
+     */
+    @Override
+    public int contarProductosPorCategoria(Long categoriaId) throws PersistenciaException {
+        EntityManager em = conexion.getEntityManager();
+        try {
+            TypedQuery<Long> query = em.createQuery(
+                    "SELECT COUNT(p) FROM Producto p WHERE p.categoria.id = :idCategoria", Long.class);
+            query.setParameter("idCategoria", categoriaId);
+
+            Long count = query.getSingleResult();
+            return count != null ? count.intValue() : 0;
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al contar productos por categoría", e);
+        } finally {
+            em.close();
+        }
+    }
+
+    /**
      * Obtiene una lista con todos los productos almacenados en la base de
      * datos.
      *
@@ -59,6 +85,7 @@ public class ProductoDAO {
      * @throws PersistenciaException Si ocurre un error al consultar los
      * productos.
      */
+    @Override
     public List<Producto> listar() throws PersistenciaException {
         EntityManager em = conexion.getEntityManager();
         try {
@@ -82,6 +109,7 @@ public class ProductoDAO {
      * @param id El ID del producto a buscar.
      * @return El objeto Producto encontrado, o null si no se encuentra.
      */
+    @Override
     public Producto obtenerPorId(Integer id) {
         EntityManager em = conexion.getEntityManager();
         try {
@@ -111,6 +139,7 @@ public class ProductoDAO {
      * @throws PersistenciaException Si ocurre un error durante la transacción
      * de registro.
      */
+    @Override
     public boolean agregarProducto(Producto producto) throws PersistenciaException {
         EntityManager em = conexion.getEntityManager();
         try {
@@ -134,6 +163,7 @@ public class ProductoDAO {
      * @throws PersistenciaException Si ocurre un error durante la transacción
      * de actualización.
      */
+    @Override
     public boolean actualizarProducto(Producto producto) throws PersistenciaException {
         EntityManager em = conexion.getEntityManager();
         try {
@@ -158,6 +188,7 @@ public class ProductoDAO {
      * @throws PersistenciaException Si el objeto o su ID son nulos o si ocurre
      * un error de transacción.
      */
+    @Override
     public boolean eliminarProducto(Producto producto) throws PersistenciaException {
         EntityManager em = conexion.getEntityManager();
         if (producto == null || producto.getId() == null) {

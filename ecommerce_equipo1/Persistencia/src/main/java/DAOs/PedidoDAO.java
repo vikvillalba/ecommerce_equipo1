@@ -2,6 +2,7 @@ package DAOs;
 
 import Conexion.ConexionJPA;
 import Exceptions.PersistenciaException;
+import Interfaces.IPedidoDAO;
 import entidades.Pedido;
 import java.util.List;
 import jakarta.persistence.EntityManager;
@@ -14,7 +15,7 @@ import jakarta.persistence.EntityManager;
  *
  * @author Alici
  */
-public class PedidoDAO {
+public class PedidoDAO implements IPedidoDAO {
 
     /**
      * Única instancia de la clase PedidoDAO para el patrón Singleton.
@@ -56,6 +57,7 @@ public class PedidoDAO {
      * @throws PersistenciaException Si ocurre un error durante la ejecución de
      * la consulta.
      */
+    @Override
     public List<Pedido> obtenerPedidosUsuario(String correoElectronico) throws PersistenciaException {
         EntityManager em = conexion.getEntityManager();
         try {
@@ -76,6 +78,7 @@ public class PedidoDAO {
      * @throws PersistenciaException Si ocurre un error durante la ejecución de
      * la consulta.
      */
+    @Override
     public List<Pedido> obtenerPedidos() throws PersistenciaException {
         EntityManager em = conexion.getEntityManager();
         try {
@@ -97,6 +100,7 @@ public class PedidoDAO {
      * @throws PersistenciaException Si ocurre un error durante la transacción,
      * provocando un rollback.
      */
+    @Override
     public boolean actualizarEstadoPedido(Pedido pedido) throws PersistenciaException {
         EntityManager em = conexion.getEntityManager();
         try {
@@ -120,6 +124,7 @@ public class PedidoDAO {
      * @throws PersistenciaException Si ocurre un error durante la transacción
      * de registro, provocando un rollback.
      */
+    @Override
     public boolean registrarPedido(Pedido pedido) throws PersistenciaException {
         EntityManager em = conexion.getEntityManager();
         try {
@@ -144,6 +149,7 @@ public class PedidoDAO {
      * @throws PersistenciaException Si ocurre un error al intentar recuperar el
      * pedido.
      */
+    @Override
     public Pedido obtenerPedidoPorId(Integer numeroPedido) throws PersistenciaException {
         EntityManager em = conexion.getEntityManager();
         try {

@@ -55,7 +55,7 @@ public class PedidosServlet extends HttpServlet {
         request.getRequestDispatcher("pedidos.jsp").forward(request, response);
     }
 
-    /**
+     /**
      * Procesa las solicitudes HTTP POST. Se utiliza para recibir un
      * identificador de pedido y un nuevo estado, actualizando el estado de
      * dicho pedido en el sistema.
@@ -75,8 +75,10 @@ public class PedidosServlet extends HttpServlet {
         EstadoPedido nuevoEstado = EstadoPedido.valueOf(estadoStr.toUpperCase());
         try {
             pedidoBO.actualizarEstado(numero, nuevoEstado);
+            request.getSession().setAttribute("successMessage", "Estado del pedido " + numero + " actualizado correctamente.");
         } catch (ModeloException ex) {
-            Logger.getLogger(PedidosServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PedidosServlet.class.getName()).log(Level.SEVERE, "Error de validación en Pedidos: ", ex);
+            request.getSession().setAttribute("errorMessage", ex.getMessage());
         }
         response.sendRedirect("pedidos");
     }

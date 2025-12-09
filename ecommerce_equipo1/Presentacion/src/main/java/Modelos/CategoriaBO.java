@@ -1,9 +1,12 @@
 package Modelos;
 
 import DAOs.CategoriaDAO;
+import DAOs.ProductoDAO;
 import DTOs.CategoriaDTO;
 import Exceptions.ModeloException;
 import Exceptions.PersistenciaException;
+import Interfaces.ICategoriaDAO;
+import Interfaces.IProductoDAO;
 import entidades.Categoria;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +24,9 @@ import mappers.CategoriaMapper;
 public class CategoriaBO {
 
     private static final Logger LOG = Logger.getLogger(CategoriaBO.class.getName());
-    CategoriaDAO categoriaDAO = CategoriaDAO.getInstancia();
+    ICategoriaDAO categoriaDAO = CategoriaDAO.getInstancia();
+    // Instancia DAO necesaria para la validación de referencia
+    IProductoDAO productoDAO = ProductoDAO.getInstancia();
 
     /**
      * Valida que una cadena no sea nula, vacía o consista solo en espacios en
@@ -33,7 +38,20 @@ public class CategoriaBO {
      */
     private void validarCadena(String cadena, String nombreCampo) throws ModeloException {
         if (cadena == null || cadena.trim().isEmpty()) {
-            throw new ModeloException("El campo '" + nombreCampo + "' no puede ser nulo o vacío.");
+            throw new ModeloException("El campo " + nombreCampo + " no puede ser nulo o vacío.");
+        }
+    }
+
+    /**
+     * Valida que el nombre de la categoría solo contenga caracteres
+     * alfanuméricos y espacios.
+     *
+     * @param nombre El nombre a validar.
+     * @throws ModeloException Si el formato no es válido.
+     */
+    private void validarFormatoNombre(String nombre) throws ModeloException {
+        if (!nombre.matches("^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ]{1,100}$")) {
+            throw new ModeloException("El nombre de la categoría contiene caracteres inválidos. Solo se permiten letras y números sin espacios.");
         }
     }
 
@@ -54,12 +72,13 @@ public class CategoriaBO {
     }
 
     /**
-     * Elimina una categoría por su nombre, aplicando validaciones.
+     * Elimina una categoría por su nombre, aplicando validaciones de existencia
+     * y de referencia (no debe tener productos asociados).
      *
      * @param nombreCategoria El nombre de la categoría a eliminar.
      * @return true si se eliminó, false en caso contrario.
-     * @throws ModeloException Si el nombre es inválido o la categoría no
-     * existe.
+     * @throws ModeloException Si el nombre es inválido, la categoría no existe
+     * o si tiene productos asociados.
      */
     public boolean eliminarCategoria(String nombreCategoria) throws ModeloException {
         validarCadena(nombreCategoria, "Nombre de Categoría");
@@ -70,6 +89,12 @@ public class CategoriaBO {
                 throw new ModeloException("No se encontró la categoría con el nombre: " + nombreCategoria);
             }
 
+            int productosAsociados = productoDAO.contarProductosPorCategoria(categoria.getId());
+            if (productosAsociados > 0) {
+                throw new ModeloException("No se puede eliminar la categoría " + nombreCategoria
+                        + " porque tiene " + productosAsociados + " producto(s) asociado(s).");
+            }
+
             return categoriaDAO.eliminarCategoria(categoria);
         } catch (PersistenciaException ex) {
             LOG.log(Level.SEVERE, "Error en persistencia al intentar eliminar la categoría.", ex);
@@ -78,8 +103,8 @@ public class CategoriaBO {
     }
 
     /**
-     * Agrega una nueva categoría, aplicando validaciones de existencia y
-     * longitud.
+     * Agrega una nueva categoría, aplicando validaciones de existencia,
+     * longitud, y formato.
      *
      * @param categoriaDTO El DTO de la categoría a agregar.
      * @return true si se agregó, false en caso contrario.
@@ -90,7 +115,13 @@ public class CategoriaBO {
         if (categoriaDTO == null) {
             throw new ModeloException("El objeto CategoriaDTO no puede ser nulo.");
         }
+
         validarCadena(categoriaDTO.getNombre(), "Nombre de Categoría");
+        validarFormatoNombre(categoriaDTO.getNombre());
+
+        String nombreLimpio = categoriaDTO.getNombre().trim();
+        categoriaDTO.setNombre(nombreLimpio);
+
         try {
             Categoria existe = categoriaDAO.obtenerCategoriaPorNombre(categoriaDTO.getNombre());
             if (existe != null) {
@@ -116,14 +147,13 @@ public class CategoriaBO {
      */
     public boolean desactivarCategoria(String nombreCategoria) throws ModeloException {
         validarCadena(nombreCategoria, "Nombre de Categoría");
-
         try {
             Categoria categoria = categoriaDAO.obtenerCategoriaPorNombre(nombreCategoria);
             if (categoria == null) {
                 throw new ModeloException("No se encontró la categoría con el nombre: " + nombreCategoria);
             }
             if (!categoria.isActiva()) {
-                throw new ModeloException("La categoría '" + nombreCategoria + "' ya se encuentra inactiva.");
+                throw new ModeloException("La categoría " + nombreCategoria + " ya se encuentra inactiva.");
             }
             categoria.setActiva(false);
             return categoriaDAO.actualizarCategoria(categoria);
@@ -149,7 +179,7 @@ public class CategoriaBO {
                 throw new ModeloException("No se encontró la categoría con el nombre: " + nombreCategoria);
             }
             if (categoria.isActiva()) {
-                throw new ModeloException("La categoría '" + nombreCategoria + "' ya se encuentra activa.");
+                throw new ModeloException("La categoría " + nombreCategoria + " ya se encuentra activa.");
             }
             categoria.setActiva(true);
             return categoriaDAO.actualizarCategoria(categoria);
