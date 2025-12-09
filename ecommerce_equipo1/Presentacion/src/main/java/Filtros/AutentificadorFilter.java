@@ -115,7 +115,18 @@ public class AutentificadorFilter implements Filter {
             return;
         }
 
-        //bloquea si la sesion no es valida
+        // Permitir el paso a recursos estáticos (CSS, JS, Imágenes) y a los Servlets de Login/Registro
+        if (requestURI.endsWith(".css") || requestURI.endsWith(".js")
+                || requestURI.endsWith(".png") || requestURI.endsWith(".jpg")
+                || requestURI.contains("/css/") || requestURI.contains("/img/")
+                || requestURI.endsWith("/login.jsp") || requestURI.endsWith("/loginservlet")
+                || requestURI.endsWith("/registroservlet")) { // Agregué RegistroServlet también por si acaso
+
+            chain.doFilter(request, response);
+            return;
+        }
+
+        // bloquea si la sesion no es valida
         if (session == null || session.getAttribute("usuario") == null) {
             res.sendRedirect(contextPath + "/login.jsp");
             return;

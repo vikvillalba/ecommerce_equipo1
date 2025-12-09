@@ -1,136 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+
 * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
-body{
-       
 
+body {
+    background-color: #FDFBF7; 
+    min-height: 100vh;
 }
+
 main {
     display: flex;
     flex-direction: row;
     width: 100%;
-    min-height: 100vh;
+    min-height: calc(100vh - 80px);
 }
-h2{
-    color: #4D2108;
-}
+
+
 .resenas {
-   background-color: #FFDDF6;
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto;
+    flex: 1; 
+    background-color: #FDFBF7; 
+    padding: 40px;
 }
 
-.principal {
-    display: flex;
-    flex-flow: column;
-    background-color: #82614E;
-    border-radius: 10px;
-    margin: 10px;
+.resenas h2 {
+    color: #4D2108;
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+}
 
-    width: 100%;        
-    max-width: 1200px;   
+
+.review-card {
+    background-color: #6D5A4F; 
+    border-radius: 15px;
+    padding: 25px 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-}
-.datosResena {
-    display: flex;
-    flex-flow: row;
+    margin-bottom: 15px;
     flex-wrap: wrap;
-    justify-content: center;
+    gap: 20px;
 }
 
-.datosProducto {
+
+.info-group {
     display: flex;
-    flex-flow: column;
-    font-size: 20px;
-    padding: 20px;
+    flex-direction: column;
 }
 
-.botones {
-    display: flex;
-    flex-flow: row;
+.info-group label {
+    font-size: 0.8rem;
+    color: #E6DCD5;
+    margin-bottom: 4px;
 }
 
-.eliminar, .moderar {
-    height: 48px;
-    width: 100px;
-    border-radius: 10px;
-    transition: all 0.3s ease;
-    color: #EBEEF4;
-    font-size: 20px;
-    border: none;
-    margin: 5px;
-}
-
-.eliminar {
-    background-color: #761D1D;
-}
-.eliminar:hover {
-    background-color: #EBEEF4;
-    color: #761D1D;
-}
-
-.moderar {
-    background-color: #4D2108;
-}
-.moderar:hover {
-    background-color: #EBEEF4;
-    color: #4D2108;
-}
-
-textArea {
-    border-color: #FFDDF6;
-    height: 150px;
-    border-radius: 10px;
-    color: #4D2108;
-    font-size: 16px;
-    width:100%;
-    border-radius: 10px;
-    resize: none;
-}
-
-label, p {
+.info-group p {
+    font-size: 1rem;
     color: #FFFFFF;
+    font-weight: 500;
 }
 
 
-@media (max-width: 900px) {
-    .datosProducto {
-        font-size: 18px;
-        padding: 15px;
-    }
-
-    textarea {
-        max-width: 700px;
-    }
+.stars {
+    color: #FFD700; 
+    font-size: 1.2rem;
 }
 
 
-@media (max-width: 600px) {
+.actions {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+}
 
-    main {
-        flex-flow: column;
-    }
+.btn-eliminar {
+    background-color: #761D1D; 
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+}
 
-    .datosProducto {
-        font-size: 16px;
-        padding: 10px;
-        width: 100%;
-        text-align: center;
-    }
+.btn-moderar {
+    background-color: #3E2723; 
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+.btn-eliminar:hover{
+    background-color: #511313; 
+    color: white;
+    transform: translateY(-2px);
+}
 
-    textarea {
-        height: 120px;
-        max-width: 100%;
-        font-size: 14px;
-    }
+.btn-moderar:hover{
+    background-color: #331605; 
+    color: white;
+    transform: translateY(-2px);
+}
 
-    .eliminar, .moderar {
-        width: 80px;
-        height: 40px;
-        font-size: 16px;
-    }
+.card-body {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
+    min-height: 100px;
+    color: #333;
+    font-size: 0.95rem;
+    line-height: 1.5;
 }

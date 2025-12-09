@@ -1,8 +1,8 @@
 package Conexion;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 
 /**
  * Clase Singleton para gestionar la conexión a la base de datos MySQL usando JPA. Conexión configurada para localhost, base de datos: Ecommerce

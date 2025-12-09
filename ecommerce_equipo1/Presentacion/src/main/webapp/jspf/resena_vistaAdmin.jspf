@@ -1,47 +1,47 @@
-<%--Reseñas de usuarios que el administrador puede ver y moderar. --%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <c:forEach var="r" items="${resenas}">
-    <div class="principal">
-        <div class="datosResena">
-            <div class="datosProducto">
-                <label for="cliente">Usuario</label>
-                <p id="cliente">${r.cliente.nombre}</p>
+    
+    <div class="review-card">
+        
+        <div class="card-header">
+            
+            <div class="info-group">
+                <label>Usuario</label>
+                <p>${r.cliente.nombre}</p>
             </div>
 
-            <div class="datosProducto">
-                <label for="producto">Producto</label>
-                <p id="producto">${producto.nombre}</p>
+            <div class="info-group">
+                <label>Producto</label>
+                <p>${r.producto.nombre}</p>
             </div>
 
-            <div class="datosProducto">
-                <label for="calificacion">Calificación</label>
-                <p id="calificacion">${r.calificacion} / 5</p>
+            <div class="info-group">
+                <label>CalificaciÃ³n</label>
+                <div class="stars">
+                    <c:forEach begin="1" end="${r.calificacion}">&#9733;</c:forEach>
+                </div>
             </div>
 
-            <div class="botones">
-                <form action="adminResenas" method="post" style="display:inline;">
+            <div class="actions">
+                <form action="${pageContext.request.contextPath}/admin/adminResenas" method="post" style="display:inline;">
                     <input type="hidden" name="idResena" value="${r.id}">
                     <input type="hidden" name="accion" value="eliminar">
-
-                    <button type="submit" class="eliminar" onclick="return confirm('¿Seguro que deseas eliminar?');">
-                        Eliminar
-                    </button>
+                    <button type="submit" class="btn-eliminar" onclick="return confirm('Â¿Eliminar?');">Eliminar</button>
                 </form>
 
-                <form action="adminResenas" method="post" style="display:inline;">
+                <form action="${pageContext.request.contextPath}/admin/adminResenas" method="post" style="display:inline;">
                     <input type="hidden" name="idResena" value="${r.id}">
                     <input type="hidden" name="accion" value="moderar">
-
-                    <button type="submit" class="moderar">
-                        Moderar
-                    </button>
+                    <button type="submit" class="btn-moderar">Moderar</button>
                 </form>
             </div>
         </div>
 
-        <div class="textoResena">
-            <textarea rows="10" cols="50">${r.comentario}</textarea>
+        <div class="card-body">
+            <p>${r.comentario}</p>
         </div>
+        
     </div>
 </c:forEach>

@@ -4,8 +4,8 @@ import Conexion.ConexionJPA;
 import Exceptions.PersistenciaException;
 import entidades.Categoria;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 
 /**
  * Data Access Object (DAO) para la entidad Categoria. Implementa el patrón

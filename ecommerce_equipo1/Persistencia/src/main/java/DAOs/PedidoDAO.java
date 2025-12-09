@@ -4,7 +4,7 @@ import Conexion.ConexionJPA;
 import Exceptions.PersistenciaException;
 import entidades.Pedido;
 import java.util.List;
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 
 /**
  * Data Access Object (DAO) para la entidad Pedido. Implementa el patrón

@@ -10,9 +10,9 @@ import entidades.Direccion;
 import enums.TipoUsuario;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.TypedQuery;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
 
 /**
  * Data Access Object (DAO) para la entidad Cliente. Implementa el patrón

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence              http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
-  <!-- Unidad de Persistencia para E-commerce -->
+<persistence version="3.0" xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
+
   <persistence-unit name="Ecommerce" transaction-type="RESOURCE_LOCAL">
-    <!-- Entidades JPA -->
+    
     <class>entidades.Usuario</class>
     <class>entidades.Direccion</class>
     <class>entidades.Cliente</class>
@@ -14,25 +16,16 @@
     <class>entidades.Producto</class>
     <class>entidades.ProductoCarrito</class>
     <class>entidades.Resena</class>
+
     <properties>
-      <!-- Configuración de conexión a MySQL -->
-    <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/Ecommerce?createDatabaseIfNotExist=true&amp;zeroDateTimeBehavior=CONVERT_TO_NULL&amp;useSSL=false&amp;allowPublicKeyRetrieval=true"/>
-      <property name="javax.persistence.jdbc.user" value="root"/>
-      <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-      <!--CONTRASEEÑAA -->
-      <property name="javax.persistence.jdbc.password" value="ITSON"/>
-      <!-- Proveedor JPA (Hibernate) -->
-      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
-      <!-- Estrategia de generación de esquema automática -->
-      <!-- create: borra y recrea las tablas cada vez -->
-      <!-- update: actualiza sin borrar datos -->
-      <!-- validate: solo valida el esquema -->
-      <property name="hibernate.hbm2ddl.auto" value="create"/>
-      <property name="javax.persistence.schema-generation.database.action" value="create"/>
-      <!-- Mostrar SQL en consola (útil para desarrollo) -->
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/Ecommerce?createDatabaseIfNotExist=true&amp;zeroDateTimeBehavior=CONVERT_TO_NULL&amp;useSSL=false&amp;allowPublicKeyRetrieval=true"/>
+      <property name="jakarta.persistence.jdbc.user" value="root"/>
+      <property name="jakarta.persistence.jdbc.password" value="luna3008"/>
+      <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+      <property name="jakarta.persistence.schema-generation.database.action" value="update"/>
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.format_sql" value="true"/>
-      <property name="hibernate.use_sql_comments" value="true"/>
     </properties>
   </persistence-unit>
 </persistence>

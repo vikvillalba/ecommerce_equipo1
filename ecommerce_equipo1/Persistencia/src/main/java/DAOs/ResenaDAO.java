@@ -7,11 +7,11 @@ package DAOs;
 import entidades.Producto;
 import entidades.Resena;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
-import javax.persistence.EntityTransaction;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
+import jakarta.persistence.EntityTransaction;
 
 /**
  * DAO encargado de gestionar las reseñas utilizando JPA y Base de Datos.

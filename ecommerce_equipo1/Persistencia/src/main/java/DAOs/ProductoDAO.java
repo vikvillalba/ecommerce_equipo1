@@ -6,13 +6,11 @@ package DAOs;
 
 import Conexion.ConexionJPA;
 import Exceptions.PersistenciaException;
-import entidades.Cliente;
 import entidades.Producto;
-import entidades.Resena;
-import entidades.Categoria;
-import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.TypedQuery;
 
 /**
  * Data Access Object (DAO) para la entidad Producto. Implementa el patrón
@@ -64,11 +62,11 @@ public class ProductoDAO {
     public List<Producto> listar() throws PersistenciaException {
         EntityManager em = conexion.getEntityManager();
         try {
-            
+
             return em.createQuery(
                     "SELECT DISTINCT p FROM Producto p "
                     + "LEFT JOIN FETCH p.categoria "
-                    + "LEFT JOIN FETCH p.resenas", Producto.class) 
+                    + "LEFT JOIN FETCH p.resenas", Producto.class)
                     .getResultList();
 
         } catch (Exception e) {
@@ -87,8 +85,19 @@ public class ProductoDAO {
     public Producto obtenerPorId(Integer id) {
         EntityManager em = conexion.getEntityManager();
         try {
-            // Uso de find() para buscar por clave primaria
-            return em.find(Producto.class, id);
+            // LEFT JOIN FETCH obliga a Hibernate a traer las reseñas en la misma consulta
+            // Usamos LEFT JOIN para que traiga el producto aunque no tenga reseñas
+            TypedQuery<Producto> query = em.createQuery(
+                    "SELECT p FROM Producto p LEFT JOIN FETCH p.resenas WHERE p.id = :id",
+                    Producto.class
+            );
+            query.setParameter("id", id);
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         } finally {
             em.close();
         }
