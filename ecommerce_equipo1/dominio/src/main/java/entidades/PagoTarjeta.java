@@ -33,6 +33,9 @@ public class PagoTarjeta implements MetodoPago {
     @Column(name = "cvv", nullable = false)
     private String cvv;
 
+    public PagoTarjeta() {
+    }
+
     // Getters y Setters
     public Integer getId() {
         return id;

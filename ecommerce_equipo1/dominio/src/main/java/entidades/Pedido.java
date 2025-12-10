@@ -51,7 +51,7 @@ public class Pedido implements Serializable {
      */
     @OneToOne()
     @JoinColumn(name = "compra_id", nullable = false)
-    private Compra pago;
+    private Compra compra;
 
     /**
      * Estado actual del pedido (por ejemplo, PENDIENTE, EN_CAMINO, ENTREGADO).
@@ -108,8 +108,8 @@ public class Pedido implements Serializable {
      *
      * @return La entidad Compra (pago) del pedido.
      */
-    public Compra getPago() {
-        return pago;
+    public Compra getCompra() {
+        return compra;
     }
 
     /**
@@ -117,8 +117,8 @@ public class Pedido implements Serializable {
      *
      * @param pago La entidad Compra (pago) a asociar.
      */
-    public void setPago(Compra pago) {
-        this.pago = pago;
+    public void setCompra(Compra compra) {
+        this.compra = compra;
     }
 
     /**
