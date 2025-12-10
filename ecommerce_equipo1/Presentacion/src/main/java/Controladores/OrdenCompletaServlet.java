@@ -4,8 +4,8 @@
  */
 package Controladores;
 
-import DAOs.PedidoDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,13 +14,38 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author pablo
+ * @author Alici
  */
-@WebServlet(name = "PagosServlet", urlPatterns = {"/admin/Pagos"})
-public class PagosServlet extends HttpServlet {
+@WebServlet(name = "OrdenCompletaServlet", urlPatterns = {"/ordenCompleta"})
+public class OrdenCompletaServlet extends HttpServlet {
 
-    private PedidoDAO pedidoDAO = PedidoDAO.getInstancia();
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet OrdenCompletaServlet</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet OrdenCompletaServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -32,18 +57,7 @@ public class PagosServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ////        List<Pedido> lista = pedidoDAO.obtenerPedidosUsuario(0);
-//
-//        List<Pedido> entregados = new ArrayList<>();
-//
-//        for (Pedido pedido : lista) {
-//            if (pedido.getEstado() == EstadoPedido.ENTREGADO) {
-//                entregados.add(pedido);
-//            }
-//        }
-//
-//        request.setAttribute("pagos", entregados);
-        request.getRequestDispatcher("/admin/pagos.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -57,6 +71,7 @@ public class PagosServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**

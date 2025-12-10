@@ -64,8 +64,8 @@ public class PedidoBO {
      * @return El ID numérico del pedido, o -1 si la conversión falla.
      */
     private static int obtenerIdPedido(String cadenaFormateada) {
-        // Validación: No debe ser nula, debe tener al menos 2 caracteres y debe comenzar con '#'
-        if (cadenaFormateada == null || cadenaFormateada.trim().length() < 2 || cadenaFormateada.charAt(0) != '#') {
+        // Validación: No debe ser nula y debe comenzar con '#'
+        if (cadenaFormateada == null || cadenaFormateada.charAt(0) != '#') {
             return -1;
         }
 

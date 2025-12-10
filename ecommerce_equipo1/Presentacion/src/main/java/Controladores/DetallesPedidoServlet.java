@@ -4,8 +4,8 @@
  */
 package Controladores;
 
-import DAOs.PedidoDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,12 +14,10 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author pablo
+ * @author Alici
  */
-@WebServlet(name = "PagosServlet", urlPatterns = {"/admin/Pagos"})
-public class PagosServlet extends HttpServlet {
-
-    private PedidoDAO pedidoDAO = PedidoDAO.getInstancia();
+@WebServlet(name = "DetallesPedidoServlet", urlPatterns = {"/detallesPedido"})
+public class DetallesPedidoServlet extends HttpServlet {
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -32,18 +30,6 @@ public class PagosServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ////        List<Pedido> lista = pedidoDAO.obtenerPedidosUsuario(0);
-//
-//        List<Pedido> entregados = new ArrayList<>();
-//
-//        for (Pedido pedido : lista) {
-//            if (pedido.getEstado() == EstadoPedido.ENTREGADO) {
-//                entregados.add(pedido);
-//            }
-//        }
-//
-//        request.setAttribute("pagos", entregados);
-        request.getRequestDispatcher("/admin/pagos.jsp").forward(request, response);
     }
 
     /**

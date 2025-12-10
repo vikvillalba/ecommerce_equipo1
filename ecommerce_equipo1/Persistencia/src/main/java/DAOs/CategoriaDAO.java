@@ -32,6 +32,7 @@ public class CategoriaDAO implements ICategoriaDAO {
      * Constructor privado para implementar el patrón Singleton.
      */
     private CategoriaDAO() {
+
     }
 
     /**
