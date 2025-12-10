@@ -1,21 +1,46 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entidades;
 
 import interfaces.MetodoPago;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import java.time.LocalDate;
 
 /**
  *
  * @author erika
  */
-public class PagoTarjeta implements MetodoPago{
+@Entity
+@Table(name = "pagos_tarjeta")
+public class PagoTarjeta implements MetodoPago {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(name = "numero_cuenta", nullable = false)
     private String numeroCuenta;
+
+    @Column(name = "propietario", nullable = false)
     private String propietario;
+
+    @Column(name = "fecha_expiracion", nullable = false)
     private LocalDate fechaExpiracion;
+
+    @Column(name = "cvv", nullable = false)
     private String cvv;
+
+    // Getters y Setters
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getNumeroCuenta() {
         return numeroCuenta;
@@ -48,6 +73,5 @@ public class PagoTarjeta implements MetodoPago{
     public void setCvv(String cvv) {
         this.cvv = cvv;
     }
-    
-    
+
 }
