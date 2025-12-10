@@ -73,7 +73,7 @@ public class LoginServlet extends HttpServlet {
                 Cliente cliente = clienteDAO.obtenerPorUsuarioId(usuario.getId());
                 if (cliente == null) {
                     // Si el usuario es de tipo Cliente pero no hay un registro Cliente asociado:
-                    req.setAttribute("error", "Error interno: Cuenta de cliente incompleta o faltante.");
+                    req.setAttribute("error", "Cuenta de cliente incompleta o faltante.");
                     req.getRequestDispatcher("login.jsp").forward(req, resp);
                     return; // Terminar la ejecución aquí
                 }
@@ -92,6 +92,9 @@ public class LoginServlet extends HttpServlet {
                 req.setAttribute("error", "No se encontró el perfil de cliente asociado");
                 req.getRequestDispatcher("login.jsp").forward(req, resp);
             }
+        } else {
+            req.setAttribute("error", "Correo o contraseña incorrectos");
+            req.getRequestDispatcher("login.jsp").forward(req, resp);
         }
     }
 
