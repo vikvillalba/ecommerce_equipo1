@@ -41,6 +41,8 @@ public class Producto {
     private String descripcion;
     @Column(nullable = false)
     private String imagen;
+    @Column(name = "color_hex", length = 7, nullable = true)
+    private String colorHex;
     @Column(nullable = false)
     private int existencias;
     @Column(nullable = false)
