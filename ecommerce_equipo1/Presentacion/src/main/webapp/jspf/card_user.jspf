@@ -1,34 +1,46 @@
-<%-- card_user.jspf - Fragmento para una tarjeta de usuario --%>
 <%@ page pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<article class="card__User">
+<div class="card__User">
+    
     <div class="usuario__nombre">
-        <p class="label">Usuario:</p>
+        <p class="label">Usuario</p>
         <p class="valor">${usuario.nombre}</p>
     </div>
 
     <div class="correo">
-        <p class="label">Correo electrónico:</p>
+        <p class="label">Correo electrónico</p>
         <p class="valor">${usuario.correo}</p>
     </div>
 
     <div class="botones">
+        
         <form action="${pageContext.request.contextPath}/admin/AdminUsuarioServlet" method="post" class="inline-form">
             <input type="hidden" name="id" value="${usuario.id}">
             <input type="hidden" name="accion" value="eliminar">
-            <button type="submit" class="btn btn__eliminar">Eliminar</button>
+            <button type="submit" class="btn btn__eliminar" onclick="return confirm('¿Estás seguro de eliminar este usuario permanentemente?');">
+                Eliminar
+            </button>
         </form>
 
-        <form action="${pageContext.request.contextPath}/admin/AdminUsuarioServlet" method="post" class="inline-form">
-            <input type="hidden" name="id" value="${usuario.id}">
-            <input type="hidden" name="accion" value="desactivar">
-            <button type="submit" class="btn btn__desactivar">Desactivar</button>
-        </form>
+        <c:choose>
+            
+            <c:when test="${usuario.estado == 'ACTIVO' || usuario.estado == 'Activo' || usuario.estado == true}">
+                <form action="${pageContext.request.contextPath}/admin/AdminUsuarioServlet" method="post" class="inline-form">
+                    <input type="hidden" name="id" value="${usuario.id}">
+                    <input type="hidden" name="accion" value="desactivar">
+                    <button type="submit" class="btn btn__desactivar">Desactivar</button>
+                </form>
+            </c:when>
 
-        <form action="${pageContext.request.contextPath}/admin/AdminUsuarioServlet" method="post" class="inline-form">
-            <input type="hidden" name="id" value="${usuario.id}">
-            <input type="hidden" name="accion" value="activar">
-            <button type="submit" class="btn btn__activar">Activar</button>
-        </form>
+            <c:otherwise>
+                <form action="${pageContext.request.contextPath}/admin/AdminUsuarioServlet" method="post" class="inline-form">
+                    <input type="hidden" name="id" value="${usuario.id}">
+                    <input type="hidden" name="accion" value="activar">
+                    <button type="submit" class="btn btn__activar">Activar</button>
+                </form>
+            </c:otherwise>
+            
+        </c:choose>
     </div>
-</article>
+</div>

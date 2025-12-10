@@ -106,36 +106,41 @@ public class AutentificadorFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         HttpSession session = req.getSession(false);
+        
+
         String requestURI = req.getRequestURI().toLowerCase();
         String contextPath = req.getContextPath().toLowerCase();
 
-        if (requestURI.endsWith("/login.jsp") || requestURI.endsWith("/loginservlet")) {
 
+        if (requestURI.endsWith(".css") || requestURI.endsWith(".js") || 
+            requestURI.endsWith(".png") || requestURI.endsWith(".jpg") || 
+            requestURI.endsWith(".jpeg") || requestURI.endsWith(".svg") ||
+            requestURI.contains("/css/") || requestURI.contains("/img/") || 
+            requestURI.contains("/js/") ||
+            requestURI.endsWith("/login.jsp") || 
+            requestURI.endsWith("/loginservlet") ||
+            requestURI.endsWith("/registroservlet")) {
+            
             chain.doFilter(request, response);
             return;
         }
 
-        // Permitir el paso a recursos estáticos (CSS, JS, Imágenes) y a los Servlets de Login/Registro
-        if (requestURI.endsWith(".css") || requestURI.endsWith(".js")
-                || requestURI.endsWith(".png") || requestURI.endsWith(".jpg")
-                || requestURI.contains("/css/") || requestURI.contains("/img/")
-                || requestURI.endsWith("/login.jsp") || requestURI.endsWith("/loginservlet")
-                || requestURI.endsWith("/registroservlet")) { // Agregué RegistroServlet también por si acaso
+        boolean isLoggedIn = (session != null && session.getAttribute("usuario") != null);
+
+        if (isLoggedIn) {
+            // USUARIO LOGUEADO
+            if (requestURI.endsWith("/login.jsp") || requestURI.endsWith("/loginservlet")) {
+                res.sendRedirect(req.getContextPath() + "/admin/adminProductos"); 
+                return;
+            }
 
             chain.doFilter(request, response);
-            return;
+            
+        } else {
+            // USUARIO NO LOGUEADO
+            res.sendRedirect(req.getContextPath() + "/login.jsp");
         }
-
-        // bloquea si la sesion no es valida
-        if (session == null || session.getAttribute("usuario") == null) {
-            res.sendRedirect(contextPath + "/login.jsp");
-            return;
-        }
-
-        //Permite el acceso al siguiente filtro 
-        chain.doFilter(request, response);
     }
-
     /**
      * Return the filter configuration object for this filter.
      */

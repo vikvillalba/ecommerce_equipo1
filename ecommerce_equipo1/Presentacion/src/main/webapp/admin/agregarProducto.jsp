@@ -16,9 +16,9 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/gestionarProductos.css">
     </head>
     <body>
+           
         <main>
-            
-            <%@include file="../jspf/sideMenu.jspf" %>
+             <%@include file="../jspf/sideMenu.jspf" %>
             <div class="producto">
                 <h2 class="titulo">Agregar producto</h2>
 

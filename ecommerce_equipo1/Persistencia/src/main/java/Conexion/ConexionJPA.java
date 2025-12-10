@@ -52,6 +52,7 @@ public class ConexionJPA {
     public EntityManager getEntityManager() {
         if (emf == null || !emf.isOpen()) {
             throw new IllegalStateException("EntityManagerFactory no esta disponible");
+           
         }
         return emf.createEntityManager();
     }

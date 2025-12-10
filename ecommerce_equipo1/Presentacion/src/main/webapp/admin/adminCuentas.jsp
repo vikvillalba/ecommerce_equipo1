@@ -12,7 +12,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Administrador - Gestionar Cuentas</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/sideMenuAdmin.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/gestionarProductos.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/estiloAdminCuentas.css">
     </head>
     <body>

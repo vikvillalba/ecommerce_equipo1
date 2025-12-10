@@ -24,7 +24,7 @@
             <%@include file="../jspf/sideMenu.jspf" %>
 
             <div class="resenas">
-                <h2>Administrador: Moderar reseñas</h2>
+                <h2>Moderar reseñas</h2>
 
                 <c:if test="${not empty resenas}">
                     <%@ include file="../jspf/resena_vistaAdmin.jspf" %>

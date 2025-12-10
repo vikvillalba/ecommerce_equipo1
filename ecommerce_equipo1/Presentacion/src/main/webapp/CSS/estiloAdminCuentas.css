@@ -8,12 +8,19 @@
     font-family: 'Poppins', sans-serif;
 }
 
-.contenedor__cuentas {
-    background-color: #FFDDF6;
+main {
+    display: flex !important;   
+    flex-direction: row !important;
     width: 100%;
-    min-height: 100vh;
-    padding: 20px;
-    box-sizing: border-box;
+    min-height: calc(100vh - 80px); 
+    background-color: #FDFBF7;   
+}
+
+.contenedor__cuentas {
+    flex: 1; 
+    background-color: #FFDDF6;
+    padding: 40px;
+    overflow-y: auto; 
 }
 
 .lista__usuarios {

@@ -138,4 +138,21 @@ public class Producto {
         this.resenas = resenas;
     }
 
+    public String getColorHex() {
+        return colorHex;
+    }
+
+    public void setColorHex(String colorHex) {
+        this.colorHex = colorHex;
+    }
+
+    public Tallas getTalla() {
+        return talla;
+    }
+
+    public void setTalla(Tallas talla) {
+        this.talla = talla;
+    }
+
+    
 }

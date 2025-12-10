@@ -71,4 +71,14 @@ public interface IProductoDAO {
      * un error de transacción.
      */
     public boolean eliminarProducto(Producto producto) throws PersistenciaException;
+    
+    /**
+     * Obtiene una lista con todos los productos almacenados en la base de
+     * datos.
+     *
+     * @return Una lista de objetos Producto.
+     * @throws PersistenciaException Si ocurre un error al consultar los
+     * productos.
+     */
+    public List<Producto> obtenerProductos() throws PersistenciaException;
 }

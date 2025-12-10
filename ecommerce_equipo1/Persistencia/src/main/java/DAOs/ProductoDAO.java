@@ -113,14 +113,19 @@ public class ProductoDAO implements IProductoDAO {
     public Producto obtenerPorId(Integer id) {
         EntityManager em = conexion.getEntityManager();
         try {
-            // LEFT JOIN FETCH obliga a Hibernate a traer las reseñas en la misma consulta
-            // Usamos LEFT JOIN para que traiga el producto aunque no tenga reseñas
             TypedQuery<Producto> query = em.createQuery(
-                    "SELECT p FROM Producto p LEFT JOIN FETCH p.resenas WHERE p.id = :id",
+                    "SELECT p FROM Producto p LEFT JOIN FETCH p.categoria WHERE p.id = :id",
                     Producto.class
             );
             query.setParameter("id", id);
-            return query.getSingleResult();
+            Producto producto = query.getSingleResult();
+
+            // Si necesitas las reseñas, se cargan después con una consulta separada
+            if (producto != null) {
+                producto.getResenas().size(); 
+            }
+
+            return producto;
         } catch (NoResultException e) {
             return null;
         } catch (Exception e) {
@@ -217,6 +222,21 @@ public class ProductoDAO implements IProductoDAO {
             if (em != null) {
                 em.close();
             }
+        }
+    }
+
+    @Override
+    public List<Producto> obtenerProductos() throws PersistenciaException {
+        EntityManager em = conexion.getEntityManager();
+        try {
+            return em.createQuery(
+                    "SELECT p FROM Producto p LEFT JOIN FETCH p.categoria ORDER BY p.id",
+                    Producto.class)
+                    .getResultList();
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al consultar la lista de productos", e);
+        } finally {
+            em.close();
         }
     }
 }
