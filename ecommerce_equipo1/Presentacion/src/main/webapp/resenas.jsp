@@ -4,6 +4,7 @@
     Author     : erika
 --%>
 
+<%@page import="entidades.Cliente"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="entidades.Resena"%>
@@ -36,7 +37,7 @@
     <body>
         <div class="titulo-section">
             <h1>Reseñas de: <%= producto.getNombre()%></h1>
-            <a href="EscribirResenaServlet?id=<%= producto.getId() %>" class="btn-nueva">Escribir una reseña</a>
+            <a href="EscribirResenaServlet?id=<%= producto.getId()%>" class="btn-nueva">Escribir una reseña</a>
 
         </div>
         <section class="contenedor-resenas">
@@ -46,13 +47,20 @@
                 for (Resena r : resenas) {
             %>
             <div class="card-resena">
-                <div class="stars">
-                    <% for (int i = 0; i < r.getCalificacion(); i++) { %>
-                    ⭐
-                    <% }%>
-                </div>
+                                <div class="stars">
+                                        <% for (int i = 0; i < r.getCalificacion(); i++) { %>
+                                        ⭐
+                                        <% }%>
+                                    </div>
 
-                <h4><%= r.getCliente().getNombre()%></h4>
+                <% Cliente clienteResena = r.getCliente(); %>
+                                <h4>
+                    <% if (clienteResena != null) {%>
+                    <%= clienteResena.getNombre()%>
+                    <% } else { %>
+                    Usuario Anónimo
+                    <% }%>
+                </h4>
                 <p class="comentario"><%= r.getComentario()%></p>
 
                 <p class="fecha">Publicado recientemente</p>

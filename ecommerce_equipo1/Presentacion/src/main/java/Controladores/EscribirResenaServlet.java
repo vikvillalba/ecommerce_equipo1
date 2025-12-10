@@ -4,8 +4,12 @@
  */
 package Controladores;
 
+import DAOs.ClienteDAO;
 import DAOs.ProductoDAO;
+import DAOs.ResenaDAO;
+import entidades.Cliente;
 import entidades.Producto;
+import entidades.Resena;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,6 +17,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -22,6 +27,8 @@ import jakarta.servlet.http.HttpServletResponse;
 public class EscribirResenaServlet extends HttpServlet {
 
     private ProductoDAO dao = ProductoDAO.getInstancia();
+    private final ResenaDAO resenaDAO = new ResenaDAO();
+    private final ClienteDAO clienteDAO = ClienteDAO.getInstancia();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -38,4 +45,6 @@ public class EscribirResenaServlet extends HttpServlet {
         req.setAttribute("producto", producto);
         req.getRequestDispatcher("escribirResena.jsp").forward(req, resp);
     }
+
+    
 }

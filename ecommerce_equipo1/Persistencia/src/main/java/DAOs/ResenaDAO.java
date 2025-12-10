@@ -61,19 +61,12 @@ public class ResenaDAO {
         try {
             tx.begin();
 
-            // 1. Buscamos la reseña
             Resena resena = em.find(Resena.class, idResena);
 
             if (resena != null) {
-                // 2. Para mantener la coherencia, a veces es necesario removerla de la lista del producto
-                // antes de borrarla, aunque JPA suele manejar el borrado directo si está configurado.
-                // Opción directa:
+
                 em.remove(resena);
 
-                // Opción segura si tienes caché de segundo nivel o relaciones bidireccionales complejas:
-                // Producto p = resena.getProducto();
-                // p.getResenas().remove(resena);
-                // em.merge(p);
             }
 
             tx.commit();
@@ -82,7 +75,6 @@ public class ResenaDAO {
                 tx.rollback();
             }
             e.printStackTrace();
-            // Aquí podrías lanzar una excepción personalizada si lo deseas
         } finally {
             em.close();
         }
@@ -100,16 +92,12 @@ public class ResenaDAO {
         try {
             tx.begin();
 
-            // 1. Buscamos la reseña por ID
             Resena resena = em.find(Resena.class, idResena);
 
             if (resena != null) {
-                // 2. Modificamos el estado del objeto. 
-                // Al hacer commit, JPA detecta el cambio y hace el UPDATE automáticamente.
+
                 resena.setComentario(mensaje);
 
-                // Opcional: Si tienes un campo de estado, podrías actualizarlo también
-                // resena.setEstado("MODERADO");
             }
 
             tx.commit();
@@ -123,13 +111,42 @@ public class ResenaDAO {
         }
     }
 
-    // Método auxiliar por si necesitas listar todas las reseñas sueltas (opcional)
     public List<Resena> listarTodas() {
         EntityManager em = getEntityManager();
         try {
             return em.createQuery("SELECT r FROM Resena r", Resena.class).getResultList();
         } finally {
             em.close();
+        }
+    }
+
+    /**
+     * Guarda una nueva reseña en la base de datos.
+     *
+     * @param resena La reseña a persistir.
+     * @return true si se guardó exitosamente, false en caso de error.
+     */
+    public boolean crearResena(Resena resena) {
+        EntityManager em = getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+
+            em.persist(resena);
+
+            tx.commit();
+            return true;
+        } catch (Exception e) {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            System.err.println("Error al crear reseña:");
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (em != null) {
+                em.close();
+            }
         }
     }
 }

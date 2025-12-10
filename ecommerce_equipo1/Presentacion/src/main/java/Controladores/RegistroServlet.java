@@ -54,7 +54,7 @@ public class RegistroServlet extends HttpServlet {
 
         if (nombre == null || nombre.trim().isEmpty() || correo == null || correo.trim().isEmpty() || contrasena == null || contrasena.trim().isEmpty()) {
             req.setAttribute("error", "Por favor completa todos los campos obligatorios");
-            req.setAttribute("mostrarRegistro", true);
+            req.setAttribute("mostrarRegistro", "true");
             req.getRequestDispatcher("login.jsp").forward(req, resp);
             return;
         }
@@ -62,7 +62,7 @@ public class RegistroServlet extends HttpServlet {
         // Verificar si el correo ya existe
         if (usuarioDAO.existeCorreo(correo)) {
             req.setAttribute("error", "El correo electrónico ya está registrado");
-            req.setAttribute("mostrarRegistro", true);
+            req.setAttribute("mostrarRegistro", "true");
             req.getRequestDispatcher("login.jsp").forward(req, resp);
             return;
         }
@@ -100,7 +100,7 @@ public class RegistroServlet extends HttpServlet {
             resp.sendRedirect(req.getContextPath() + "/CatalogoServlet");
         } else {
             req.setAttribute("error", "Error al registrar el usuario. Intenta nuevamente.");
-            req.setAttribute("mostrarRegistro", true);
+            req.setAttribute("mostrarRegistro", "true");
             req.getRequestDispatcher("login.jsp").forward(req, resp);
         }
     }

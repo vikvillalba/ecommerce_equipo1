@@ -4,7 +4,9 @@
  */
 package Controladores;
 
+import DAOs.ClienteDAO;
 import DAOs.ProductoDAO;
+import DAOs.ResenaDAO;
 import entidades.Cliente;
 import entidades.Producto;
 import entidades.Resena;
@@ -15,6 +17,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -23,35 +26,61 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/GuardarResenaServlet")
 public class GuardarResenaServlet extends HttpServlet {
 
-    private ProductoDAO dao = ProductoDAO.getInstancia();
+    private final ProductoDAO productoDAO = ProductoDAO.getInstancia();
+    private final ResenaDAO resenaDAO = new ResenaDAO();
+    private final ClienteDAO clienteDAO = ClienteDAO.getInstancia();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        Integer idProducto = Integer.parseInt(req.getParameter("idProducto"));
+        req.setCharacterEncoding("UTF-8");
+        
+        Integer idProducto = null;
+        Integer calificacion = null;
         String comentario = req.getParameter("comentario");
-        int calificacion = Integer.parseInt(req.getParameter("calificacion"));
+        
 
-        Producto p = dao.obtenerPorId(idProducto);
-
-        if (p == null) {
-            resp.sendError(404, "Producto no encontrado");
+        try {
+            idProducto = Integer.parseInt(req.getParameter("idProducto"));
+            calificacion = Integer.parseInt(req.getParameter("calificacion"));
+        } catch (NumberFormatException e) {
+            resp.sendError(400, "ID de Producto o Calificación inválida.");
             return;
         }
 
+        Producto p = productoDAO.obtenerPorId(idProducto);
+        if (p == null) {
+            resp.sendError(404, "Producto no encontrado.");
+            return;
+        }
+
+        Cliente cliente = null;
+        HttpSession session = req.getSession(false);
+        Integer clienteId = (session != null) ? (Integer) session.getAttribute("usuarioId") : null;
+        
+        if (clienteId != null) {
+            cliente = clienteDAO.obtenerPorId(clienteId);
+        }
+
         Resena r = new Resena();
-        r.setId((int) (Math.random() * 10000));
+
         r.setComentario(comentario);
         r.setCalificacion(calificacion);
+        r.setProducto(p);
+        r.setCliente(cliente); 
 
-        Cliente c = new Cliente();
-        c.setNombre("Usuario Anónimo");
-        r.setCliente(c);
+        boolean guardado = resenaDAO.crearResena(r);
 
-        p.getResenas().add(r);
+        if (guardado) {
 
-        resp.sendRedirect("ResenasServlet?id=" + idProducto);
+            resp.sendRedirect(req.getContextPath() + "/ResenasServlet?id=" + idProducto);
+        } else {
+
+            req.setAttribute("error", "Error al guardar la reseña. Intente de nuevo.");
+            req.setAttribute("producto", p); 
+            req.getRequestDispatcher("escribirResena.jsp").forward(req, resp);
+        }
     }
 }
 
