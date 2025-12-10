@@ -16,24 +16,22 @@
     </head>
     <body>
 
-  
-
         <div class="main-container">
 
-            <!-- Panel lateral -->
             <aside class="sidebar">
                 <div class="user-box">
-                    <p class="user-name">Sofía Havertz</p>
+                    <p class="user-name">${sessionScope.usuarioNombre != null ? sessionScope.usuarioNombre : 'Usuario'}</p>
                 </div>
 
                 <ul class="menu-side">
-                    <li><a href="#">Modificar datos</a></li>
-                    <li class="active"><a href="#">Pedidos</a></li>
-                    <li><a href="#">Cerrar sesión</a></li>
+                    <li><a href="ModificarPerfilServlet">Modificar datos</a></li> 
+
+                    <li class="active"><a href="HistorialPedidost">Pedidos</a></li> 
+
+                    <li><a href="${pageContext.request.contextPath}/LogOutServlet">Cerrar sesión</a></li>
                 </ul>
             </aside>
 
-            <!-- Contenido principal -->
             <section class="content">
                 <h1>Historial de Pedidos</h1>
 
@@ -57,7 +55,6 @@
                             </tr>
                         </c:forEach>
 
-                        <!-- Ejemplo estático por si la BD está vacía -->
                         <c:if test="${empty pedidos}">
                             <tr>
                                 <td colspan="4" style="text-align: center;">No hay pedidos registrados</td>
