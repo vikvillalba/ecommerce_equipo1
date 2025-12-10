@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <div class="product-card">
-    
+
     <img src="${not empty p.imagen ? p.imagen : pageContext.request.contextPath.concat('/img/placeholder.jpg')}" 
          alt="${p.nombre}" 
          class="prod-thumb"
@@ -13,13 +13,14 @@
     </div>
 
     <div class="prod-actions">
-        <form action="/admin/categorias" method="POST" style="display:inline;">
+        <form action="${pageContext.request.contextPath}/admin/adminProductos" method="POST" style="display:inline;">
             <input type="hidden" name="accion" value="eliminar">
             <input type="hidden" name="id" value="${p.id}">
             <button type="submit" class="btn-eliminar" onclick="return confirm('¿Borrar este producto?');">Eliminar</button>
         </form>
 
-        <button type="button" class="btn-editar" onclick="editarProducto(${p.id}, '${p.nombre}', '${p.descripcion}', ${p.precio}, ${p.existencias})">
+        <button type="button" class="btn-editar" 
+                onclick="editarProducto(${p.id}, '${p.nombre}', '${p.descripcion}', ${p.precio}, ${p.existencias}, '${p.colorHex}', '${p.especificaciones}', ${p.categoriaId}, '${p.talla}')">
             Editar
         </button>
     </div>

@@ -120,9 +120,9 @@ public class ProductoDAO implements IProductoDAO {
             query.setParameter("id", id);
             Producto producto = query.getSingleResult();
 
-            // Si necesitas las reseñas, se cargan después con una consulta separada
+            // Si necesitan las reseñas, se cargan después con una consulta separada
             if (producto != null) {
-                producto.getResenas().size(); 
+                producto.getResenas().size();
             }
 
             return producto;
@@ -149,12 +149,30 @@ public class ProductoDAO implements IProductoDAO {
         EntityManager em = conexion.getEntityManager();
         try {
             em.getTransaction().begin();
-            em.persist(producto);
+
+            if (producto.getCategoria() != null && producto.getCategoria().getId() != null) {
+
+                entidades.Categoria catReal = em.find(entidades.Categoria.class, producto.getCategoria().getId());
+
+                if (catReal == null) {
+                    throw new PersistenciaException("Error: La categoría seleccionada no existe en la BD.");
+                }
+                producto.setCategoria(catReal);
+            }
+
+
+            em.persist(producto); 
             em.getTransaction().commit();
             return producto.getId() != null;
+
         } catch (Exception e) {
-            em.getTransaction().rollback();
-            throw new PersistenciaException("Error al registrar producto", e);
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            System.err.println("🔴 ERROR AL AGREGAR PRODUCTO:");
+            e.printStackTrace();
+
+            throw new PersistenciaException("Error al registrar producto: " + e.getMessage(), e);
         } finally {
             em.close();
         }
@@ -163,23 +181,45 @@ public class ProductoDAO implements IProductoDAO {
     /**
      * Actualiza el estado de un producto existente en la base de datos.
      *
-     * @param producto El objeto producto con los datos actualizados.
+     * @param p El objeto producto con los datos actualizados.
      * @return true si la actualización fue exitosa.
      * @throws PersistenciaException Si ocurre un error durante la transacción
      * de actualización.
      */
     @Override
-    public boolean actualizarProducto(Producto producto) throws PersistenciaException {
+    public boolean actualizarProducto(Producto p) throws PersistenciaException {
         EntityManager em = conexion.getEntityManager();
         try {
             em.getTransaction().begin();
-            // merge() adjunta la entidad al contexto y persiste los cambios
-            em.merge(producto);
+
+            // Query de actualización directa (UPDATE)
+            // OJO: Asegúrate de que los nombres de los atributos coincidan con tu Entidad Producto
+            int updatedCount = em.createQuery(
+                    "UPDATE Producto p SET p.nombre = :nom, p.descripcion = :desc, "
+                    + "p.precio = :pre, p.existencias = :stk, p.colorHex = :col, "
+                    + "p.especificaciones = :esp, p.imagen = :img, p.categoria.id = :catId "
+                    + "WHERE p.id = :pid")
+                    .setParameter("nom", p.getNombre())
+                    .setParameter("desc", p.getDescripcion())
+                    .setParameter("pre", p.getPrecio())
+                    .setParameter("stk", p.getExistencias())
+                    .setParameter("col", p.getColorHex()) // Asegúrate de que el getter exista
+                    .setParameter("esp", p.getEspecificaciones())
+                    .setParameter("img", p.getImagen())
+                    // Aquí obtenemos el ID de la categoría del objeto Categoria
+                    .setParameter("catId", p.getCategoria() != null ? p.getCategoria().getId() : null)
+                    .setParameter("pid", p.getId())
+                    .executeUpdate();
+
             em.getTransaction().commit();
-            return true;
+            return updatedCount > 0;
+
         } catch (Exception e) {
-            em.getTransaction().rollback();
-            throw new PersistenciaException("Error al actualizar el producto", e);
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            e.printStackTrace();
+            throw new PersistenciaException("Error al actualizar directo: " + e.getMessage());
         } finally {
             em.close();
         }

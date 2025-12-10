@@ -72,6 +72,7 @@ public class ProductoBO {
         try {
             return productoDAO.actualizarProducto(productoActualizado);
         } catch (PersistenciaException ex) {
+            ex.printStackTrace();
             throw new ModeloException(ex.getMessage());
 
         }
@@ -87,8 +88,8 @@ public class ProductoBO {
 
         }
     }
-    
-    public boolean agregarProducto(ProductoDTO producto) throws ModeloException{
+
+    public boolean agregarProducto(ProductoDTO producto) throws ModeloException {
         validarCadena(producto.getNombre(), "Nombre del producto");
         Producto nuevoProducto = ProductoMapper.toEntity(producto);
         try {
@@ -97,8 +98,8 @@ public class ProductoBO {
             throw new ModeloException(ex.getMessage());
         }
     }
-    
-    public ProductoDTO obtenerPorId(Integer id){
+
+    public ProductoDTO obtenerPorId(Integer id) {
         Producto p = productoDAO.obtenerPorId(id);
         return ProductoMapper.toDTO(p);
     }

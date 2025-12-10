@@ -2,6 +2,8 @@ package Controladores;
 
 import DTOs.ProductoDTO;
 import Modelos.ProductoBO;
+import enums.Categoria;
+import enums.Tallas;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -30,6 +32,8 @@ public class AdminProductosServlet extends HttpServlet {
         try {
             List<ProductoDTO> productos = bo.obtenerProductos();
             request.setAttribute("productos", productos);
+            request.setAttribute("listaTallas", Tallas.values());
+            request.setAttribute("listaCategorias", Categoria.values());
             request.getRequestDispatcher("/admin/adminProductos.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
@@ -73,6 +77,11 @@ public class AdminProductosServlet extends HttpServlet {
         p.setColorHex(req.getParameter("color"));
         p.setEspecificaciones(req.getParameter("especificaciones"));
 
+        String tallaStr = req.getParameter("talla");
+        if (tallaStr != null && !tallaStr.isEmpty()) {
+            p.setTalla(enums.Tallas.valueOf(tallaStr));
+        }
+
         String idCatStr = req.getParameter("idCategoria");
         if (idCatStr != null && !idCatStr.isEmpty()) {
             p.setCategoriaId(Long.valueOf(idCatStr));
@@ -106,6 +115,11 @@ public class AdminProductosServlet extends HttpServlet {
             String idCatStr = req.getParameter("idCategoria");
             if (idCatStr != null && !idCatStr.isEmpty()) {
                 p.setCategoriaId(Long.parseLong(idCatStr));
+            }
+
+            String tallaStr = req.getParameter("talla");
+            if (tallaStr != null && !tallaStr.isEmpty()) {
+                p.setTalla(enums.Tallas.valueOf(tallaStr));
             }
 
             Part filePart = req.getPart("imagen");

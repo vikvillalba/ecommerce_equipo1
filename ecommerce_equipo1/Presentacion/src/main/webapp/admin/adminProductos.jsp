@@ -11,22 +11,22 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Administrador - Administrar productos</title>
-        
+
         <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/sideMenuAdmin.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/gestionarProductos.css">
-        
+
     </head>
-    
+
     <body>
         <%@include file="../jspf/header_admin.jspf" %>
 
         <main class="main-container">
             <%@include file="../jspf/sideMenu.jspf" %>
-            
-           <%@include file="../jspf/menu_mobile.jspf" %>
+
+            <%@include file="../jspf/menu_mobile.jspf" %>
 
             <div class="content-area">
-                
+
                 <div class="top-bar">
                     <button class="btn-agregar" onclick="abrirModal()">Agregar nuevo producto</button>
                 </div>
@@ -35,7 +35,7 @@
                     <c:if test="${not empty productos}">
                         <c:forEach var="p" items="${productos}">
                             <%@include file="../jspf/card_producto_admin.jspf" %>
-                            </c:forEach>
+                        </c:forEach>
                     </c:if>
 
                     <c:if test="${empty productos}">
@@ -74,9 +74,13 @@
                             <div class="form-group">
                                 <label>Categorías</label>
                                 <div class="cat-wrapper">
-                                    <select name="idCategoria" id="cat">
+                                    <select name="idCategoria" id="cat" required>
                                         <option value="">Selecciona...</option>
-                                        <option value="1">Lolita</option>
+
+                                        <c:forEach var="c" items="${listaCategorias}">
+                                            <option value="${c.ordinal() + 1}">${c}</option>
+                                        </c:forEach>
+
                                     </select>
                                     <button type="button" class="btn-plus">+</button>
                                 </div>
@@ -105,6 +109,17 @@
                             <label>Color</label>
                             <input type="text" name="color" id="col">
                         </div>
+                        <div class="form-group small">
+                            <label>Talla</label>
+                            <select name="talla" id="talla" required>
+                                <option value="">--</option>
+
+                                <c:forEach var="t" items="${listaTallas}">
+                                    <option value="${t}">${t}</option>
+                                </c:forEach>
+
+                            </select>
+                        </div>
                         <div class="form-group btn-area">
                             <button type="submit" class="btn-guardar" id="btnSubmit">Agregar</button>
                         </div>
@@ -114,13 +129,13 @@
         </div>
 
         <script>
-           
+
             const modal = document.getElementById("modalCrear");
             const form = document.querySelector(".form-producto");
             const modalTitle = document.getElementById("modalTitle");
             const btnSubmit = document.getElementById("btnSubmit");
-            
-      
+
+
             const inpAccion = document.getElementById("inpAccion");
             const inpId = document.getElementById("inpId");
             const inpNom = document.getElementById("nom");
@@ -131,7 +146,7 @@
             const inpSpecs = document.getElementById("specs");
 
             function abrirModal() {
-            
+
                 form.reset();
                 inpAccion.value = "agregar";
                 inpId.value = "";
@@ -140,17 +155,20 @@
                 modal.style.display = "flex";
             }
 
-            function editarProducto(id, nombre, desc, precio, stock, color, specs) {
-        
+            function editarProducto(id, nombre, desc, precio, stock, color, specs, idCat, talla) {
+
                 inpAccion.value = "editar";
                 inpId.value = id;
-                
+
                 inpNom.value = nombre;
                 inpDesc.value = desc;
                 inpPre.value = precio;
                 inpStk.value = stock;
                 inpCol.value = color;
                 inpSpecs.value = specs;
+
+                document.getElementById("cat").value = idCat;
+                document.getElementById("talla").value = talla;
 
                 modalTitle.innerText = "Editar producto";
                 btnSubmit.innerText = "Guardar Cambios";
@@ -167,7 +185,7 @@
                 }
             };
         </script>
-        
+
         <%@include file="../jspf/footer.jspf" %>
     </body>
 </html>
