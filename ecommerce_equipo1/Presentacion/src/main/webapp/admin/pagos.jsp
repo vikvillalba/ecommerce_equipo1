@@ -31,17 +31,17 @@
 
                         <div class="col-pago">
                             <label class="label">Total</label>
-                            <label class="value">$ ${p.pago.total}</label>
+                            <label class="value">$ ${p.total}</label>
                         </div>
 
                         <div class="col-pago">
                             <label class="label">Usuario</label>
-                            <label class="value">Nombre de usuario</label>
+                            <label class="value">${p.usuario}</label>
                         </div>
 
                         <div class="col-pago">
                             <label class="label">Fecha</label>
-                            <label class="value">${p.pago.fecha}</label>
+                            <label class="value">${p.fecha}</label>
                         </div>
 
                         <div class="col-pago">
@@ -51,7 +51,7 @@
 
                         <div class="col-pago">
                             <label class="label">Método de pago</label>
-                            <label class="value">${p.pago.metodoPago}</label>
+                            <label class="value">${p.metodoPago}</label>
                         </div>
 
                     </div>

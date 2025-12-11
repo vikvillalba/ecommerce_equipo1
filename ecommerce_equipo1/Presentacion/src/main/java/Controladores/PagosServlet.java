@@ -5,44 +5,49 @@
 package Controladores;
 
 import DAOs.PedidoDAO;
+import DTOs.CompraDTO;
+import DTOs.PedidoDTO;
+import Exceptions.ModeloException;
+import Modelos.CompraBO;
+import Modelos.PedidoBO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author pablo
  */
-@WebServlet(name = "PagosServlet", urlPatterns = {"/admin/Pagos"})
+@WebServlet(name = "PagosServlet", urlPatterns = {"/admin/pagos"})
 public class PagosServlet extends HttpServlet {
 
-    private PedidoDAO pedidoDAO = PedidoDAO.getInstancia();
+    private PedidoBO pedidoBO = new PedidoBO();
+    private CompraBO compraBO = new CompraBO();
 
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ////        List<Pedido> lista = pedidoDAO.obtenerPedidosUsuario(0);
-//
-//        List<Pedido> entregados = new ArrayList<>();
-//
-//        for (Pedido pedido : lista) {
-//            if (pedido.getEstado() == EstadoPedido.ENTREGADO) {
-//                entregados.add(pedido);
-//            }
-//        }
-//
-//        request.setAttribute("pagos", entregados);
+        List<CompraDTO> pagos = new ArrayList<>();
+        try{
+            List<PedidoDTO> lista = pedidoBO.obtenerPedidos();
+            
+            for (PedidoDTO pedido : lista) {
+                CompraDTO pago = compraBO.obtenerCompraPedido(pedido.getNumeroPedido());
+                pagos.add(pago);
+            }
+            
+        }catch(ModeloException ex){
+            Logger.getLogger(PedidosServlet.class.getName()).log(Level.SEVERE, "Error de validación en Compra: ", ex);
+            request.getSession().setAttribute("errorMessage", ex.getMessage());
+        }
+        request.setAttribute("pagos", pagos);
         request.getRequestDispatcher("/admin/pagos.jsp").forward(request, response);
     }
 
@@ -58,15 +63,5 @@ public class PagosServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }
