@@ -12,6 +12,7 @@ import enums.Tallas;
  */
 public class ProductoCarritoDTO {
 
+    private Integer idProducto;
     private String nombreProducto;
     private Tallas talla;
     private String colorHex;
@@ -21,16 +22,26 @@ public class ProductoCarritoDTO {
     private String direccionImagen;
 
     public ProductoCarritoDTO() {
+        this.subtotal = 0.0; 
     }
 
-    public ProductoCarritoDTO(String nombreProducto, Tallas talla, String colorHex, int cantidad, double subtotal, double precio, String direccionImagen) {
+    public ProductoCarritoDTO(Integer idProducto, String nombreProducto, Tallas talla, String colorHex, int cantidad, double subtotal, double precio, String direccionImagen) {
+        this.idProducto = idProducto;
         this.nombreProducto = nombreProducto;
         this.talla = talla;
         this.colorHex = colorHex;
         this.cantidad = cantidad;
-        this.subtotal = subtotal;
         this.precio = precio;
+        this.subtotal = precio * cantidad;
         this.direccionImagen = direccionImagen;
+    }
+
+    public Integer getIdProducto() {
+        return idProducto;
+    }
+
+    public void setIdProducto(Integer idProducto) {
+        this.idProducto = idProducto;
     }
 
     public String getNombreProducto() {
@@ -63,7 +74,7 @@ public class ProductoCarritoDTO {
 
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
-        this.subtotal = precio * this.cantidad;
+        this.subtotal = this.precio * this.cantidad; // Calcula el subtotal
     }
 
     public double getSubtotal() {
@@ -80,6 +91,7 @@ public class ProductoCarritoDTO {
 
     public void setPrecio(double precio) {
         this.precio = precio;
+        this.subtotal = this.precio * this.cantidad; // Recalcular si el precio cambia
     }
 
     public String getDireccionImagen() {

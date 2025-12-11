@@ -49,9 +49,6 @@ public class Producto {
     private boolean disponibilidad;
     @Column(nullable = false)
     private double precio;
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Tallas talla;
     @OneToMany(mappedBy = "producto", cascade = {CascadeType.REMOVE, CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
     private List<Resena> resenas;
 
@@ -136,6 +133,14 @@ public class Producto {
 
     public void setResenas(List<Resena> resenas) {
         this.resenas = resenas;
+    }
+
+    public String getColorHex() {
+        return colorHex;
+    }
+
+    public void setColorHex(String colorHex) {
+        this.colorHex = colorHex;
     }
 
 }

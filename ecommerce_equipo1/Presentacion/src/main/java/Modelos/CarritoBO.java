@@ -73,7 +73,7 @@ public class CarritoBO {
         List<ProductoCarritoDTO> carrito = obtenerProductosCarrito(session);
 
         Optional<ProductoCarritoDTO> productoOpt = carrito.stream()
-                .filter(p -> p.getNombreProducto().equals(nombreProducto) && p.getTalla().equals(talla.name()))
+                .filter(p -> p.getNombreProducto().equals(nombreProducto) && p.getTalla().equals(talla))
                 .findFirst();
 
         if (productoOpt.isPresent()) {
@@ -94,7 +94,7 @@ public class CarritoBO {
     public void eliminarProducto(HttpSession session, String nombreProducto, Tallas talla) {
         List<ProductoCarritoDTO> carrito = obtenerProductosCarrito(session);
 
-        carrito.removeIf(p -> p.getNombreProducto().equals(nombreProducto) && p.getTalla().equals(talla.name()));
+        carrito.removeIf(p -> p.getNombreProducto().equals(nombreProducto) && p.getTalla().equals(talla));
 
     }
 

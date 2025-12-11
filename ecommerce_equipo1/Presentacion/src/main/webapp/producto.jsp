@@ -4,6 +4,7 @@
     Author     : erika
 --%>
 <%@page import="entidades.Producto"%>
+<%@page import="enums.Tallas"%>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="jspf/header_cliente.jspf" %>
 <!DOCTYPE html>
@@ -64,7 +65,7 @@
                     <span class="star half">★</span>
                 </div>
                 <div class="rating-value">4.5/5</div>
-                <a href="<%= request.getContextPath() %>/ResenasServlet?id=<%= p.getId()%>" class="btn-reseñas">Ver reseñas</a>
+                <a href="<%= request.getContextPath()%>/ResenasServlet?id=<%= p.getId()%>" class="btn-reseñas">Ver reseñas</a>
             </div>
 
             <div class="price-row">
@@ -83,35 +84,50 @@
                 </div>
                 <div class="product-color">
                     <label>Color:</label>
-                    <div class="color-dot" title="Color principal" aria-hidden="true"></div>
+                    <div class="color-dot" title="Color principal" style="background-color: <%= p.getColorHex() != null ? p.getColorHex() : "#ccc"%>;" aria-hidden="true"></div>
                 </div>
             </div>
 
             <hr class="separator">
 
-            <div class="product-section">
-                <label class="size-label">Seleccionar Talla</label>
-                <div class="size-options">
-                    <button class="size-btn">Extra chica</button>
-                    <button class="size-btn">Chico</button>
-                    <button class="size-btn">Mediano</button>
-                    <button class="size-btn">Grande</button>
-                    <button class="size-btn">Extra grande</button>
-                </div>
-            </div>
+            <form id="addToCartForm" action="<%= request.getContextPath()%>/carrito" method="POST">
 
-            <div class="product-action-row">
-                <div class="qty-wrap">
-                    <button class="qty-btn" id="qty-decrease" aria-label="Disminuir">−</button>
-                    <input type="text" id="qty-input" value="1" aria-label="Cantidad">
-                    <button class="qty-btn" id="qty-increase" aria-label="Aumentar">+</button>
-                    <span class="stock-info">(+<%= p.getExistencias()%> Disponibles)</span>
+                <!-- Campos ocultos para enviar los datos del producto al Servlet -->
+                <input type="hidden" name="accion" value="agregar">
+                <input type="hidden" name="idProducto" value="<%= p.getId()%>">
+                <input type="hidden" name="nombreProducto" value="<%= p.getNombre()%>">
+                <input type="hidden" name="precio" value="<%= p.getPrecio()%>">
+                <input type="hidden" name="direccionImagen" value="<%= p.getImagen()%>">
+                <input type="hidden" name="colorHex" value="<%= p.getColorHex()%>">
+                <input type="hidden" name="talla" id="tallaInput" value=""> <!-- Se llena con JS -->
+
+                <div class="product-section">
+                    <label class="size-label">Seleccionar Talla</label>
+                    <div class="size-options" id="size-options-container">
+                        <!-- Iteración sobre tallas si estuvieran disponibles dinámicamente -->
+                        <% for (Tallas talla : Tallas.values()) {%>
+                        <button type="button" class="size-btn" data-talla="<%= talla.name()%>">
+                            <%= talla.name().replace("_", " ")%>
+                        </button>
+                        <% }%>
+                    </div>
+                    <p id="tallaError" style="color: red; margin-top: 10px; display: none;">Por favor, selecciona una talla.</p>
                 </div>
 
-                <div class="addcart-wrap">
-                    <button class="btn-addcart">Añadir al carrito</button>
+                <div class="product-action-row">
+                    <div class="qty-wrap">
+                        <button type="button" class="qty-btn" id="qty-decrease" aria-label="Disminuir">−</button>
+                        <input type="text" id="qty-input" name="cantidad" value="1" min="1" aria-label="Cantidad">
+                        <button type="button" class="qty-btn" id="qty-increase" aria-label="Aumentar">+</button>
+                        <span class="stock-info">(+<%= p.getExistencias()%> Disponibles)</span>
+                    </div>
+
+                    <div class="addcart-wrap">
+                        <button type="submit" class="btn-addcart" id="addToCartButton">Añadir al carrito</button>
+                    </div>
                 </div>
-            </div>
+            </form>
+            <!-- FIN FORMULARIO DE CARRITO -->
 
         </div>
     </div>
@@ -123,19 +139,51 @@
         const inc = document.getElementById('qty-increase');
         const dec = document.getElementById('qty-decrease');
         const input = document.getElementById('qty-input');
+        const tallaInput = document.getElementById('tallaInput');
+        const tallaError = document.getElementById('tallaError');
+        const form = document.getElementById('addToCartForm');
+        const maxStock = <%= p.getExistencias()%>;
 
-        inc && inc.addEventListener('click', function () {
-            input.value = Math.max(1, parseInt(input.value || "1") + 1);
-        });
-        dec && dec.addEventListener('click', function () {
-            input.value = Math.max(1, parseInt(input.value || "1") - 1);
+        // Control de Cantidad (asegurando min=1 y max=existencias)
+        function updateQuantity(delta) {
+            let current = parseInt(input.value || "1");
+            let newQty = current + delta;
+
+            newQty = Math.max(1, newQty); // Mínimo 1
+            newQty = Math.min(maxStock, newQty); // Máximo existencias
+
+            input.value = newQty;
+        }
+
+        inc && inc.addEventListener('click', () => updateQuantity(1));
+        dec && dec.addEventListener('click', () => updateQuantity(-1));
+
+        input.addEventListener('change', () => {
+            updateQuantity(0); // Llama a la función de actualización sin cambio para forzar límites
         });
 
+
+        // Selección de Talla
         document.querySelectorAll('.size-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
                 e.currentTarget.classList.add('active');
+
+                // Actualiza el campo oculto con la talla seleccionada 
+                tallaInput.value = e.currentTarget.getAttribute('data-talla');
+                tallaError.style.display = 'none'; // Oculta el error si se selecciona
             });
+        });
+
+        //  Validación de Formulario (Talla seleccionada)
+        form.addEventListener('submit', (e) => {
+            if (tallaInput.value === "") {
+                e.preventDefault(); // Detener el envío del formulario
+                tallaError.style.display = 'block'; // Mostrar mensaje de error
+                document.getElementById('size-options-container').scrollIntoView({behavior: 'smooth'});
+            } else {
+                tallaError.style.display = 'none';
+            }
         });
     })();
 </script>

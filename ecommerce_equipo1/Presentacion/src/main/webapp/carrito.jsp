@@ -4,6 +4,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> <!-- Importación JSTL fmt -->
 
 <!DOCTYPE html>
 <html>
@@ -14,7 +15,6 @@
         <title>Carrito de Compras | Sweet Blossom</title>
         <link rel="stylesheet" href="CSS/carrito.css">
 
-        <!-- CSS básico para centrar el mensaje de carrito vacío -->
         <style>
             .empty-cart-message {
                 text-align: center;
@@ -66,40 +66,45 @@
                     </c:when>
 
                     <c:otherwise>
-                        <form action="detallesPago.jsp">
-                            <div class="cart-layout">
-                                <!-- Columna Izquierda: Productos en el Carrito -->
-                                <div class="cart-details">
-                                    <!-- Encabezados de la tabla (Ocultos en móvil) -->
-                                    <div class="cart-headers">
-                                        <div class="product-col">Producto</div>
-                                        <div class="quantity-col">Cantidad</div>
-                                        <div class="price-col" style="width: 15%; text-align: right;">Precio</div>
-                                        <div class="subtotal-col">Subtotal</div>
-                                    </div>
-
-                                    <!-- Fila de Producto -->
-                                    <c:set var="totalCarrito" value="0"/>
-                                    <c:forEach var="c" items="${productosCarrito}">
-                                        <%-- Incluye la tarjeta del producto, asumiendo que calcula su subtotal --%>
-                                        <%@include file="jspf/card_producto_carrito.jspf" %>
-                                        <c:set var="totalCarrito" value="${totalCarrito + c.subtotal}" />
-                                    </c:forEach>
-
+                        <div class="cart-layout">
+                            <!-- Columna Izquierda: Productos en el Carrito -->
+                            <div class="cart-details">
+                                <!-- Encabezados de la tabla (Ocultos en móvil) -->
+                                <div class="cart-headers">
+                                    <div class="product-col">Producto</div>
+                                    <div class="quantity-col">Cantidad</div>
+                                    <div class="price-col" style="width: 15%; text-align: right;">Precio</div>
+                                    <div class="subtotal-col">Subtotal</div>
                                 </div>
-                                <div class="cart-summary">
-                                    <span class="summary-title">Resumen del carrito</span>
 
-                                    <div class="summary-total summary-row">
-                                        <span>Total</span>
-                                        <span id="total-display">$<c:out value="${totalCarrito}" /></span>
-                                    </div>
+                                <!-- Fila de Producto -->
+                                <c:set var="totalCarrito" value="0"/>
+                                <c:forEach var="c" items="${productosCarrito}">
+                                    <%-- Incluye la tarjeta del producto --%>
+                                    <%@include file="jspf/card_producto_carrito.jspf" %>
+                                    <c:set var="totalCarrito" value="${totalCarrito + c.subtotal}" />
+                                </c:forEach>
+
+                            </div>
+                            <!-- Columna Derecha: Resumen del carrito -->
+                            <div class="cart-summary">
+                                <span class="summary-title">Resumen del carrito</span>
+
+                                <div class="summary-total summary-row">
+                                    <span>Total</span>
+                                    <!-- Formato de dos decimales -->
+                                    <span id="total-display">
+                                        $<fmt:formatNumber value="${totalCarrito}" pattern="0.00" />
+                                    </span>
+                                </div>
+                                <!-- Botón Pagar (Formulario separado) -->
+                                <form action="detallesPedido" method="get">
                                     <button type="submit" class="pay-button">
                                         Pagar
                                     </button>
-                                </div>
+                                </form>
                             </div>
-                        </form>
+                        </div>
                     </c:otherwise>
                 </c:choose>
 

@@ -4,8 +4,11 @@
  */
 package entidades;
 
+import enums.Tallas;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -33,6 +36,9 @@ public class ProductoCompra {
     @ManyToOne()
     @JoinColumn(name = "producto_id", nullable = false)
     private Producto producto;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Tallas talla;
     @ManyToOne()
     @JoinColumn(name = "compra_id", nullable = false)
     private Compra compra;
@@ -86,6 +92,14 @@ public class ProductoCompra {
 
     public void setPrecio(double precio) {
         this.precio = precio;
+    }
+
+    public Tallas getTalla() {
+        return talla;
+    }
+
+    public void setTalla(Tallas talla) {
+        this.talla = talla;
     }
 
 }

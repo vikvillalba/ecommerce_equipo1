@@ -48,7 +48,7 @@ public class CarritoServlet extends HttpServlet {
 
     /**
      * Handles the HTTP <code>POST</code> method. Maneja las acciones de
-     * actualizar y eliminar productos.
+     * agregar, actualizar y eliminar productos.
      *
      * @param request servlet request
      * @param response servlet response
@@ -60,37 +60,91 @@ public class CarritoServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-
         String accion = request.getParameter("accion");
-        String nombreProducto = request.getParameter("nombreProducto");
-        String talla = request.getParameter("talla");
-
-        if (talla == null || nombreProducto.isEmpty() || nombreProducto == null) {
-            response.sendRedirect("carrito");
-            return;
-        }
 
         try {
-            int idProducto = Integer.parseInt(talla);
-
-            if ("actualizar".equals(accion)) {
-                String nuevaCantidadStr = request.getParameter("nuevaCantidad");
-                if (nuevaCantidadStr != null && !nuevaCantidadStr.isEmpty()) {
-                    int nuevaCantidad = Integer.parseInt(nuevaCantidadStr);
-
-                    if (nuevaCantidad >= 1) {
-                        carritoBO.actualizarCantidadProducto(session, nombreProducto, (Tallas.valueOf(talla)), nuevaCantidad);
-                    }
+            if ("agregar".equals(accion)) {
+                String productoIdStr = request.getParameter("idProducto");
+                String cantidadStr = request.getParameter("cantidad");
+                String tallaStr = request.getParameter("talla");
+                
+                if (productoIdStr == null || cantidadStr == null || tallaStr == null || tallaStr.isEmpty()) {
+                    throw new IllegalArgumentException("Faltan parámetros requeridos (ID, Cantidad o Talla).");
                 }
 
-            } else if ("eliminar".equals(accion)) {
-                carritoBO.eliminarProducto(session, nombreProducto, (Tallas.valueOf(talla)));
+                Integer idProducto = Integer.parseInt(productoIdStr);
+                int cantidad = Integer.parseInt(cantidadStr);
+                Tallas talla = Tallas.valueOf(tallaStr.toUpperCase().replace(" ", "_"));
+                
+                // Obtener datos ocultos del formulario 
+                String nombreProducto = request.getParameter("nombreProducto");
+                double precio = Double.parseDouble(request.getParameter("precio"));
+                String direccionImagen = request.getParameter("direccionImagen");
+                String colorHex = request.getParameter("colorHex");
+
+                if (cantidad <= 0) {
+                     throw new IllegalArgumentException("La cantidad debe ser mayor que cero.");
+                }
+
+                // Crear el DTO
+                ProductoCarritoDTO nuevoProducto = new ProductoCarritoDTO();
+                nuevoProducto.setIdProducto(idProducto);
+                nuevoProducto.setNombreProducto(nombreProducto);
+                nuevoProducto.setTalla(talla);
+                nuevoProducto.setCantidad(cantidad);
+                nuevoProducto.setPrecio(precio); // El DTO calcula el subtotal automáticamente
+                nuevoProducto.setDireccionImagen(direccionImagen);
+                nuevoProducto.setColorHex(colorHex);
+
+                // Agregar al Carrito
+                carritoBO.agregarProducto(session, nuevoProducto);
+                
+                response.sendRedirect(request.getContextPath() + "/carrito");
+                return;
+
+            } else {
+                String nombreProducto = request.getParameter("nombreProducto");
+                String tallaStr = request.getParameter("talla"); // Ahora es tallaStr
+
+                if (tallaStr == null || nombreProducto.isEmpty() || nombreProducto == null) {
+                    response.sendRedirect("carrito");
+                    return;
+                }
+
+                Tallas tallaEnum = Tallas.valueOf(tallaStr.toUpperCase().replace(" ", "_"));
+
+                if ("actualizar".equals(accion)) {
+                    String nuevaCantidadStr = request.getParameter("nuevaCantidad");
+                    if (nuevaCantidadStr != null && !nuevaCantidadStr.isEmpty()) {
+                        int nuevaCantidad = Integer.parseInt(nuevaCantidadStr);
+
+                        if (nuevaCantidad >= 1) {
+                            carritoBO.actualizarCantidadProducto(session, nombreProducto, tallaEnum, nuevaCantidad);
+                        }
+                    }
+
+                } else if ("eliminar".equals(accion)) {
+                    carritoBO.eliminarProducto(session, nombreProducto, tallaEnum);
+                }
             }
 
         } catch (NumberFormatException e) {
             LOGGER.log(Level.WARNING, "Error de formato de número al procesar el carrito.", e);
+            request.setAttribute("errorMensaje", "Error en el formato de los datos de cantidad o ID.");
+            if("agregar".equals(accion)) {
+                 response.sendRedirect(request.getContextPath() + "/producto.jsp?error=true");
+                 return;
+            }
+        } catch (IllegalArgumentException e) {
+            LOGGER.log(Level.WARNING, "Error de parámetros de carrito.", e);
+            request.setAttribute("errorMensaje", e.getMessage());
+            if("agregar".equals(accion)) {
+                 response.sendRedirect(request.getContextPath() + "/producto.jsp?error=true");
+                 return;
+            }
         }
 
+        // Redirigir a la página del carrito después de Actualizar/Eliminar
         response.sendRedirect("carrito");
     }
 
