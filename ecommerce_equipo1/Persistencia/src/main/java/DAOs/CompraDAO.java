@@ -1,6 +1,7 @@
 package DAOs;
 
 import Conexion.ConexionJPA;
+import Interfaces.ICompraDAO;
 import entidades.Compra;
 import entidades.Pedido;
 import entidades.Direccion;
@@ -16,7 +17,7 @@ import jakarta.persistence.EntityTransaction;
  *
  * @author Alici
  */
-public class CompraDAO {
+public class CompraDAO implements ICompraDAO{
 
     /**
      * Única instancia de la clase CompraDAO para el patrón Singleton.
@@ -27,7 +28,6 @@ public class CompraDAO {
      * Referencia a la conexión JPA para obtener el EntityManager. Nota: Asume
      * la existencia de la clase Conexion.ConexionJPA
      */
-    // Asumiendo la existencia de ConexionJPA en el paquete Conexion
     private ConexionJPA conexion = ConexionJPA.getInstance();
 
     /**
@@ -61,6 +61,7 @@ public class CompraDAO {
      * @throws Exception Si ocurre un error durante la transacción (ej.
      * problemas de conexión o datos).
      */
+    @Override
     public Pedido generarPedido(Pedido pedido) throws Exception {
         EntityManager em = conexion.getEntityManager();
         EntityTransaction tx = em.getTransaction();

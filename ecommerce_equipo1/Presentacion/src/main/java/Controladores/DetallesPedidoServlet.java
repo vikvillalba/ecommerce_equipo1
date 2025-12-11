@@ -2,6 +2,7 @@ package Controladores;
 
 import DAOs.CompraDAO;
 import DTOs.ProductoCarritoDTO;
+import Interfaces.ICompraDAO;
 import Modelos.CarritoBO;
 import entidades.Cliente;
 import entidades.Compra;
@@ -46,7 +47,7 @@ import java.util.regex.Pattern;
 public class DetallesPedidoServlet extends HttpServlet {
 
     private final CarritoBO carritoBO = new CarritoBO();
-    private final CompraDAO compraDAO = CompraDAO.getInstancia();
+    private final ICompraDAO compraDAO = CompraDAO.getInstancia();
     private static final Pattern EXPIRATION_DATE_PATTERN = Pattern.compile("(\\d{2})/(\\d{2})"); // MM/YY
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^(.+)@(.+)$");
 
@@ -303,7 +304,7 @@ public class DetallesPedidoServlet extends HttpServlet {
     private PagoTransferencia crearPagoTransferencia(HttpServletRequest request) throws Exception {
         PagoTransferencia pagoTransferencia = new PagoTransferencia();
 
-        // 1. Obtener la parte del archivo
+        // Obtener la parte del archivo
         Part filePart = request.getPart("comprobante-transferencia");
 
         if (filePart == null || filePart.getSize() == 0 || filePart.getSubmittedFileName().isEmpty()) {
@@ -311,7 +312,7 @@ public class DetallesPedidoServlet extends HttpServlet {
             throw new Exception("Debe subir un comprobante de transferencia (PDF, JPG, PNG).");
         }
 
-        // 2. Leer los bytes del archivo
+        // Leer los bytes del archivo
         try (InputStream fileContent = filePart.getInputStream(); ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
 
             byte[] buffer = new byte[1024];
