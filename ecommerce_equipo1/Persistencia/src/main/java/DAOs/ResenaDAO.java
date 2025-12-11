@@ -4,6 +4,7 @@
  */
 package DAOs;
 
+import Interfaces.IResenaDAO;
 import entidades.Producto;
 import entidades.Resena;
 import java.util.List;
@@ -18,7 +19,7 @@ import jakarta.persistence.EntityTransaction;
  *
  * @author erika
  */
-public class ResenaDAO {
+public class ResenaDAO implements IResenaDAO {
 
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("Ecommerce");
 
@@ -37,6 +38,7 @@ public class ResenaDAO {
      *
      * @return Lista de todas las reseñas.
      */
+    @Override
     public List<Resena> obtenerTodasLasResenas() {
         EntityManager em = getEntityManager();
         try {
@@ -55,6 +57,7 @@ public class ResenaDAO {
      *
      * @param idResena El ID de la reseña a eliminar.
      */
+    @Override
     public void eliminarResena(Integer idResena) {
         EntityManager em = getEntityManager();
         EntityTransaction tx = em.getTransaction();
@@ -86,6 +89,7 @@ public class ResenaDAO {
      * @param idResena ID de la reseña.
      * @param mensaje Nuevo texto del comentario.
      */
+    @Override
     public void moderarResena(Integer idResena, String mensaje) {
         EntityManager em = getEntityManager();
         EntityTransaction tx = em.getTransaction();
@@ -111,6 +115,7 @@ public class ResenaDAO {
         }
     }
 
+    @Override
     public List<Resena> listarTodas() {
         EntityManager em = getEntityManager();
         try {
@@ -126,6 +131,7 @@ public class ResenaDAO {
      * @param resena La reseña a persistir.
      * @return true si se guardó exitosamente, false en caso de error.
      */
+    @Override
     public boolean crearResena(Resena resena) {
         EntityManager em = getEntityManager();
         EntityTransaction tx = em.getTransaction();
