@@ -4,8 +4,10 @@
  */
 package Controladores;
 
+import DAOs.CategoriaDAO;
 import DAOs.ProductoDAO;
 import Exceptions.PersistenciaException;
+import entidades.Categoria;
 import entidades.Producto;
 import java.io.IOException;
 import java.util.List;
@@ -14,7 +16,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.io.PrintWriter;
 
 /**
@@ -25,6 +26,7 @@ import java.io.PrintWriter;
 public class CatalogoServlet extends HttpServlet {
 
     private ProductoDAO productoDAO = ProductoDAO.getInstancia();
+    private CategoriaDAO categoriaDAO = CategoriaDAO.getInstancia();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -33,12 +35,14 @@ public class CatalogoServlet extends HttpServlet {
             resp.setCharacterEncoding("UTF-8");
             List<Producto> productos = productoDAO.listar();
             req.setAttribute("productos", productos);
+            List<Categoria> categorias = categoriaDAO.obtenerCategorias();
+            req.setAttribute("categorias", categorias);
             req.getRequestDispatcher("catalogo.jsp").forward(req, resp);
         } catch (PersistenciaException ex) {
 
             ex.printStackTrace();
 
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); 
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             resp.setContentType("text/plain;charset=UTF-8");
             PrintWriter out = resp.getWriter();
             out.println("--- ERROR CRÍTICO DE PERSISTENCIA EN CATÁLOGO ---");

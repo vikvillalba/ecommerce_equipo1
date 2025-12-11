@@ -67,24 +67,34 @@ public class RegistroServlet extends HttpServlet {
             return;
         }
 
-        // Crear el Usuario primero
-        Usuario nuevoUsuario = new Cliente();
-        nuevoUsuario.setNombre(nombre);
-        nuevoUsuario.setCorreo(correo);
-        nuevoUsuario.setContrasena(contrasena);
-//        nuevoUsuario.setTipoUsuario(TipoUsuario.CLIENTE);
-
         // Crear la dirección
         Direccion direccion = new Direccion();
-        direccion.setCalle(calle);
-        direccion.setNumero(numero);
-        direccion.setColonia(colonia);
-        direccion.setCodigoPostal(codigoPostal);
+        if (calle != null) {
+            direccion.setCalle(calle);
+        }
+        if (numero != null) {
+            direccion.setNumero(numero);
+        }
+        if (colonia != null) {
+            direccion.setColonia(colonia);
+        }
+        if (codigoPostal != null) {
+            direccion.setCodigoPostal(codigoPostal);
+        }
+        if (pais != null) {
+            direccion.setPais(pais);
+        } else {
+            direccion.setPais("México");
+        }
 
-        // Crear el Cliente y asociarle el Usuario y Dirección
+        // Crear el Cliente
         Cliente nuevoCliente = new Cliente();
-//        nuevoCliente.setUsuario(nuevoUsuario);
-        nuevoCliente.setTelefono(telefono);
+        nuevoCliente.setNombre(nombre);
+        nuevoCliente.setCorreo(correo);
+        nuevoCliente.setContrasena(contrasena);
+        if (telefono != null) {
+            nuevoCliente.setTelefono(telefono);
+        }
         nuevoCliente.setEstado(true);
         nuevoCliente.setDireccion(direccion);
 

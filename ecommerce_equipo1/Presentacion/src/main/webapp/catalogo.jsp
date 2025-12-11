@@ -4,6 +4,7 @@
     Author     : Maryr
 --%>
 
+<%@page import="entidades.Categoria"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="entidades.Producto"%>
@@ -22,6 +23,12 @@
             List<Producto> todosLosProductos = (List<Producto>) request.getAttribute("productos");
             if (todosLosProductos == null) {
                 todosLosProductos = new ArrayList<Producto>();
+            }
+
+            // Obtener las categorías desde el request
+            List<Categoria> categorias = (List<Categoria>) request.getAttribute("categorias");
+            if (categorias == null) {
+                categorias = new ArrayList<Categoria>();
             }
 
             String categoriaFiltro = request.getParameter("categoria");
@@ -57,10 +64,11 @@
                 boolean cumpleCategoria = false;
                 if (categoriaFiltro.equals("todas")) {
                     cumpleCategoria = true;
-                } else if (p.getCategoria() != null) {
-                    cumpleCategoria = p.getCategoria().toString().equals(categoriaFiltro);
+                } else {
+                    if (p.getCategoria() != null) {
+                        cumpleCategoria = p.getCategoria().getNombre().equals(categoriaFiltro);
+                    }
                 }
-
                 boolean cumplePrecio = p.getPrecio() >= precioMin && p.getPrecio() <= precioMax;
 
                 if (cumpleCategoria && cumplePrecio) {
@@ -85,36 +93,23 @@
                                        style="display: none;">
                                 Todas las categorías
                             </label>
-                            <label class="category-item <%= categoriaFiltro.equals("ACCESORIOS") ? "active" : ""%>">
-                                <input type="radio" name="categoria" value="ACCESORIOS" 
-                                       <%= categoriaFiltro.equals("ACCESORIOS") ? "checked" : ""%>
+
+                            <%
+                                for (Categoria cat : categorias) {
+                                    if (cat.isActiva()) {
+                                        String nombreCat = cat.getNombre();
+                                        boolean isActive = categoriaFiltro.equals(nombreCat);
+                            %>
+                            <label class="category-item <%= isActive ? "active" : ""%>">
+                                <input type="radio" name="categoria" value="<%= nombreCat%>" 
+                                       <%= isActive ? "checked" : ""%>
                                        style="display: none;">
-                                Accesorios
+                                <%= nombreCat%>
                             </label>
-                            <label class="category-item <%= categoriaFiltro.equals("REBAJAS") ? "active" : ""%>">
-                                <input type="radio" name="categoria" value="REBAJAS" 
-                                       <%= categoriaFiltro.equals("REBAJAS") ? "checked" : ""%>
-                                       style="display: none;">
-                                Rebajas
-                            </label>
-                            <label class="category-item <%= categoriaFiltro.equals("ROPA_CAMA") ? "active" : ""%>">
-                                <input type="radio" name="categoria" value="ROPA_CAMA" 
-                                       <%= categoriaFiltro.equals("ROPA_CAMA") ? "checked" : ""%>
-                                       style="display: none;">
-                                Ropa de cama
-                            </label>
-                            <label class="category-item <%= categoriaFiltro.equals("VESTIDOS") ? "active" : ""%>">
-                                <input type="radio" name="categoria" value="VESTIDOS" 
-                                       <%= categoriaFiltro.equals("VESTIDOS") ? "checked" : ""%>
-                                       style="display: none;">
-                                Vestidos
-                            </label>
-                            <label class="category-item <%= categoriaFiltro.equals("NINOS") ? "active" : ""%>">
-                                <input type="radio" name="categoria" value="NINOS" 
-                                       <%= categoriaFiltro.equals("NINOS") ? "checked" : ""%>
-                                       style="display: none;">
-                                Niños
-                            </label>
+                            <%
+                                    }
+                                }
+                            %>
                         </div>
                     </div>
 
