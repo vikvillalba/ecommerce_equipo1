@@ -148,9 +148,9 @@
                         <% }%>
 
                         <div class="product-image">
-                            <img src="<%= producto.getImagen()%>" 
+                            <img src="${pageContext.request.contextPath}/<%= producto.getImagen()%>" 
                                  alt="<%= producto.getNombre()%>"
-                                 onerror="this.src='img/placeholder.jpg'">
+                                 onerror="this.src='${pageContext.request.contextPath}/img/placeholder.jpg'">
 
                             <div class="product-overlay">
                                 <a href="Producto?id=<%= producto.getId()%>" class="btn-view">Ver más</a>

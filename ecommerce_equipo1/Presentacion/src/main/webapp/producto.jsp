@@ -46,10 +46,10 @@
     <div class="product-grid">
 
         <div class="product-image-col">
-            <img src="<%= p.getImagen()%>" 
+            <img src="${pageContext.request.contextPath}/<%= p.getImagen()%>" 
                  alt="<%= p.getNombre()%>" 
                  class="product-main-img"
-                 onerror="this.src='img/placeholder.jpg'">
+                 onerror="this.src='${pageContext.request.contextPath}/img/placeholder.jpg'">
         </div>
 
 
