@@ -5,7 +5,11 @@
     <!-- Producto (Imagen y Descripción) -->
     <div class="product-info">
         <!-- Imagen del Producto (Placeholder) -->
-        <img src="${c.direccionImagen}" alt="${c.nombreProducto}">
+        <img 
+        src="${pageContext.request.contextPath}/${not empty c.direccionImagen ? c.direccionImagen : 'img/placeholder.jpg'}" 
+        alt="${c.nombreProducto}" 
+        class="prod-thumb"
+        onerror="this.src='${pageContext.request.contextPath}/img/placeholder.jpg'"> 
             <!-- Detalles -->
             <div class="product-details">
                 <p>${c.nombreProducto}</p>

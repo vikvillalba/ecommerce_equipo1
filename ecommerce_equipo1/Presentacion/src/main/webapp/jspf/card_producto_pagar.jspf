@@ -2,8 +2,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> <!-- Necesario para el formato -->
 
 <div class="summary-item">
-    <img src="${c.direccionImagen}" alt="${c.nombreProducto}"
-         class="product-image">
+    <img 
+        src="${pageContext.request.contextPath}/${not empty c.direccionImagen ? c.direccionImagen : 'img/placeholder.jpg'}" 
+        alt="${c.nombreProducto}" 
+        onerror="this.src='${pageContext.request.contextPath}/img/placeholder.jpg'"
+        class="product-image">
+
     <div class="product-details">
         <p class="product-name">${c.nombreProducto}</p>
         <p class="product-meta">Color: <span class="color-dot" style="background-color: ${c.colorHex};"></span></p>

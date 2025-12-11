@@ -4,14 +4,17 @@
 package org.itson.dao;
 
 import Conexion.ConexionJPA;
+import DAOs.CategoriaDAO;
 import DAOs.UsuarioDAO;
 import DAOs.ClienteDAO;
+import Exceptions.PersistenciaException;
 import entidades.Administrador;
 import entidades.Categoria;
 import entidades.Usuario;
 import entidades.Cliente;
 import entidades.Direccion;
 import entidades.Producto;
+import enums.Tallas;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 //import enums.TipoUsuario;
@@ -25,7 +28,6 @@ public class DAO {
 
     public static void main(String[] args) {
         System.out.println("INICIALIZANDO BASE DE DATOS - ECOMMERCE   ");
-
         try {
             ConexionJPA conexion = ConexionJPA.getInstance();
 
@@ -99,53 +101,7 @@ public class DAO {
         EntityManager em = ConexionJPA.getInstance().getEntityManager();
         EntityTransaction tx = em.getTransaction();
 
-        try {
-            tx.begin();
-
-            Categoria categoriaRopa = new Categoria();
-            categoriaRopa.setNombre("Vestidos y Faldas");
-            categoriaRopa.setActiva(true);
-
-            em.persist(categoriaRopa);
-
-          
-            Producto p1 = new Producto();
-            p1.setNombre("Vestido de Verano Floral");
-            p1.setCategoria(categoriaRopa);
-            p1.setDescripcion("Vestido ligero con estampado floral, perfecto para días soleados. Fabricado con algodón transpirable.");
-            p1.setEspecificaciones("Material: 100% Algodón | Cierre: Cremallera lateral | Largo: A la rodilla");
-            p1.setImagen("img/vestido_floral.jpg");
-            p1.setColorHex("#F5DCDC");
-            p1.setExistencias(50);
-            p1.setDisponibilidad(true);
-            p1.setPrecio(49.99);
-            em.persist(p1);
-
-            Producto p2 = new Producto();
-            p2.setNombre("Falda Midi Plisada Verde");
-            p2.setCategoria(categoriaRopa);
-            p2.setDescripcion("Falda midi plisada con cintura elástica. Ideal para looks casuales o de oficina.");
-            p2.setEspecificaciones("Material: 95% Poliéster, 5% Spandex | Cierre: Elástico | Largo: Midi");
-            p2.setImagen("img/falda_verde.jpg");
-            p2.setColorHex("#4CAF50");
-            p2.setExistencias(30);
-            p2.setDisponibilidad(true);
-            p2.setPrecio(35.50);
-            em.persist(p2);
-
-            tx.commit();
-            System.out.println("--- 3 Productos de prueba insertados exitosamente. ---");
-
-        } catch (Exception e) {
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-            e.printStackTrace();
-            System.err.println("ERROR: No se pudieron inicializar los productos.");
-        } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
-        }
+        DatosInsert.cargarDatos();
     }
+    
 }

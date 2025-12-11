@@ -51,12 +51,10 @@ public class Categoria implements Serializable {
     /**
      * Constructor para inicializar una categoría con todos sus atributos.
      *
-     * @param id El identificador de la categoría.
      * @param nombre El nombre de la categoría.
      * @param activa El estado de actividad de la categoría.
      */
-    public Categoria(Long id, String nombre, boolean activa) {
-        this.id = id;
+    public Categoria(String nombre, boolean activa) {
         this.nombre = nombre;
         this.activa = activa;
     }

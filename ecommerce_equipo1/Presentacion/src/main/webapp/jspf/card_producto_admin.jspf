@@ -3,10 +3,12 @@
 
 <div class="product-card">
 
-    <img src="${not empty p.imagen ? p.imagen : pageContext.request.contextPath.concat('/img/placeholder.jpg')}" 
-         alt="${p.nombre}" 
-         class="prod-thumb"
-         onerror="this.src='${pageContext.request.contextPath}/img/placeholder.jpg'"> <div class="prod-info">
+    <img 
+        src="${pageContext.request.contextPath}/${not empty p.imagen ? p.imagen : 'img/placeholder.jpg'}" 
+        alt="${p.nombre}" 
+        class="prod-thumb"
+        onerror="this.src='${pageContext.request.contextPath}/img/placeholder.jpg'"> 
+    <div class="prod-info">
         <span class="label">Producto</span>
         <h3>${p.nombre}</h3>
         <span style="font-size: 0.9em; color: #ddd;">$${p.precio} | Stock: ${p.existencias}</span>
