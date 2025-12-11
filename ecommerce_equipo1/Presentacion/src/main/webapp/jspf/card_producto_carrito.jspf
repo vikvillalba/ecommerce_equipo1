@@ -1,46 +1,77 @@
 <%@ page pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> <!-- Necesario para el formato -->
 
-            <div id="product-row" class="product-row">
-              <!-- Producto (Imagen y Descripción) -->
-              <div class="product-info">
-                <!-- Imagen del Producto (Placeholder) -->
-                <img src="" alt="Vestido Sweet Lolita">
-                <!-- Detalles -->
-                <div class="product-details">
-                  <p>Vestido Sweet Lolita</p>
-                  <div class="color-selector">
+<div id="product-row" class="product-row">
+    <!-- Producto (Imagen y Descripción) -->
+    <div class="product-info">
+        <!-- Imagen del Producto (Placeholder) -->
+        <img src="${c.direccionImagen}" alt="${c.nombreProducto}">
+            <!-- Detalles -->
+            <div class="product-details">
+                <p>${c.nombreProducto}</p>
+                <div class="color-selector">
                     <span>Color:</span>
-                    <div class="color-dot"></div>
-                  </div>
-                  <!-- Botón Eliminar -->
-                  <button onclick="" class="remove-btn">
-                    <!-- SVG para X (Eliminar) -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
-                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                      style="margin-right: 4px;">
-                      <path d="M18 6 6 18" />
-                      <path d="m6 6 12 12" />
-                    </svg>
-                    Eliminar
-                  </button>
+                    <div class="color-dot" style="background-color: ${c.colorHex};"></div>
                 </div>
-              </div>
-              <!-- Cantidad -->
-              <div class="quantity-control">
-                <!-- Etiqueta de cantidad para móvil -->
-                <span class="qty-label">Cantidad:</span>
-                <div class="qty-box">
-                  <button id="decrement-btn" onclick="">-</button>
-                  <input type="number" id="quantity-input" value="1" min="1" readonly>
-                  <button id="increment-btn" onclick="">+</button>
+                <!-- Talla del producto -->
+                <div class="color-selector">
+                    <span>Talla:</span>
+                    <span>${c.talla}</span>
                 </div>
-              </div>
-              <!-- Precio Unitario -->
-              <div class="price-col mobile-item" style="width: 15%; text-align: right;">
-                <span class="mobile-label">Precio:</span>$39.00
-              </div>
-              <!-- Subtotal -->
-              <div class="subtotal-col mobile-item" id="subtotal-display">
-                <span class="mobile-label">Subtotal:</span>$39.00
-              </div>
+                <!-- Botón Eliminar: Formulario independiente -->
+                <form action="carrito" method="post">
+                    <!-- Campo oculto para identificar el producto -->
+                    <input type="hidden" name="nombreProducto" value="${c.nombreProducto}">
+                    <input type="hidden" name="talla" value="${c.talla}">
+
+                    <!-- Campo oculto para indicar la acción de eliminar -->
+                    <input type="hidden" name="accion" value="eliminar">
+
+                    <button type="submit" class="remove-btn">
+                        <!-- SVG para X (Eliminar) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             style="margin-right: 4px;">
+                            <path d="M18 6 6 18" />
+                            <path d="m6 6 12 12" />
+                        </svg>
+                        Eliminar
+                    </button>
+                </form>
             </div>
+    </div>
+    <!-- Cantidad -->
+    <div class="quantity-control">
+        <!-- Etiqueta de cantidad para móvil -->
+        <span class="qty-label">Cantidad:</span>
+        <div class="qty-box">
+             <!-- Formulario para DECREMENTAR Cantidad -->
+            <form action="carrito" method="post" >
+                <input type="hidden" name="nombreProducto" value="${c.nombreProducto}">
+                <input type="hidden" name="talla" value="${c.talla}">
+                <!-- La acción es 'actualizar' y la cantidad será la actual - 1 -->
+                <input type="hidden" name="accion" value="actualizar">
+                <input type="hidden" name="nuevaCantidad" value="${c.cantidad - 1}">
+                <button type="submit" id="decrement-btn" ${c.cantidad <= 1 ? 'disabled' : ''}>-</button>
+            </form>
+            <input type="number" id="quantity-input" value="${c.cantidad}" min="1" readonly>
+             <!-- Formulario para INCREMENTAR Cantidad -->
+            <form action="carrito" method="post">
+                <input type="hidden" name="nombreProducto" value="${c.nombreProducto}">
+                <input type="hidden" name="talla" value="${c.talla}">
+                <!-- La acción es 'actualizar' y la cantidad será la actual + 1 -->
+                <input type="hidden" name="accion" value="actualizar">
+                <input type="hidden" name="nuevaCantidad" value="${c.cantidad + 1}">
+                <button type="submit" id="increment-btn">+</button>
+            </form>
+        </div>
+    </div>
+    <!-- Precio Unitario (Formato decimal) -->
+    <div class="price-col mobile-item" style="width: 15%; text-align: right;">
+        <span class="mobile-label">Precio:</span>$<fmt:formatNumber value="${c.precio}" pattern="0.00" />
+    </div>
+    <!-- Subtotal (Formato decimal) -->
+    <div class="subtotal-col mobile-item" id="subtotal-display">
+        <span class="mobile-label">Subtotal:</span>$<fmt:formatNumber value="${c.subtotal}" pattern="0.00" />
+    </div>
+</div>

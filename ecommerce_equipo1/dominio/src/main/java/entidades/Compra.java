@@ -2,6 +2,7 @@ package entidades;
 
 import enums.TipoMetodoPago;
 import interfaces.MetodoPago;
+import jakarta.persistence.CascadeType;
 import java.io.Serializable;
 import java.util.Calendar;
 import jakarta.persistence.Column;
@@ -13,10 +14,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import java.util.List;
 
 /**
  *
@@ -51,9 +54,12 @@ public class Compra implements Serializable {
     @Column(nullable = false)
     private double total;
 
+    @OneToMany(mappedBy = "compra", cascade = {CascadeType.REMOVE, CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
+    private List<ProductoCompra> productos;
+
     @ManyToOne()
-    @JoinColumn(name = "carrito_id", nullable = false)
-    private Carrito carrito;
+    @JoinColumn(name = "cliente_id", nullable = false)
+    private Cliente cliente;
 
     public Compra() {
     }
@@ -98,20 +104,28 @@ public class Compra implements Serializable {
         this.pagoTransferencia = pagoTransferencia;
     }
 
+    public List<ProductoCompra> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<ProductoCompra> productos) {
+        this.productos = productos;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
     public double getTotal() {
         return total;
     }
 
     public void setTotal(double total) {
         this.total = total;
-    }
-
-    public Carrito getCarrito() {
-        return carrito;
-    }
-
-    public void setCarrito(Carrito carrito) {
-        this.carrito = carrito;
     }
 
     /**

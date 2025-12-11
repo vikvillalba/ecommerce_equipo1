@@ -4,8 +4,11 @@
  */
 package entidades;
 
+import enums.Tallas;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,8 +21,8 @@ import jakarta.persistence.Table;
  * @author erika
  */
 @Entity
-@Table(name = "productos_carrito")
-public class ProductoCarrito {
+@Table(name = "productos_compra")
+public class ProductoCompra {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,14 +31,19 @@ public class ProductoCarrito {
     private int cantidad;
     @Column(nullable = false)
     private double subtotal;
+    @Column(nullable = false)
+    private double precio;
     @ManyToOne()
     @JoinColumn(name = "producto_id", nullable = false)
     private Producto producto;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Tallas talla;
     @ManyToOne()
-    @JoinColumn(name = "carrito_id", nullable = false)
-    private Carrito carrito;
+    @JoinColumn(name = "compra_id", nullable = false)
+    private Compra compra;
 
-    public ProductoCarrito() {
+    public ProductoCompra() {
     }
 
     public Integer getId() {
@@ -70,12 +78,28 @@ public class ProductoCarrito {
         this.producto = producto;
     }
 
-    public Carrito getCarrito() {
-        return carrito;
+    public Compra getCompra() {
+        return compra;
     }
 
-    public void setCarrito(Carrito carrito) {
-        this.carrito = carrito;
+    public void setCompra(Compra compra) {
+        this.compra = compra;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public Tallas getTalla() {
+        return talla;
+    }
+
+    public void setTalla(Tallas talla) {
+        this.talla = talla;
     }
 
 }

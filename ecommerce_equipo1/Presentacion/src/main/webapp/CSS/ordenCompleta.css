@@ -104,9 +104,9 @@ main {
 
 .order-confirmation-card {
   max-width: 500px;
-  margin: 5rem auto;
+  margin: 5rem auto; /* Aplicación del estilo consistente de margin */
   padding: 3rem 2rem;
-  background-color: var(--color-baby-pink);
+  background-color: var(--color-baby-pink); /* Aplicación del color consistente */
   border-radius: 1rem;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
   text-align: center;
@@ -115,7 +115,7 @@ main {
 .confirmation-title {
   font-family: var(--font-title);
   font-size: 1.75rem;
-  color: var(--color-brown);
+  color: var(--color-brown); /* Color de título consistente */
   margin-bottom: 3rem;
 }
 
@@ -238,3 +238,5 @@ main {
     color: var(--color-brown);
   }
 }
+
+

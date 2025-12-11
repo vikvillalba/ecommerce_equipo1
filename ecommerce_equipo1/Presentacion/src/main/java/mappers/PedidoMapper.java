@@ -44,9 +44,9 @@ public class PedidoMapper {
 
         String numeroPedido = formatearNumeroPedido(pedido.getNumeroPedido());
         pedidoDTO.setNumeroPedido(numeroPedido);
-        pedidoDTO.setUsuario(pedido.getPago().getCarrito().getCliente().getNombre());
-        pedidoDTO.setFecha(formatearFecha(pedido.getPago().getFecha()));
-        pedidoDTO.setTotal(pedido.getPago().getTotal());
+        pedidoDTO.setUsuario(pedido.getCompra().getCliente().getNombre());
+        pedidoDTO.setFecha(formatearFecha(pedido.getCompra().getFecha()));
+        pedidoDTO.setTotal(pedido.getCompra().getTotal());
         pedidoDTO.setEstado(pedido.getEstado());
 
         return pedidoDTO;

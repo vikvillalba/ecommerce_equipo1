@@ -9,5 +9,5 @@ package enums;
  * @author erika
  */
 public enum Tallas {
-    XS,S,M,L,XL,UNICA
+    XS, S, M, L, XL, UNICA
 }
