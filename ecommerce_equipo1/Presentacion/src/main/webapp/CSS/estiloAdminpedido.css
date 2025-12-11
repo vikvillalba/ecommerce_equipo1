@@ -3,7 +3,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to c
 Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
 */
 /* 
-    Created on : 26 nov 2025, 10:20:16 a.m.
+    Created on : 11 dic 2025, 7:41:41 a.m.
     Author     : pablo
 */
 * {
@@ -17,6 +17,13 @@ main {
 .pedidos {
     padding: 20px;
     width: 100%;
+    box-sizing: border-box;
+    margin-left: 20px;
+}
+
+.titulo{
+    margin-bottom: 20px;
+    color: #4D2108;
 }
 
 .col{

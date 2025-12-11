@@ -3,28 +3,33 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to c
 Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
 */
 /* 
-    Created on : 26 nov 2025, 10:20:43 a.m.
+    Created on : 11 dic 2025, 7:25:18 a.m.
     Author     : pablo
 */
+
+* {
+    font-family: 'Poppins', sans-serif;
+}
 
 main {
     display: flex;
     background-color: #FFDDF6;
+    min-height: 100vh;
 }
 
 .contenido-admin {      
     padding: 20px;
     width: 100%;
+    box-sizing: border-box;
+    margin-left: 20px;
 }
 
 .titulo-seccion {
-    font-size: 24px;
     margin-bottom: 20px;
-    color: #5a3650;
+    color: #4D2108;
 }
 
 .tarjeta-pago {
-    margin-bottom: 20px;
     background-color: #FFF0FB;
     border-radius: 15px;
     padding: 20px;
@@ -44,7 +49,8 @@ main {
 .col-pago {
     display: flex;
     flex-direction: column;
-    width: 18%;
+    gap: 5px;
+    min-width: 150px;
 }
 
 .label {
@@ -54,7 +60,9 @@ main {
 }
 
 .value {
+    color: #4D2108;
     font-size: 16px;
+    font-weight: 500;
 }
 
 .sin-pagos {
@@ -62,4 +70,22 @@ main {
     color: #4D2108;
     font-size: 18px;
     padding: 40px;
+}
+
+@media (max-width: 768px) {
+
+    .tarjeta-pago {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .col-pago {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .titulo-seccion {
+        text-align: center;
+    }
+    
 }

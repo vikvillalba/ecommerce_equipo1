@@ -13,7 +13,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Administrador - Administrar productos</title>
 
         <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/sideMenuAdmin.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/gestionarProductos.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/estiloAdminGestionarProductos.css">
 
     </head>
 

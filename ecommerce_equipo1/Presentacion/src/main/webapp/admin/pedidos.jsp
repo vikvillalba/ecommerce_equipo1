@@ -13,7 +13,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Administrador - Gestionar pedidos</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/sideMenuAdmin.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/estiloPedido.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/estiloAdminpedido.css">
         <style>
             /* Contenedor del mensaje */
             .message-box {

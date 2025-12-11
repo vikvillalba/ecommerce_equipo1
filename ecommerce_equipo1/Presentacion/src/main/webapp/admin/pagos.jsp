@@ -14,7 +14,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Administrador - Historial de pagos</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/sideMenuAdmin.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/estiloHistorialPago.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/estiloAdminPagos.css">
     </head>
     <body style="margin:-8px">
         <%@include file="../jspf/header_admin.jspf" %>

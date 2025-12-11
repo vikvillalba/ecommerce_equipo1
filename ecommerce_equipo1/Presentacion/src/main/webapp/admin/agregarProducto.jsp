@@ -13,7 +13,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Administrador - Nuevo producto</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/sideMenuAdmin.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/gestionarProductos.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/estiloAdminGestionarProductos.css">
     </head>
     <body>
            
