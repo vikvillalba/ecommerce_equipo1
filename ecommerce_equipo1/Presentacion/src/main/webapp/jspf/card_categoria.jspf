@@ -1,34 +1,34 @@
 <%-- card_categoria.jspf - Fragmento para una tarjeta de categoría --%>
 <%@ page pageEncoding="UTF-8" %>
 
-<article class="card__Categoria ${categoria.activa ? '' : 'inactiva'}">
-    <div class="categoria__info">
-        <p class="categoria__nombre">${categoria.nombre}</p>
-        <span class="categoria__estado ${categoria.activa ? 'activa' : 'inactiva'}">
+<article class="categoria-card ${categoria.activa ? '' : 'inactiva'}">
+    <div class="categoria-info">
+        <p class="categoria-nombre">${categoria.nombre}</p>
+        <span class="categoria-badge ${categoria.activa ? 'activa' : 'inactiva'}">
             ${categoria.activa ? 'Activa' : 'Inactiva'}
         </span>
     </div>
 
-    <div class="botones">
-        <form action="${pageContext.request.contextPath}/admin/AdminCategoriaServlet" method="post" class="inline-form">
-            <input type="hidden" name="nombre" value=${categoria.nombre}>
+    <div class="categoria-acciones">
+        <form action="${pageContext.request.contextPath}/admin/AdminCategoriaServlet" method="post">
+            <input type="hidden" name="nombre" value="${categoria.nombre}">
             <input type="hidden" name="accion" value="eliminar">
-            <button type="submit" class="btn btn__eliminar">Eliminar</button>
+            <button type="submit" class="btn-categoria btn-eliminar-cat">Eliminar</button>
         </form>
 
         <c:if test="${categoria.activa}">
-            <form action="${pageContext.request.contextPath}/admin/AdminCategoriaServlet" method="post" class="inline-form">
-                <input type="hidden" name="nombre" value=${categoria.nombre}>
+            <form action="${pageContext.request.contextPath}/admin/AdminCategoriaServlet" method="post">
+                <input type="hidden" name="nombre" value="${categoria.nombre}">
                 <input type="hidden" name="accion" value="desactivar">
-                <button type="submit" class="btn btn__desactivar">Desactivar</button>
+                <button type="submit" class="btn-categoria btn-desactivar-cat">Desactivar</button>
             </form>
         </c:if>
 
         <c:if test="${!categoria.activa}">
-            <form action="${pageContext.request.contextPath}/admin/AdminCategoriaServlet" method="post" class="inline-form">
-                <input type="hidden" name="nombre" value=${categoria.nombre}>
+            <form action="${pageContext.request.contextPath}/admin/AdminCategoriaServlet" method="post">
+                <input type="hidden" name="nombre" value="${categoria.nombre}">
                 <input type="hidden" name="accion" value="activar">
-                <button type="submit" class="btn btn__activar">Activar</button>
+                <button type="submit" class="btn-categoria btn-activar-cat">Activar</button>
             </form>
         </c:if>
     </div>

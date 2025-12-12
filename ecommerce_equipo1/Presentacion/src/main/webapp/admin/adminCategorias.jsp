@@ -12,8 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Administrador - Gestionar Categorías</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/sideMenuAdmin.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/gestionarProductos.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/estiloAdminCategorias.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/adminCategorias.css">
         <style>
             /* Contenedor del mensaje */
             .message-box {
@@ -49,27 +48,28 @@
         <!-- Contenedor del mensaje de feedback -->
         <div id="feedbackMessage" class="message-box" role="alert"></div>
 
-        <main>
+        <main class="main-container-categorias">
             <%@include file="../jspf/sideMenu.jspf" %>
-            <div class="contenedor__categorias">
-                <h2 class="titulo">Gestionar Categorías</h2>
+
+            <div class="categorias-content">
+                <h1 class="categorias-titulo">Gestionar Categorías</h1>
 
                 <!-- Formulario para agregar nueva categoría -->
-                <div class="form__nueva-categoria">
-                    <form action="${pageContext.request.contextPath}/admin/AdminCategoriaServlet" method="post" class="form-agregar">
+                <div class="categorias-form-section">
+                    <form action="${pageContext.request.contextPath}/admin/AdminCategoriaServlet" method="post" class="categorias-form">
                         <input type="hidden" name="accion" value="agregar">
-                        <input type="text" name="nombre" placeholder="Nombre de la categoría" required class="input__categoria">
-                        <button type="submit" class="btn btn__agregar">Agregar</button>
+                        <input type="text" name="nombre" placeholder="Nombre de la categoría" required class="categorias-input">
+                        <button type="submit" class="btn-categoria btn-agregar-categoria">Agregar Categoría</button>
                     </form>
                 </div>
 
-                <div class="lista__categorias">
+                <div class="categorias-lista">
                     <c:forEach var="categoria" items="${categorias}">
                         <%@include file="../jspf/card_categoria.jspf" %>
                     </c:forEach>
 
                     <c:if test="${empty categorias}">
-                        <p class="sin-categorias">No hay categorías registradas.</p>
+                        <p class="categorias-vacio">No hay categorías registradas.</p>
                     </c:if>
                 </div>
             </div>

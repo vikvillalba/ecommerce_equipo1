@@ -8,16 +8,39 @@
     font-family: 'Poppins', sans-serif;
 }
 
+/* Layout principal con flexbox para sidebar + contenido */
+.main-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    min-height: calc(100vh - 80px);
+}
+
+.content-area {
+    flex: 1;
+    padding: 20px 40px;
+    overflow-y: auto;
+}
+
 .contenedor__categorias {
     background-color: #FFDDF6;
     width: 100%;
     min-height: 100vh;
     padding: 20px;
     box-sizing: border-box;
+    border-radius: 0;
+}
+
+.titulo {
+    color: #4D2108;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    margin-top: 0;
 }
 
 .form__nueva-categoria {
-    padding: 20px;
+    padding: 20px 0;
     margin-bottom: 10px;
 }
 
@@ -166,6 +189,14 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+    }
+
+    .content-area {
+        padding: 20px;
+    }
+
     .card__Categoria {
         flex-direction: column;
         align-items: flex-start;

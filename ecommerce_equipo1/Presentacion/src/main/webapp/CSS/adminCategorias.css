@@ -1,0 +1,320 @@
+/*
+    Estilos para la página de Gestión de Categorías
+    Author: equipo1
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Reset específico para esta página */
+.main-container-categorias {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.main-container-categorias * {
+    box-sizing: border-box;
+}
+
+/* Layout principal: Flexbox horizontal (sidebar + contenido) */
+.main-container-categorias {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    min-height: calc(100vh - 80px);
+    background-color: #FDFBF7;
+}
+
+/* Área de contenido principal */
+.categorias-content {
+    flex: 1;
+    background-color: #FFDDF6;
+    padding: 40px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Título de la página */
+.categorias-titulo {
+    color: #4D2108;
+    font-size: 32px;
+    font-weight: 600;
+    margin: 0 0 30px 0;
+}
+
+/* Sección de formulario para agregar */
+.categorias-form-section {
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+}
+
+.categorias-form {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.categorias-input {
+    flex: 1;
+    min-width: 300px;
+    padding: 14px 20px;
+    border: 2px solid #CA5790;
+    border-radius: 10px;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    color: #4D2108;
+    background-color: #FFFFFF;
+    transition: all 0.3s ease;
+}
+
+.categorias-input:focus {
+    outline: none;
+    border-color: #A04673;
+    box-shadow: 0 0 0 4px rgba(202, 87, 144, 0.1);
+}
+
+.categorias-input::placeholder {
+    color: #999;
+}
+
+.btn-categoria {
+    padding: 14px 30px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+}
+
+.btn-agregar-categoria {
+    background-color: #CA5790;
+    color: #FFFFFF;
+}
+
+.btn-agregar-categoria:hover {
+    background-color: #A04673;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(202, 87, 144, 0.3);
+}
+
+/* Lista de categorías */
+.categorias-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Tarjeta de categoría individual */
+.categoria-card {
+    background-color: #FFF0FB;
+    border-radius: 15px;
+    padding: 20px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.categoria-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+}
+
+.categoria-card.inactiva {
+    opacity: 0.65;
+    background-color: #f0e0eb;
+}
+
+/* Información de la categoría */
+.categoria-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex: 1;
+}
+
+.categoria-nombre {
+    color: #4D2108;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+    min-width: 180px;
+}
+
+.categoria-badge {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.categoria-badge.activa {
+    background-color: #27AE60;
+    color: #FFFFFF;
+}
+
+.categoria-badge.inactiva {
+    background-color: #95A5A6;
+    color: #FFFFFF;
+}
+
+/* Botones de acción */
+.categoria-acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.categoria-acciones form {
+    margin: 0;
+    display: inline-block;
+}
+
+.btn-eliminar-cat {
+    background-color: #E74C3C;
+    color: #FFFFFF;
+}
+
+.btn-eliminar-cat:hover {
+    background-color: #C0392B;
+}
+
+.btn-desactivar-cat {
+    background-color: #F39C12;
+    color: #FFFFFF;
+}
+
+.btn-desactivar-cat:hover {
+    background-color: #D68910;
+}
+
+.btn-activar-cat {
+    background-color: #27AE60;
+    color: #FFFFFF;
+}
+
+.btn-activar-cat:hover {
+    background-color: #1E8449;
+}
+
+/* Mensaje cuando no hay categorías */
+.categorias-vacio {
+    text-align: center;
+    color: #4D2108;
+    font-size: 18px;
+    padding: 60px 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 15px;
+    margin-top: 20px;
+}
+
+/* Responsive - Tablets */
+@media (max-width: 1024px) {
+    .categorias-content {
+        padding: 30px;
+    }
+
+    .categoria-card {
+        flex-wrap: wrap;
+    }
+
+    .categoria-info {
+        flex: 1 1 100%;
+        margin-bottom: 10px;
+    }
+
+    .categoria-acciones {
+        flex: 1 1 100%;
+        justify-content: flex-start;
+    }
+}
+
+/* Responsive - Móviles */
+@media (max-width: 768px) {
+    .main-container-categorias {
+        flex-direction: column;
+    }
+
+    .categorias-content {
+        padding: 20px;
+    }
+
+    .categorias-titulo {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .categorias-form-section {
+        padding: 20px;
+    }
+
+    .categorias-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .categorias-input {
+        min-width: auto;
+        width: 100%;
+    }
+
+    .btn-agregar-categoria {
+        width: 100%;
+    }
+
+    .categoria-card {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+    }
+
+    .categoria-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .categoria-nombre {
+        min-width: auto;
+        font-size: 18px;
+    }
+
+    .categoria-acciones {
+        width: 100%;
+        gap: 8px;
+    }
+
+    .btn-categoria {
+        flex: 1;
+        min-width: 120px;
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+}
+
+/* Responsive - Móviles pequeños */
+@media (max-width: 480px) {
+    .categorias-content {
+        padding: 15px;
+    }
+
+    .categoria-acciones {
+        flex-direction: column;
+    }
+
+    .btn-categoria {
+        width: 100%;
+    }
+}

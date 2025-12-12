@@ -60,6 +60,28 @@
             <artifactId>Persistencia</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <!-- JPA API -->
+        <dependency>
+            <groupId>jakarta.persistence</groupId>
+            <artifactId>jakarta.persistence-api</artifactId>
+            <version>3.2.0</version>
+        </dependency>
+
+        <!-- Hibernate Core - Implementación de JPA -->
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>6.4.4.Final</version>
+        </dependency>
+
+        <!-- MySQL Connector -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>8.2.0</version>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
 
     <build>
