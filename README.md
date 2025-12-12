@@ -1,4 +1,5 @@
 # ecommerce_equipo1
+link para acceder: http://localhost:8080/Presentacion/login.jsp
 Equipo: 
 Alicia Denise García Acosta 252402
 Jack Tadeo Murrieta Torres 252851
